@@ -1,0 +1,259 @@
+{
+  "categories": [
+    {
+      "id": 1,
+      "name": "Expresso & Chocolat",
+      "icon": "uil:coffee"
+    },
+    {
+      "id": 2,
+      "name": "Mojito Cocktails",
+      "icon": "uil:coffee"
+    },
+    {
+      "id": 3,
+      "name": "Smoothies",
+      "icon": "uil:coffee"
+    },
+    {
+      "id": 4,
+      "name": "Iced Coffee",
+      "icon": "uil:coffee"
+    },
+    {
+      "id": 5,
+      "name": "Frappuccino & Milkshake",
+      "icon": "uil:coffee"
+    }
+  ],
+  "products": [
+    {
+      "id": 1,
+      "name": "Espresso",
+      "price": 6,
+      "categoryId": 1
+    },
+    {
+      "id": 2,
+      "name": "Espresso Arabica",
+      "price": 7,
+      "categoryId": 1
+    },
+    {
+      "id": 3,
+      "name": "Espresso Moka",
+      "price": 7,
+      "categoryId": 1
+    },
+    {
+      "id": 4,
+      "name": "Café Américano - Allongé",
+      "price": 7,
+      "categoryId": 1
+    },
+    {
+      "id": 5,
+      "name": "Café Crème",
+      "price": 8,
+      "categoryId": 1
+    },
+    {
+      "id": 6,
+      "name": "Café au Lait",
+      "price": 8,
+      "categoryId": 1
+    },
+    {
+      "id": 7,
+      "name": "Latte Machiatto",
+      "price": 10,
+      "categoryId": 1
+    },
+    {
+      "id": 8,
+      "name": "Cappuccino",
+      "price": 10,
+      "categoryId": 1
+    },
+    {
+      "id": 9,
+      "name": "Double Espresso",
+      "price": 12,
+      "categoryId": 1
+    },
+    {
+      "id": 10,
+      "name": "Chocolat chaud",
+      "price": 14,
+      "categoryId": 1
+    },
+    {
+      "id": 11,
+      "name": "Double Espresso Moka",
+      "price": 14,
+      "categoryId": 1
+    },
+    {
+      "id": 12,
+      "name": "Chocolat fondu",
+      "price": 15,
+      "categoryId": 1
+    },
+    {
+      "id": 13,
+      "name": "Mojito Classic",
+      "price": 14,
+      "categoryId": 2
+    },
+    {
+      "id": 14,
+      "name": "Mojito Passion Fruit",
+      "price": 15,
+      "categoryId": 2
+    },
+    {
+      "id": 15,
+      "name": "Mojito AVATAR",
+      "price": 16,
+      "categoryId": 2
+    },
+    {
+      "id": 16,
+      "name": "Mojito Fruit Rouge",
+      "price": 18,
+      "categoryId": 2
+    },
+    {
+      "id": 17,
+      "name": "Mojito Ananas",
+      "price": 17,
+      "categoryId": 2
+    },
+    {
+      "id": 18,
+      "name": "Banane",
+      "price": 13,
+      "categoryId": 3
+    },
+    {
+      "id": 19,
+      "name": "Fraise",
+      "price": 15,
+      "categoryId": 3
+    },
+    {
+      "id": 20,
+      "name": "Vitaminé",
+      "price": 16,
+      "categoryId": 3
+    },
+    {
+      "id": 21,
+      "name": "Mangue",
+      "price": 16,
+      "categoryId": 3
+    },
+    {
+      "id": 22,
+      "name": "Ananas",
+      "price": 16,
+      "categoryId": 3
+    },
+    {
+      "id": 23,
+      "name": "Tropical",
+      "price": 17,
+      "categoryId": 3
+    },
+    {
+      "id": 24,
+      "name": "Pina Colada",
+      "price": 18,
+      "categoryId": 3
+    },
+    {
+      "id": 25,
+      "name": "Almond Chocolate",
+      "price": 20,
+      "categoryId": 3
+    },
+    {
+      "id": 26,
+      "name": "Almond Joy Booster",
+      "price": 22,
+      "categoryId": 3
+    },
+    {
+      "id": 27,
+      "name": "Iced Caramel Macchiato",
+      "price": 14,
+      "categoryId": 4
+    },
+    {
+      "id": 28,
+      "name": "Iced Double Chocolat",
+      "price": 16,
+      "categoryId": 4
+    },
+    {
+      "id": 29,
+      "name": "Iced Cookie & Cream",
+      "price": 16,
+      "categoryId": 4
+    },
+    {
+      "id": 30,
+      "name": "Iced Vanilla Sweet Cream",
+      "price": 17,
+      "categoryId": 4
+    },
+    {
+      "id": 31,
+      "name": "Iced Spanish Latte",
+      "price": 18,
+      "categoryId": 4
+    },
+    {
+      "id": 32,
+      "name": "Iced Coffee Oreo",
+      "price": 18,
+      "categoryId": 4
+    },
+    {
+      "id": 33,
+      "name": "Frappuccino Chocolat",
+      "price": 19,
+      "categoryId": 5
+    },
+    {
+      "id": 34,
+      "name": "Frappuccino Vanilla",
+      "price": 19,
+      "categoryId": 5
+    },
+    {
+      "id": 35,
+      "name": "Frappuccino Fraise",
+      "price": 19,
+      "categoryId": 5
+    },
+    {
+      "id": 36,
+      "name": "Frappuccino Oreo - KitKat - Cookies",
+      "price": 25,
+      "categoryId": 5
+    },
+    {
+      "id": 37,
+      "name": "Frappuccino Cheesecake",
+      "price": 27,
+      "categoryId": 5
+    },
+    {
+      "id": 38,
+      "name": "Frappuccino Framboise",
+      "price": 22,
+      "categoryId": 5
+    }
+  ]
+}
