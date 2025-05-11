@@ -1,19 +1,7 @@
 import { ref } from 'vue'
 import { defineStore } from 'pinia'
 import axios from 'axios'
-
-export interface Product {
-  id: number
-  name: string
-  price: number
-  categoryId: number
-}
-
-export interface Categories {
-  id: number
-  name: string
-  icon: string
-}
+import { type Product, type Categories } from '@/types/product'
 
 const apiUri = import.meta.env.VITE_API_URI
 

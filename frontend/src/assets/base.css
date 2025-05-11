@@ -78,3 +78,6 @@ img {
   display: none !important;
 }
 
+.Toastify__toast-icon svg path {
+  fill: var(--main-color) !important;
+}

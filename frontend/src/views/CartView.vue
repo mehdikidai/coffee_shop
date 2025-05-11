@@ -37,6 +37,10 @@
 
     <x-space :height="40"></x-space>
   </div>
+  <div v-else class="empty">
+    <x-icon icon="uil:shopping-basket" />
+    <span>empty</span>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -48,6 +52,8 @@ import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { v4 as uuidv4 } from 'uuid'
 import moment from 'moment'
+import { toast } from 'vue3-toastify'
+import { toastOptions } from '@/config/toast'
 
 const router = useRouter()
 const currency = import.meta.env.VITE_CURRENCY
@@ -64,10 +70,13 @@ const increaseItemQuantity = (item: (typeof cart.value)[number]) => {
 }
 
 const sendData = async () => {
-  loading.value = true
+
   const idClient = uuidv4()
   const today = moment().format('L')
   const hour = moment().format('HH:mm:ss')
+
+  loading.value = true
+
   try {
     for (const item of cart.value) {
       await axios.post(
@@ -89,8 +98,13 @@ const sendData = async () => {
         },
       )
     }
+
     cartStore.resetCart()
-    router.push('/')
+
+    toast.success(`It's done`, {
+      ...toastOptions,
+      onClose: () => router.push('/'),
+    })
   } catch (error) {
     console.error('Failed to send to Google Sheets:', error)
   } finally {
@@ -191,6 +205,7 @@ const sendData = async () => {
             display: flex;
             align-items: center;
             justify-content: center;
+            cursor: pointer;
             &:disabled {
               opacity: 0.2;
               pointer-events: none;
@@ -231,5 +246,27 @@ const sendData = async () => {
   font-size: 16px;
   text-transform: capitalize;
   cursor: pointer;
+}
+
+.empty {
+  background: var(--background-color);
+  height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 10px;
+  color: var(--color-white);
+  svg{
+    font-size: 50px;
+    opacity: .7;
+    color: var(--main-color);
+  }
+  span{
+    font-size: 22px;
+    font-weight: 600;
+    opacity: .7;
+    text-transform: capitalize;
+  }
 }
 </style>

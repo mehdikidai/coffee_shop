@@ -1,18 +1,12 @@
-import { ref, computed } from 'vue'
+import { computed } from 'vue'
 import { defineStore } from 'pinia'
-
-interface Product {
-  id: number
-  name: string
-  price: number
-  quantity: number
-}
+import { useStorage } from '@vueuse/core'
+import { type CartProduct } from '@/types/product'
 
 export const useCartStore = defineStore('cart', () => {
+  const cart = useStorage<CartProduct[]>('cart', [])
 
-  const cart = ref<Product[]>([])
-
-  function addItemToCart(item: Product) {
+  function addItemToCart(item: CartProduct) {
     const existing = cart.value.find((p) => p.id === item.id)
     if (existing) {
       existing.quantity++
@@ -21,6 +15,7 @@ export const useCartStore = defineStore('cart', () => {
         id: item.id,
         name: item.name,
         price: item.price,
+        photo: item.photo,
         quantity: 1,
       })
     }

@@ -70,6 +70,9 @@ header {
         font-size: 22px;
       }
     }
+    &.link-back{
+      text-transform: lowercase;
+    }
   }
 }
 </style>

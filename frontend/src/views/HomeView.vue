@@ -5,7 +5,7 @@ import { ref, watch, onMounted } from 'vue'
 import CupImg from '@/assets/imgs/cup-test.jpg'
 import { useProductsStore } from '@/stores/products.ts'
 import { useCartStore } from '@/stores/cart'
-import { toast } from 'vue3-toastify'
+
 
 const storeProducts = useProductsStore()
 const cartStore = useCartStore()
@@ -29,13 +29,6 @@ const addProductToCart = (productId: number): void => {
 
   if (product) {
     cartStore.addItemToCart({ ...product, quantity: 1 })
-    toast.success(`It has been added : ${product.name}`, {
-      position: 'top-center',
-      theme: 'dark',
-      hideProgressBar: true,
-      transition: 'slide',
-      autoClose: 300,
-    })
   }
 }
 
@@ -43,6 +36,9 @@ const filterBy = (filterId: number | null) => {
   selectedFilter.value = filterId === selectedFilter.value ? null : filterId
   console.log(`Filtering by: ${filterId}`)
 }
+
+
+
 </script>
 
 <template>
@@ -86,6 +82,7 @@ const filterBy = (filterId: number | null) => {
     <div class="product-card" v-for="product in storeProducts.products" :key="product.id">
       <div class="img">
         <img :src="CupImg" alt="cup" />
+        <!-- <img :src="product.photo" alt="cup" /> -->
       </div>
       <h3>{{ product.name }}</h3>
       <p>{{ product.price }} DH</p>
@@ -187,6 +184,7 @@ const filterBy = (filterId: number | null) => {
       background: var(--main-color);
       svg {
         color: var(--color-white);
+        pointer-events: none;
       }
     }
   }
