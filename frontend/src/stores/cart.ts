@@ -47,6 +47,11 @@ export const useCartStore = defineStore('cart', () => {
     cart.value = []
   }
 
+  const quantityInCart = (id: number) => {
+    const product = cart.value.find((item) => item.id === id)
+    return product ? product.quantity : 0
+  }
+
   return {
     cart,
     addItemToCart,
@@ -55,5 +60,6 @@ export const useCartStore = defineStore('cart', () => {
     totalItems,
     totalPrice,
     resetCart,
+    quantityInCart,
   }
 })

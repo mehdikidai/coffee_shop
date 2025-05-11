@@ -6,9 +6,8 @@ import CupImg from '@/assets/imgs/cup-test.jpg'
 import { useProductsStore } from '@/stores/products.ts'
 import { useCartStore } from '@/stores/cart'
 
-
 const storeProducts = useProductsStore()
-const cartStore = useCartStore()
+const { addItemToCart,quantityInCart } = useCartStore()
 
 const selectedFilter = ref<number | null>(null)
 
@@ -28,7 +27,7 @@ const addProductToCart = (productId: number): void => {
   const product = storeProducts.products.find((p) => p.id === productId)
 
   if (product) {
-    cartStore.addItemToCart({ ...product, quantity: 1 })
+    addItemToCart({ ...product, quantity: 1 })
   }
 }
 
@@ -36,9 +35,6 @@ const filterBy = (filterId: number | null) => {
   selectedFilter.value = filterId === selectedFilter.value ? null : filterId
   console.log(`Filtering by: ${filterId}`)
 }
-
-
-
 </script>
 
 <template>
@@ -81,6 +77,9 @@ const filterBy = (filterId: number | null) => {
   <div v-else class="product-list">
     <div class="product-card" v-for="product in storeProducts.products" :key="product.id">
       <div class="img">
+        <small class="quantity" v-if="quantityInCart(product.id) > 0">
+          {{ quantityInCart(product.id) }}
+        </small>
         <img :src="CupImg" alt="cup" />
         <!-- <img :src="product.photo" alt="cup" /> -->
       </div>
@@ -151,10 +150,25 @@ const filterBy = (filterId: number | null) => {
       aspect-ratio: 1;
       clip-path: inset(0 round 2px);
       display: flex;
+      position: relative;
       img {
         width: 100%;
         height: 100%;
         object-fit: cover;
+      }
+      .quantity {
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        background: var(--main-color);
+        width: 20px;
+        height: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 4px;
+        font-size: 12px;
+        color: var(--color-white);
       }
     }
     h3 {
