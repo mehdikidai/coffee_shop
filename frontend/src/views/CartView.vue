@@ -50,10 +50,15 @@ import CupImg from '@/assets/imgs/cup-test.jpg'
 import axios from 'axios'
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
-import { v4 as uuidv4 } from 'uuid'
 import moment from 'moment'
 import { toast } from 'vue3-toastify'
 import { toastOptions } from '@/config/toast'
+import { useUserStore } from '@/stores/user.ts'
+import { generateOrderId } from "@/helper"
+
+
+const userStore = useUserStore()
+
 
 const router = useRouter()
 const currency = import.meta.env.VITE_CURRENCY
@@ -70,8 +75,7 @@ const increaseItemQuantity = (item: (typeof cart.value)[number]) => {
 }
 
 const sendData = async () => {
-
-  const idClient = uuidv4()
+  const orderId = generateOrderId()
   const today = moment().format('L')
   const hour = moment().format('HH:mm:ss')
 
@@ -83,7 +87,9 @@ const sendData = async () => {
         uriSheetDb,
         {
           id: 'INCREMENT',
-          client: idClient,
+          order_id: orderId,
+          customer: userStore.userName,
+          customer_id: userStore.id,
           date: today,
           time: hour,
           name: item.name,
@@ -257,15 +263,15 @@ const sendData = async () => {
   flex-direction: column;
   gap: 10px;
   color: var(--color-white);
-  svg{
+  svg {
     font-size: 50px;
-    opacity: .7;
+    opacity: 0.7;
     color: var(--main-color);
   }
-  span{
+  span {
     font-size: 22px;
     font-weight: 600;
-    opacity: .7;
+    opacity: 0.7;
     text-transform: capitalize;
   }
 }

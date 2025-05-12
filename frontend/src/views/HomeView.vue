@@ -7,7 +7,7 @@ import { useProductsStore } from '@/stores/products.ts'
 import { useCartStore } from '@/stores/cart'
 
 const storeProducts = useProductsStore()
-const { addItemToCart,quantityInCart } = useCartStore()
+const { addItemToCart, quantityInCart } = useCartStore()
 
 const selectedFilter = ref<number | null>(null)
 

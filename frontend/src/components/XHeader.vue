@@ -6,6 +6,7 @@
     <RouterLink v-else to="/"> bee coffee </RouterLink>
 
     <RouterLink to="/cart" class="link-cart">
+      <small>{{ userName || 'guest' }}</small>
       <x-icon icon="uil:store" />
       <span v-if="totalItems > 0" class="total-items">{{ Math.min(totalItems, 99) }}</span>
     </RouterLink>
@@ -15,6 +16,7 @@
 <script setup lang="ts">
 import { RouterLink } from 'vue-router'
 import { useCartStore } from '@/stores/cart'
+import { useUserStore } from '@/stores/user'
 import { storeToRefs } from 'pinia'
 import { useRouter } from 'vue-router'
 import { computed } from 'vue'
@@ -22,12 +24,16 @@ const router = useRouter()
 const currentRoute = computed(() => router.currentRoute.value.name)
 
 const cartStore = useCartStore()
+const userStore = useUserStore()
+
 const { totalItems } = storeToRefs(cartStore)
+const { userName } = storeToRefs(userStore)
+
 </script>
 
 <style scoped lang="scss">
 header {
-  background: var(--background-color);
+  background: var(--background-color-two);
   height: 60px;
   margin: 0 auto;
   padding-inline: 20px;
@@ -37,7 +43,6 @@ header {
   position: sticky;
   top: 0;
   z-index: 99;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
   a {
     color: var(--color-white);
     text-transform: capitalize;
@@ -52,6 +57,15 @@ header {
       align-items: center;
       justify-content: center;
       position: relative;
+      gap: 4px;
+      small{
+        font-size: 16px;
+        font-weight: 400;
+        text-transform: lowercase;
+        opacity: 0.9;
+        pointer-events: none;
+        color: var(--main-color);
+      }
       .total-items {
         position: absolute;
         background: var(--main-color);

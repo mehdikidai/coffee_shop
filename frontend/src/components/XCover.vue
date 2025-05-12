@@ -19,7 +19,7 @@ const { isLoading } = useImage({ src: imgCover })
   background: transparent;
   height: 200px;
   position: relative;
-  clip-path: inset(0 round 0 0 22px 22px);
+  //clip-path: inset(0 round 0 0 22px 22px);
   &.loading {
     background: var(--background-color-two);
     display: flex;

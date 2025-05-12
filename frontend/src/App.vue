@@ -11,4 +11,3 @@ import XMain from '@/components/XMain.vue'
   </x-main>
 </template>
 
-<style scoped lang="scss"></style>

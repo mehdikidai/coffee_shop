@@ -8,6 +8,7 @@
 
 <style scoped lang="scss">
 main {
-  padding-bottom: 60px;
+  padding-bottom: 20px;
+  min-height: calc(100dvh - 60px);
 }
 </style>

@@ -49,7 +49,7 @@ export const useCartStore = defineStore('cart', () => {
 
   const quantityInCart = (id: number) => {
     const product = cart.value.find((item) => item.id === id)
-    return product ? product.quantity : 0
+    return product ? Math.min(product.quantity, 9) : 0
   }
 
   return {

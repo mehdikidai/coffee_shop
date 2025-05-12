@@ -1,11 +1,13 @@
 import { ref } from 'vue'
 import { defineStore } from 'pinia'
 import axios from 'axios'
+import { useStorage } from '@vueuse/core'
 import { type Product, type Categories } from '@/types/product'
 
 const apiUri = import.meta.env.VITE_API_URI
 
 export const useProductsStore = defineStore('products', () => {
+  const token = useStorage<string | null>('token', null)
   const products = ref<Product[]>([])
   const categories = ref<Categories[]>([])
 
@@ -18,8 +20,8 @@ export const useProductsStore = defineStore('products', () => {
     loading.value = true
     try {
       const baseURL = `${apiUri}/products`
-      const url = categoryId ? `${baseURL}?categoryId=${categoryId}` : baseURL
-      const res = await axios.get(url)
+      const url = categoryId ? `${baseURL}/${categoryId}` : baseURL
+      const res = await axios.get(url, { headers: { Authorization: `Bearer ${token.value}` } })
       products.value = res.data
       console.log(res)
     } catch (error) {
