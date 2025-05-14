@@ -1,14 +1,14 @@
 <script setup lang="ts">
 import XCover from '@/components/XCover.vue'
 import { Splide, SplideSlide } from '@splidejs/vue-splide'
-import { ref, watch, onMounted } from 'vue'
+import { ref, watch, onMounted, computed } from 'vue'
 import CupImg from '@/assets/imgs/cup-test.jpg'
 import { useProductsStore } from '@/stores/products.ts'
 import { useCartStore } from '@/stores/cart'
+import { moveItem } from '@/helper'
 
 const storeProducts = useProductsStore()
 const { addItemToCart, quantityInCart } = useCartStore()
-
 const selectedFilter = ref<number | null>(null)
 
 watch(
@@ -35,61 +35,68 @@ const filterBy = (filterId: number | null) => {
   selectedFilter.value = filterId === selectedFilter.value ? null : filterId
   console.log(`Filtering by: ${filterId}`)
 }
+
+const categories = computed(() => {
+  const original = storeProducts.categories
+  if (original.length > 5) {
+    return moveItem(original, 6, 1)
+  }
+  return original
+})
 </script>
 
 <template>
-  <!-- start cover -->
+  <layout-app>
+    <!-- start cover -->
+    <XCover />
+    <!-- end cover -->
+    <!-- start filter -->
+    <div class="filter">
+      <Splide
+        :options="{
+          autoWidth: true,
+          gap: 10,
+          padding: 20,
+          drag: 'free',
+        }"
+        aria-label="My Favorite Images"
+      >
+        <SplideSlide v-for="item in categories" :key="item.id">
+          <button
+            :class="['filter-btn', { active: selectedFilter === item.id }]"
+            @click="filterBy(item.id)"
+          >
+            <x-icon :icon="item.icon"></x-icon> {{ item.name }}
+          </button>
+        </SplideSlide>
+      </Splide>
 
-  <XCover />
-
-  <!-- end cover -->
-
-  <!-- start filter -->
-
-  <div class="filter">
-    <Splide
-      :options="{
-        autoWidth: true,
-        gap: 10,
-        padding: 20,
-        drag: 'free',
-      }"
-      aria-label="My Favorite Images"
-    >
-      <SplideSlide v-for="item in storeProducts.categories" :key="item.id">
-        <button
-          :class="['filter-btn', { active: selectedFilter === item.id }]"
-          @click="filterBy(item.id)"
-        >
-          <x-icon :icon="item.icon"></x-icon> {{ item.name }}
-        </button>
-      </SplideSlide>
-    </Splide>
-
-    <!-- end filter -->
-  </div>
-  <!-- start list items -->
-
-  <div class="loading-box" v-if="storeProducts.loading">
-    <x-icon icon="svg-spinners:bars-rotate-fade"></x-icon>
-  </div>
-
-  <div v-else class="product-list">
-    <div class="product-card" v-for="product in storeProducts.products" :key="product.id">
-      <div class="img">
-        <small class="quantity" v-if="quantityInCart(product.id) > 0">
-          {{ quantityInCart(product.id) }}
-        </small>
-        <img :src="CupImg" alt="cup" />
-        <!-- <img :src="product.photo" alt="cup" /> -->
-      </div>
-      <h3>{{ product.name }}</h3>
-      <p>{{ product.price }} DH</p>
-      <button class="btn-add" @click="addProductToCart(product.id)">
-        <x-icon icon="uil:plus" />
-      </button>
+      <!-- end filter -->
     </div>
-  </div>
+    <!-- start list items -->
+
+    <div class="loading-box" v-if="storeProducts.loading">
+      <x-icon icon="svg-spinners:bars-rotate-fade"></x-icon>
+    </div>
+
+    <div v-else class="product-list">
+      <div class="product-card" v-for="product in storeProducts.products" :key="product.id">
+        <div class="img">
+          <small class="quantity" v-if="quantityInCart(product.id) > 0">
+            {{ quantityInCart(product.id) }}
+          </small>
+          <!-- <img :src="CupImg" alt="cup" /> -->
+          <img :src="product.photo?.trim() ? product.photo : CupImg"  alt="cup"/>
+          <!-- <img src="https://tea-coffee.ie/data/product/139/gurmans-supreme-coffee-beans-decaf-jpg.jpg" alt="cup" /> -->
+        </div>
+        <h3>{{ product.name }}</h3>
+        <p>{{ product.price }} DH</p>
+        <button class="btn-add" @click="addProductToCart(product.id)">
+          <x-icon icon="uil:plus" />
+        </button>
+      </div>
+    </div>
+  </layout-app>
 
   <!-- end list items -->
 </template>
@@ -134,7 +141,7 @@ const filterBy = (filterId: number | null) => {
 
 .product-list {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
 
   gap: 15px;
   padding: 20px;
@@ -160,14 +167,14 @@ const filterBy = (filterId: number | null) => {
         position: absolute;
         top: 5px;
         right: 5px;
-        background: var(--main-color);
-        width: 20px;
-        height: 20px;
+        background: #088549;
+        width: 22px;
+        height: 22px;
         display: flex;
         align-items: center;
         justify-content: center;
         border-radius: 4px;
-        font-size: 12px;
+        font-size: 10px;
         color: var(--color-white);
       }
     }
@@ -176,21 +183,23 @@ const filterBy = (filterId: number | null) => {
       line-height: 1.4;
       font-size: 14px;
       font-weight: 400;
+      text-transform: capitalize;
     }
 
     p {
       color: var(--color-white);
       opacity: 0.7;
+      font-size: 14px;
     }
 
     .btn-add {
       position: absolute;
-      width: 28px;
-      height: 28px;
+      width: 30px;
+      height: 30px;
       border: none;
       bottom: 10px;
       right: 10px;
-      border-radius: 14px;
+      border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -199,6 +208,7 @@ const filterBy = (filterId: number | null) => {
       svg {
         color: var(--color-white);
         pointer-events: none;
+        font-size: 14px;
       }
     }
   }

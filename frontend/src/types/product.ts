@@ -19,3 +19,4 @@ export interface Categories {
   name: string
   icon: string
 }
+

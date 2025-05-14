@@ -12,6 +12,7 @@ import { createPinia } from 'pinia'
 import { Icon } from "@iconify/vue";
 import Vue3Toastify from 'vue3-toastify';
 import XSpace from '@/components/XSpace.vue'
+import LayoutApp from '@/components/LayoutApp.vue'
 
 import App from './App.vue'
 import router from './router'
@@ -20,6 +21,7 @@ const app = createApp(App)
 
 app.component('x-icon', Icon)
 app.component('x-space', XSpace)
+app.component('layout-app', LayoutApp)
 
 app.use(createPinia())
 app.use(router)

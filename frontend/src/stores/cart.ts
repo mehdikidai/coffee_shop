@@ -1,10 +1,23 @@
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 import { defineStore } from 'pinia'
 import { useStorage } from '@vueuse/core'
-import { type CartProduct } from '@/types/product'
+import { type CartProduct} from '@/types/product'
+import API from '@/api'
+
 
 export const useCartStore = defineStore('cart', () => {
+  const token = useStorage<string | null>('token', null)
   const cart = useStorage<CartProduct[]>('cart', [])
+  const ordersHistory =
+    ref<{ name: string; quantity: number; price: number; createdAt: string }[]>()
+
+  API.interceptors.request.use((config) => {
+    const authToken = token.value
+    if (authToken) {
+      config.headers.Authorization = `Bearer ${authToken}`
+    }
+    return config
+  })
 
   function addItemToCart(item: CartProduct) {
     const existing = cart.value.find((p) => p.id === item.id)
@@ -49,7 +62,47 @@ export const useCartStore = defineStore('cart', () => {
 
   const quantityInCart = (id: number) => {
     const product = cart.value.find((item) => item.id === id)
-    return product ? Math.min(product.quantity, 9) : 0
+    return product ? Math.min(product.quantity, 99) : 0
+  }
+
+  const getOrders = async () => {
+    try {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const res:any = await API.get('/orders')
+      console.log(res)
+      const allOrders = res.data.orders || []
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const formattedOrders = allOrders.flatMap((order:any) =>
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        order.items.map((item:any) => ({
+          name: item.product.name,
+          quantity: item.quantity,
+          price: item.price,
+          createdAt: order.created_at,
+        })),
+      )
+      ordersHistory.value = formattedOrders
+
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const createOrder = async () => {
+    try {
+      const res = await API.post('/orders', {
+        items: cart.value.map((item) => ({
+          product_id: item.id,
+          quantity: item.quantity,
+        })),
+      })
+
+      console.log('Order response:', res.data)
+
+      resetCart()
+    } catch (error) {
+      console.error('Order creation error:', error)
+    }
   }
 
   return {
@@ -61,5 +114,8 @@ export const useCartStore = defineStore('cart', () => {
     totalPrice,
     resetCart,
     quantityInCart,
+    createOrder,
+    getOrders,
+    ordersHistory
   }
 })

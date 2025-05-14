@@ -22,34 +22,35 @@ const router = createRouter({
       },
     },
     {
+      path: '/history',
+      name: 'history',
+      component: () => import('../views/HistoryView.vue'),
+      meta: {
+        requiredAuth: true,
+      },
+    },
+    {
       path: '/login',
       name: 'login',
       component: () => import('../views/LoginView.vue'),
-      meta:{
-        requiredGuest:true
-      }
+      meta: {
+        requiredGuest: true,
+      },
     },
   ],
 })
 
-
-
 router.beforeEach((to, from, next) => {
-
   const userStore = useUserStore()
   const isLoggedIn = userStore.isAuthenticated
 
-
   if (to.meta.requiredAuth && !isLoggedIn) {
     next('/login')
-
   } else if (to.meta.requiredGuest && isLoggedIn) {
     next('/')
-
   } else {
     next()
   }
 })
-
 
 export default router

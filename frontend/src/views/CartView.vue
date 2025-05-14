@@ -1,46 +1,48 @@
 <template>
-  <div v-if="cart.length > 0">
-    <x-space :height="20"></x-space>
-    <TransitionGroup name="list" tag="div" class="list-items">
-      <div class="item" v-for="item in cart" :key="item.id">
-        <div class="box photo">
-          <img :src="CupImg" :alt="item.name" />
-        </div>
-        <div class="box info">
-          <span class="name-p">{{ item.name }}</span>
-          <span class="total-p"
-            >{{ item.price }} {{ currency }} <small>x</small> {{ item.quantity }} =
-            <strong>{{ item.price * item.quantity }} {{ currency }}</strong>
-          </span>
-          <div class="actions">
-            <button @click="decreaseItemQuantity(item.id)" :disabled="item.quantity === 1">
-              <x-icon icon="uil:minus" />
-            </button>
-            <button @click="increaseItemQuantity(item)">
-              <x-icon icon="uil:plus" />
-            </button>
-            <button @click="removeItemFromCart(item.id)">
-              <x-icon icon="uil:trash-alt" />
-            </button>
+  <layout-app>
+    <div v-if="cart.length > 0">
+      <x-space :height="20"></x-space>
+      <TransitionGroup name="list" tag="div" class="list-items">
+        <div class="item" v-for="item in cart" :key="item.id">
+          <div class="box photo">
+            <img :src="CupImg" :alt="item.name" />
+          </div>
+          <div class="box info">
+            <span class="name-p">{{ item.name }}</span>
+            <span class="total-p"
+              >{{ item.price }} {{ currency }} <small>x</small> {{ item.quantity }} =
+              <strong>{{ item.price * item.quantity }} {{ currency }}</strong>
+            </span>
+            <div class="actions">
+              <button @click="decreaseItemQuantity(item.id)" :disabled="item.quantity === 1">
+                <x-icon icon="uil:minus" />
+              </button>
+              <button @click="increaseItemQuantity(item)">
+                <x-icon icon="uil:plus" />
+              </button>
+              <button @click="removeItemFromCart(item.id)">
+                <x-icon icon="uil:trash-alt" />
+              </button>
+            </div>
           </div>
         </div>
+      </TransitionGroup>
+      <div class="line"></div>
+      <div class="total">
+        <span>total :</span> <span>{{ totalPrice.toFixed(2) }} {{ currency }}</span>
       </div>
-    </TransitionGroup>
-    <div class="line"></div>
-    <div class="total">
-      <span>total :</span> <span>{{ totalPrice.toFixed(2) }} {{ currency }}</span>
+      <div class="line"></div>
+
+      <button v-if="loading" class="checkout" :disabled="loading">loading ...</button>
+      <button v-else class="checkout" @click="sendData" :disabled="loading">checkout</button>
+
+      <x-space :height="40"></x-space>
     </div>
-    <div class="line"></div>
-
-    <button v-if="loading" class="checkout" :disabled="loading">loading ...</button>
-    <button v-else class="checkout" @click="sendData" :disabled="loading">checkout</button>
-
-    <x-space :height="40"></x-space>
-  </div>
-  <div v-else class="empty">
-    <x-icon icon="uil:shopping-basket" />
-    <span>empty</span>
-  </div>
+    <div v-else class="empty">
+      <x-icon icon="uil:shopping-basket" />
+      <span>empty</span>
+    </div>
+  </layout-app>
 </template>
 
 <script setup lang="ts">
@@ -54,11 +56,9 @@ import moment from 'moment'
 import { toast } from 'vue3-toastify'
 import { toastOptions } from '@/config/toast'
 import { useUserStore } from '@/stores/user.ts'
-import { generateOrderId } from "@/helper"
-
+import { generateOrderId } from '@/helper'
 
 const userStore = useUserStore()
-
 
 const router = useRouter()
 const currency = import.meta.env.VITE_CURRENCY
@@ -105,7 +105,7 @@ const sendData = async () => {
       )
     }
 
-    cartStore.resetCart()
+    await cartStore.createOrder()
 
     toast.success(`It's done`, {
       ...toastOptions,

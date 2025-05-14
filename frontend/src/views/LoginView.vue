@@ -44,10 +44,13 @@ const email = ref<string | null>(null)
 const password = ref<string | null>(null)
 
 const handleLogin = async () => {
+
+  if (!email.value || !password.value) return
+
   try {
     const statusCode = await userStore.loginUser(email.value, password.value)
     if (statusCode === 200) router.push('/')
-    console.log(res)
+    console.log(statusCode)
   } catch (error) {
     console.log(error)
   }
@@ -63,7 +66,6 @@ const handleLogin = async () => {
   margin: 0 auto;
   position: fixed;
   inset: 0;
-  z-index: 999;
   display: flex;
   flex-direction: column;
   .photo {

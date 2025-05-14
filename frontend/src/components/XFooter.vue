@@ -1,6 +1,7 @@
 <template>
   <footer>
-    <!-- <button><x-icon icon="uil:user" />{{ userName }}</button> -->
+    <button @click="goTo('/')"><x-icon icon="uil:home-alt" />home</button>
+    <button @click="goTo('/history')"><x-icon icon="uil:clipboard-notes" />history</button>
     <button @click="handleLogout"><x-icon icon="uil:exit" />logout</button>
   </footer>
 </template>
@@ -16,34 +17,38 @@ const handleLogout = () => {
   userStore.logout()
   router.push('/login')
 }
+
+const goTo = (uri: string) => {
+  router.push(uri)
+}
 </script>
 
 <style scoped lang="scss">
 footer {
-  height: 40px;
-  width: calc(100% - 40px);
+  height: 56px;
+  width: 100%;
   max-width: var(--width-app);
-  background: var(--main-color);
+  background: var(--background-color-two);
   display: flex;
   align-items: center;
-  justify-content: space-evenly;
+  justify-content: space-around;
   margin: 0 auto;
-  clip-path: inset(0 round 6px);
+  padding-inline: 20px;
   button {
-    color: var(--color-white);
-    font-size: 14px;
-    text-transform: capitalize;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 12px;
     background: transparent;
     border: none;
+    color: var(--color-white);
+    gap: 2px;
+    text-transform: capitalize;
     cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    opacity: 0.7;
+    svg {
+      font-size: 20px;
+    }
   }
 }
 </style>
