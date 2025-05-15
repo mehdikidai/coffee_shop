@@ -7,6 +7,7 @@ import { useProductsStore } from '@/stores/products.ts'
 import { useCartStore } from '@/stores/cart'
 import { moveItem } from '@/helper'
 
+
 const storeProducts = useProductsStore()
 const { addItemToCart, quantityInCart } = useCartStore()
 const selectedFilter = ref<number | null>(null)
@@ -39,7 +40,8 @@ const filterBy = (filterId: number | null) => {
 const categories = computed(() => {
   const original = storeProducts.categories
   if (original.length > 5) {
-    return moveItem(original, 6, 1)
+    const moveOne = moveItem(original, 6, 1)
+    return moveItem(moveOne, 6, 2)
   }
   return original
 })
@@ -55,7 +57,7 @@ const categories = computed(() => {
       <Splide
         :options="{
           autoWidth: true,
-          gap: 10,
+          gap: 25,
           padding: 20,
           drag: 'free',
         }"
@@ -66,7 +68,7 @@ const categories = computed(() => {
             :class="['filter-btn', { active: selectedFilter === item.id }]"
             @click="filterBy(item.id)"
           >
-            <x-icon :icon="item.icon"></x-icon> {{ item.name }}
+            {{ item.name }}
           </button>
         </SplideSlide>
       </Splide>
@@ -75,9 +77,7 @@ const categories = computed(() => {
     </div>
     <!-- start list items -->
 
-    <div class="loading-box" v-if="storeProducts.loading">
-      <x-icon icon="svg-spinners:bars-rotate-fade"></x-icon>
-    </div>
+    <x-loading v-if="storeProducts.loading"></x-loading>
 
     <div v-else class="product-list">
       <div class="product-card" v-for="product in storeProducts.products" :key="product.id">
@@ -86,7 +86,7 @@ const categories = computed(() => {
             {{ quantityInCart(product.id) }}
           </small>
           <!-- <img :src="CupImg" alt="cup" /> -->
-          <img :src="product.photo?.trim() ? product.photo : CupImg"  alt="cup"/>
+          <img :src="product.photo?.trim() ? product.photo : CupImg" alt="cup" />
           <!-- <img src="https://tea-coffee.ie/data/product/139/gurmans-supreme-coffee-beans-decaf-jpg.jpg" alt="cup" /> -->
         </div>
         <h3>{{ product.name }}</h3>
@@ -109,35 +109,24 @@ const categories = computed(() => {
   .filter-btn {
     height: 30px;
     border: none;
-    padding-inline: 24px;
+    //padding-inline: 24px;
     cursor: pointer;
     font-size: 14px;
     border-radius: 4px;
     text-transform: capitalize;
     font-weight: 400;
-    background: var(--color-white);
-    color: var(--color-text);
+    background: transparent;
+    color: var(--color-white);
     display: flex;
     align-items: center;
     gap: 6px;
     &.active {
-      background: var(--main-color);
-      color: var(--color-white);
+      //background: red;
+      color: var(--main-color);
     }
   }
 }
 
-.loading-box {
-  min-height: 200px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  svg {
-    color: var(--color-white);
-    font-size: 20px;
-    opacity: 0.5;
-  }
-}
 
 .product-list {
   display: grid;

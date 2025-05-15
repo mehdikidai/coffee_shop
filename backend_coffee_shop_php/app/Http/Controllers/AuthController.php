@@ -44,6 +44,44 @@ class AuthController extends Controller
         return response()->json($res);
     }
 
+
+    /**
+     * login bay key
+     * */
+
+    public function loginByQrCode(Request $request)
+    {
+        $data = $request->validate([
+            'key' => 'required|string',
+        ]);
+
+        $user = User::where('table_key', $data['key'])->first();
+
+        if (!$user) {
+            return response()->json([
+                'message' => 'Invalid QR Code or user not found'
+            ], 404);
+        }
+
+        $token = $user->createToken("{$user->id}-QRToken")->plainTextToken;
+
+        $res = [
+            'token' => $token,
+            'user' => [
+                'id' => $user->id,
+                'name' => $user->name,
+                'email' => $user->email,
+                'table' => $user->table_number
+            ]
+        ];
+
+        return response()->json($res);
+
+    }
+
+
+
+
     /**
      * Store a newly created resource in storage.
      */

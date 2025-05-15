@@ -1,15 +1,24 @@
 import { computed, ref } from 'vue'
 import { defineStore } from 'pinia'
 import { useStorage } from '@vueuse/core'
-import { type CartProduct} from '@/types/product'
+import { type CartProduct } from '@/types/product'
 import API from '@/api'
 
+interface History {
+  orderId: number
+  name: string
+  quantity: number
+  price: number
+  createdAt: string
+}
 
 export const useCartStore = defineStore('cart', () => {
   const token = useStorage<string | null>('token', null)
   const cart = useStorage<CartProduct[]>('cart', [])
-  const ordersHistory =
-    ref<{ name: string; quantity: number; price: number; createdAt: string }[]>()
+  const ordersHistory = ref<History[]>([])
+  const totalSales = ref<number>(0)
+  const loadingHistory = ref(false)
+  const totalItemsInHistory = computed(() => ordersHistory.value.length)
 
   API.interceptors.request.use((config) => {
     const authToken = token.value
@@ -66,15 +75,17 @@ export const useCartStore = defineStore('cart', () => {
   }
 
   const getOrders = async () => {
+    loadingHistory.value = true
     try {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const res:any = await API.get('/orders')
+      const res: any = await API.get('/orders')
       console.log(res)
       const allOrders = res.data.orders || []
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const formattedOrders = allOrders.flatMap((order:any) =>
+      const formattedOrders = allOrders.flatMap((order: any) =>
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        order.items.map((item:any) => ({
+        order.items.map((item: any) => ({
+          orderId: order.id,
           name: item.product.name,
           quantity: item.quantity,
           price: item.price,
@@ -82,9 +93,11 @@ export const useCartStore = defineStore('cart', () => {
         })),
       )
       ordersHistory.value = formattedOrders
-
+      totalSales.value = res.data.total_sales
     } catch (error) {
       console.log(error)
+    } finally {
+      loadingHistory.value = false
     }
   }
 
@@ -116,6 +129,9 @@ export const useCartStore = defineStore('cart', () => {
     quantityInCart,
     createOrder,
     getOrders,
-    ordersHistory
+    ordersHistory,
+    loadingHistory,
+    totalItemsInHistory,
+    totalSales,
   }
 })

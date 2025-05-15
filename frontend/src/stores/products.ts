@@ -14,6 +14,7 @@ export const useProductsStore = defineStore('products', () => {
   const categoriesFetched = ref<boolean>(false)
 
 
+
   API.interceptors.request.use((config) => {
     const authToken = token.value
     if (authToken) {

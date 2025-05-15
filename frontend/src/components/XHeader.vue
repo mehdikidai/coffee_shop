@@ -72,7 +72,7 @@ header {
   }
   a {
     color: var(--color-white);
-    text-transform: capitalize;
+    text-transform: uppercase;
     font-weight: 600;
     font-size: 18px;
     &.link-cart,

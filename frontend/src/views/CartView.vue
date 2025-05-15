@@ -1,6 +1,6 @@
 <template>
   <layout-app>
-    <div v-if="cart.length > 0">
+    <div v-if="cart.length > 0" class="container">
       <x-space :height="20"></x-space>
       <TransitionGroup name="list" tag="div" class="list-items">
         <div class="item" v-for="item in cart" :key="item.id">
@@ -27,21 +27,18 @@
           </div>
         </div>
       </TransitionGroup>
-      <div class="line"></div>
+      <x-line></x-line>
       <div class="total">
         <span>total :</span> <span>{{ totalPrice.toFixed(2) }} {{ currency }}</span>
       </div>
-      <div class="line"></div>
+      <x-line></x-line>
 
       <button v-if="loading" class="checkout" :disabled="loading">loading ...</button>
       <button v-else class="checkout" @click="sendData" :disabled="loading">checkout</button>
 
       <x-space :height="40"></x-space>
     </div>
-    <div v-else class="empty">
-      <x-icon icon="uil:shopping-basket" />
-      <span>empty</span>
-    </div>
+    <x-empty v-else message="Your cart is currently empty" icon="uil:shopping-basket"></x-empty>
   </layout-app>
 </template>
 
@@ -57,6 +54,7 @@ import { toast } from 'vue3-toastify'
 import { toastOptions } from '@/config/toast'
 import { useUserStore } from '@/stores/user.ts'
 import { generateOrderId } from '@/helper'
+import XEmpty from '@/components/XEmpty.vue'
 
 const userStore = useUserStore()
 
@@ -120,14 +118,6 @@ const sendData = async () => {
 </script>
 
 <style scoped lang="scss">
-.line {
-  border-bottom: 1px dashed rgba(255, 255, 255, 0.2);
-  margin: 0 auto;
-  height: 1px;
-  width: calc(100% - 30px);
-  margin-block: 20px;
-}
-
 .list-enter-active,
 .list-leave-active {
   transition: all 0.5s ease;
@@ -138,141 +128,119 @@ const sendData = async () => {
   transform: translateX(200px);
 }
 
-.list-items {
-  display: grid;
-  width: calc(100% - 30px);
-  margin: 0 auto;
-  gap: 15px;
-  overflow-x: hidden;
-  .item {
-    height: 120px;
-    background: var(--background-color-two);
-    border-radius: 6px;
-    color: var(--color-white);
+.container {
+  padding-inline: 15px;
+  .list-items {
     display: grid;
-    grid-template-columns: 100px 1fr;
-    gap: 0;
-    align-content: center;
-    padding-inline: 10px;
-    .box {
-      background: rgba(255, 255, 255, 0.1);
-      height: 100px;
-      &.photo {
-        clip-path: inset(0 round 2px);
-        aspect-ratio: 1;
-        display: flex;
-        img {
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-        }
-      }
-      &.info {
-        padding: 0 0 0 15px;
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-        background: transparent;
-        align-content: start;
-        .name-p {
-          font-size: 14px;
-          font-weight: 500;
-          white-space: nowrap;
-          overflow: hidden;
-          text-overflow: ellipsis;
-        }
-        .total-p {
-          opacity: 1;
-          font-size: 14px;
-          text-transform: capitalize;
-          flex: 1;
-          strong {
-            color: var(--main-color);
-          }
-          small {
-            text-transform: lowercase;
-            padding-inline: 2px;
-            color: var(--main-color);
-          }
-        }
-        .actions {
+    gap: 15px;
+    overflow-x: hidden;
+    .item {
+      height: 120px;
+      background: var(--background-color-two);
+      border-radius: 6px;
+      color: var(--color-white);
+      display: grid;
+      grid-template-columns: 100px 1fr;
+      gap: 0;
+      align-content: center;
+      padding-inline: 10px;
+      .box {
+        background: rgba(255, 255, 255, 0.1);
+        height: 100px;
+        &.photo {
+          clip-path: inset(0 round 2px);
+          aspect-ratio: 1;
           display: flex;
-          align-items: center;
-          justify-content: flex-end;
+          img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+          }
+        }
+        &.info {
+          padding: 0 0 0 15px;
+          display: flex;
+          flex-direction: column;
           gap: 10px;
-          button {
-            width: 28px;
-            height: 28px;
-            border-radius: 6px;
-            border: none;
-            background: var(--main-color);
-            background: #384f51;
-            color: var(--color-white);
+          background: transparent;
+          align-content: start;
+          .name-p {
+            font-size: 14px;
+            font-weight: 500;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+          }
+          .total-p {
+            opacity: 1;
+            font-size: 14px;
+            text-transform: capitalize;
+            flex: 1;
+            strong {
+              color: var(--main-color);
+            }
+            small {
+              text-transform: lowercase;
+              padding-inline: 2px;
+              color: var(--main-color);
+            }
+          }
+          .actions {
             display: flex;
             align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            &:disabled {
-              opacity: 0.2;
-              pointer-events: none;
+            justify-content: flex-end;
+            gap: 10px;
+            button {
+              width: 28px;
+              height: 28px;
+              border-radius: 6px;
+              border: none;
+              background: var(--main-color);
+              background: #384f51;
+              color: var(--color-white);
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              cursor: pointer;
+              &:disabled {
+                opacity: 0.2;
+                pointer-events: none;
+              }
             }
           }
         }
       }
     }
   }
-}
-.total {
-  background: var(--background-color-two);
-  width: calc(100% - 30px);
-  margin: 0 auto;
-  display: flex;
-  justify-content: space-between;
-  padding: 12px 20px;
-  border-radius: 6px;
-  span {
-    font-size: 18px;
+  .total {
+    background: var(--background-color-two);
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 20px;
+    border-radius: 6px;
+    span {
+      font-size: 18px;
+      color: var(--color-white);
+      text-transform: capitalize;
+      font-weight: 600;
+    }
+  }
+
+  .checkout {
+    background: var(--main-color);
+    border: none;
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    height: 45px;
+    align-items: center;
+    justify-content: center;
     color: var(--color-white);
+    border-radius: 6px;
+    font-size: 16px;
     text-transform: capitalize;
-    font-weight: 600;
-  }
-}
-
-.checkout {
-  background: var(--main-color);
-  border: none;
-  width: calc(100% - 30px);
-  margin: 0 auto;
-  display: flex;
-  height: 45px;
-  align-items: center;
-  justify-content: center;
-  color: var(--color-white);
-  border-radius: 6px;
-  font-size: 16px;
-  text-transform: capitalize;
-  cursor: pointer;
-}
-
-.empty {
-  background: var(--background-color);
-  height: 400px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  gap: 10px;
-  color: var(--color-white);
-  svg {
-    font-size: 50px;
-    opacity: 0.7;
-    color: var(--main-color);
-  }
-  span {
-    font-size: 22px;
-    font-weight: 600;
-    opacity: 0.7;
-    text-transform: capitalize;
+    cursor: pointer;
   }
 }
 </style>

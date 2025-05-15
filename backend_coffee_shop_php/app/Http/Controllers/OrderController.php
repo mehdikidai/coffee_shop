@@ -49,21 +49,20 @@ class OrderController extends Controller
 
 
 
-    public function salesToday()
+    public function salesToday(Request $request)
     {
+
         $today = Carbon::today();
+        $user = $request->user();
 
-        $sales = Order::whereDate('created_at', $today)
+        $sales = Order::where('user_id', $user->id)
+            ->whereDate('created_at', $today)
             ->with('items.product')
-            ->get(); // get name product
+            ->orderBy('created_at', 'desc')
+            ->get();
 
-        $total = 0;
 
-        foreach ($sales as $order) {
-            foreach ($order->items as $item) {
-                $total += $item->price * $item->quantity;
-            }
-        }
+        $total = $sales->sum(fn($order) => $order->items->sum(fn($item) => $item->price * $item->quantity));
 
         return response()->json([
             'total_sales' => $total,
