@@ -1,9 +1,22 @@
-import type { CapacitorConfig } from '@capacitor/cli';
+import type { CapacitorConfig } from '@capacitor/cli'
 
 const config: CapacitorConfig = {
   appId: 'com.bee.coffee.com',
-  appName: 'bee-coffee-app',
-  webDir: 'dist'
-};
+  appName: 'Bee Coffee',
+  webDir: 'dist',
+  plugins: {
+    StatusBar: {
+      overlaysWebView: false,
+      style: 'DARK',
+    },
+    SplashScreen: {
+      launchShowDuration: 3000,
+      launchAutoHide: true,
+      launchFadeOutDuration: 3000,
+      splashFullScreen: true,
+      layoutName: 'launch_screen',
+    },
+  },
+}
 
-export default config;
+export default config

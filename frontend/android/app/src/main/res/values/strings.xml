@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name">bee-coffee-app</string>
-    <string name="title_activity_main">bee-coffee-app</string>
+    <string name="app_name">Bee Coffee</string>
+    <string name="title_activity_main">Bee Coffee</string>
     <string name="package_name">com.bee.coffee.com</string>
     <string name="custom_url_scheme">com.bee.coffee.com</string>
 </resources>
