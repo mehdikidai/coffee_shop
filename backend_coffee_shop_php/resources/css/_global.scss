@@ -1,0 +1,40 @@
+*,
+*::after,
+*::before {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Inter", sans-serif;
+}
+
+:root {
+    --main-color: #ae7134;
+    --background-color: #142629;
+    --background-color-two: #2a3c3d;
+    --color-text: var(--background-color);
+    --color-white: white;
+    --width-app: 900px;
+    --bs-table-bg:red;
+}
+
+
+.k-alert{
+    position: relative;
+    border-radius: 4px !important;
+    padding-block: 6px !important;
+    button.btns_remove_alert{
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background: rgba(255, 0, 0, 0);
+        width: 20px;
+        height: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 4px;
+        i{
+            font-size: 18px;
+        }
+    }
+}

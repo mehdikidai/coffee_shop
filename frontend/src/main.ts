@@ -20,7 +20,7 @@ import router from './router'
 import { StatusBar, Style } from '@capacitor/status-bar'
 import { Capacitor } from '@capacitor/core'
 
-if (Capacitor.getPlatform() !== 'web') {
+if (Capacitor.isNativePlatform()) {
   StatusBar.setOverlaysWebView({ overlay: false })
   StatusBar.setStyle({ style: Style.Dark })
   StatusBar.setBackgroundColor({ color: '#2a3c3d' })

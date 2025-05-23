@@ -1,0 +1,52 @@
+@use "./var" as v;
+
+.page-users {
+    thead {
+        th {
+            background: var(--background-color-two) !important;
+        }
+    }
+
+    table {
+        .th-actions {
+            width: 200px;
+        }
+        .td-actions {
+            .box-actions {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 4px;
+                a,
+                button {
+                    display: flex;
+                    align-items: center;
+                    gap: 4px;
+                    width: 100%;
+                    i {
+                        font-size: 18px;
+                    }
+                }
+            }
+        }
+        .th-name {
+            width: 300px;
+        }
+        .th-id {
+            width: 60px;
+        }
+        .th-role {
+            width: 120px;
+        }
+        .th-orders {
+            width: 100px;
+        }
+    }
+    @include v.k-pagination;
+
+    .k-button-add-user {
+        gap: 2px;
+        i {
+            font-size: 16px;
+        }
+    }
+}

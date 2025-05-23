@@ -2,25 +2,20 @@
   <footer>
     <button @click="goTo('/')"><x-icon icon="uil:home-alt" />home</button>
     <button @click="goTo('/history')"><x-icon icon="uil:clipboard-notes" />history</button>
-    <button @click="handleLogout"><x-icon icon="uil:exit" />logout</button>
+    <button @click="goTo('/profile')"><x-icon icon="uil:user" />profile</button>
+
   </footer>
 </template>
 
 <script setup lang="ts">
-import { useUserStore } from '@/stores/user.ts'
+
 import { useRouter } from 'vue-router'
-
 const router = useRouter()
-const userStore = useUserStore()
-
-const handleLogout = () => {
-  userStore.logout()
-  router.push('/login')
-}
 
 const goTo = (uri: string) => {
   router.push(uri)
 }
+
 </script>
 
 <style scoped lang="scss">

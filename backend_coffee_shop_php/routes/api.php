@@ -15,6 +15,8 @@ Route::get('/categories/{categoryId}/products', [ProductController::class, 'show
 
 Route::post('/login', [AuthController::class, 'login']);
 
+Route::post('/register', [AuthController::class, 'store']);
+
 Route::post('/login/qr', [AuthController::class, 'loginByQrCode']);
 
 Route::post('/orders', [OrderController::class, 'store'])->middleware('auth:sanctum');

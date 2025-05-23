@@ -1,0 +1,31 @@
+@mixin k-pagination {
+    .k-pagination {
+        display: flex;
+        align-items: center;
+        margin: 0;
+        padding: 0;
+        gap: 6px;
+        li {
+            a,
+            span {
+                width: 36px;
+                height: 36px;
+                display: flex;
+                background: var(--background-color-two);
+                align-items: center;
+                justify-content: center;
+                border-radius: 4px !important;
+                color: var(--color-white);
+                font-size: 14px;
+            }
+            span {
+                pointer-events: none;
+            }
+            &.active{
+                span{
+                    background: var(--main-color) !important;
+                }
+            }
+        }
+    }
+}

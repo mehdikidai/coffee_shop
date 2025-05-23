@@ -13,11 +13,13 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
+    "@capacitor-mlkit/barcode-scanning": "^7.2.1",
     "@capacitor/android": "^7.2.0",
     "@capacitor/cli": "^7.2.0",
     "@capacitor/core": "^7.2.0",
     "@capacitor/splash-screen": "^7.0.1",
     "@capacitor/status-bar": "^7.0.1",
+    "@capacitor/toast": "^7.0.1",
     "@fontsource/inter": "^5.2.5",
     "@splidejs/vue-splide": "^0.6.12",
     "@vueuse/components": "^13.1.0",
@@ -27,7 +29,8 @@
     "pinia": "^3.0.1",
     "vue": "^3.5.13",
     "vue-router": "^4.5.0",
-    "vue3-toastify": "^0.2.8"
+    "vue3-toastify": "^0.2.8",
+    "zod": "^3.25.1"
   },
   "devDependencies": {
     "@capacitor/assets": "^3.0.5",
@@ -40,6 +43,7 @@
     "@vue/tsconfig": "^0.7.0",
     "eslint": "^9.22.0",
     "eslint-plugin-vue": "~10.0.0",
+    "html5-qrcode": "^2.3.8",
     "jiti": "^2.4.2",
     "npm-run-all2": "^7.0.2",
     "prettier": "3.5.3",

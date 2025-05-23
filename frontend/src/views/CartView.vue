@@ -5,7 +5,7 @@
       <TransitionGroup name="list" tag="div" class="list-items">
         <div class="item" v-for="item in cart" :key="item.id">
           <div class="box photo">
-            <img :src="CupImg" :alt="item.name" />
+            <img :src="item.photo" :alt="item.name" />
           </div>
           <div class="box info">
             <span class="name-p">{{ item.name }}</span>
@@ -45,7 +45,6 @@
 <script setup lang="ts">
 import { useCartStore } from '@/stores/cart'
 import { storeToRefs } from 'pinia'
-import CupImg from '@/assets/imgs/cup-test.jpg'
 import axios from 'axios'
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
@@ -73,6 +72,7 @@ const increaseItemQuantity = (item: (typeof cart.value)[number]) => {
 }
 
 const sendData = async () => {
+  
   const orderId = generateOrderId()
   const today = moment().format('L')
   const hour = moment().format('HH:mm:ss')

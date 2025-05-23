@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Enum\UserRole;
 use App\Models\User;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -52,7 +54,7 @@ class AuthController extends Controller
     public function loginByQrCode(Request $request)
     {
         $data = $request->validate([
-            'key' => 'required|string',
+            'key' => 'required|string|min:8|max:64',
         ]);
 
         $user = User::where('table_key', $data['key'])->first();
@@ -76,7 +78,6 @@ class AuthController extends Controller
         ];
 
         return response()->json($res);
-
     }
 
 
@@ -87,7 +88,36 @@ class AuthController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $validated = $request->validate([
+            'name' => 'required|min:3',
+            'email' => 'required|email|unique:users',
+            'password' => 'required|min:8',
+        ]);
+
+        do {
+            $key = Str::random(64);
+        } while (User::where('table_key', $key)->exists());
+
+        $validated['table_key'] = $key;
+        $validated['password'] = Hash::make($validated['password']);
+        $validated['role'] = UserRole::USER->value;
+
+        $user = User::create($validated);
+
+        $token = $user->createToken("{$user->id}-QRToken")->plainTextToken;
+
+        $res = [
+            'token' => $token,
+            'user' => [
+                'id' => $user->id,
+                'name' => $user->name,
+                'email' => $user->email,
+                'table' => $user->table_number
+            ]
+        ];
+
+        return response()->json($res);
     }
 
     /**

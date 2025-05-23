@@ -1,0 +1,32 @@
+.table > :not(caption) > * > * {
+    background-color: var(--background-color) !important;
+}
+
+.modal-content {
+    background-color: var(--background-color) !important;
+}
+
+.form-control {
+    background-color: var(--background-color-two) !important;
+}
+
+.form-select {
+    background-color: var(--background-color-two) !important;
+}
+
+.modal-body {
+    padding-bottom: 40px !important;
+}
+
+input,select {
+    border-radius: 2px !important;
+}
+
+button.btn,
+a.btn {
+    border-radius: 2px !important;
+}
+
+div.alert {
+    border-radius: 2px !important;
+}

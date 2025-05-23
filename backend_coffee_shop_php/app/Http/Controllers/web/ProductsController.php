@@ -1,0 +1,149 @@
+<?php
+
+namespace App\Http\Controllers\web;
+
+use App\Http\Controllers\Controller;
+use App\Models\Category;
+use App\Models\Product;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
+
+class ProductsController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     */
+    public function index()
+    {
+        $products = Product::with('category')->latest()->paginate(10);
+
+        $categories = Cache::rememberForever('all_categories', fn() => Category::all());
+
+        return view('products', compact('products', 'categories'));
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
+    {
+        $data = $request->validate([
+            'name' => ['required', 'string', 'min:3'],
+            'price' => ['required', 'numeric', 'min:0'],
+            'photo' => ['required', 'image', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048'],
+            'category_id' => ['required', 'integer', 'exists:categories,id'],
+        ], [
+            'name.required' => 'The name field is required.',
+            'name.min' => 'The name must be at least 3 characters.',
+            'price.required' => 'The price field is required.',
+            'price.numeric' => 'The price must be a number.',
+            'price.min' => 'The price must be zero or higher.',
+            'photo.required' => 'The photo field is required.',
+            'photo.image' => 'The uploaded file must be an image.',
+            'photo.mimes' => 'The photo must be a file of type: jpeg, png, jpg, gif, svg.',
+            'photo.max' => 'The photo must not be larger than 2MB.',
+            'category_id.required' => 'The category field is required.',
+            'category_id.exists' => 'The selected category does not exist.',
+        ]);
+
+        if ($request->hasFile('photo')) {
+            $fileName = time() . '.' . $request->photo->extension();
+            $request->photo->move(public_path('uploads/products'), $fileName);
+            $uri = "uploads/products/$fileName";
+            $data['photo'] = asset($uri);
+        }
+
+        Product::create($data);
+
+        return to_route('products.index')->with('success', 'Product added successfully.');
+    }
+
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(string $id)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(string $id)
+    {
+
+        $product = Product::with('category')->findOrFail($id);
+
+        $categories = Cache::rememberForever('all_categories', fn() => Category::all());
+
+        return view("productEdit", compact('product', 'categories'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, string $id)
+    {
+        $product = Product::findOrFail($id);
+
+        $data = $request->validate([
+            'name' => ['required', 'string', 'min:3'],
+            'price' => ['required', 'numeric', 'min:0'],
+            'photo' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048'],
+            'category_id' => ['required', 'integer', 'exists:categories,id'],
+        ]);
+
+
+        if ($request->hasFile('photo')) {
+
+            $oldPath = public_path(parse_url($product->photo, PHP_URL_PATH));
+            if (file_exists($oldPath)) {
+                unlink($oldPath);
+            }
+
+            $fileName = time() . '.' . $request->photo->extension();
+            $request->photo->move(public_path('uploads/products'), $fileName);
+            $uri = "uploads/products/$fileName";
+            $data['photo'] = asset($uri);
+        }
+
+
+        $product->update($data);
+
+        return redirect()->route('products.index')->with('success', 'Product updated successfully.');
+    }
+
+
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(string $id)
+    {
+        $product = Product::findOrFail($id);
+
+        $product->delete();
+
+        return redirect()->back()->with('success', 'Product deleted successfully.');
+    }
+
+    public function toggleVisibility(string $id)
+    {
+        $product = Product::findOrFail($id);
+        $product->visible = !$product->visible;
+        $product->save();
+
+        $status = $product->visible ? 'visible' : 'hidden';
+
+        return redirect()->back()->with('success', "Product is now $status.");
+    }
+}

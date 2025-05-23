@@ -16,7 +16,7 @@
           <span>{{ item.price * item.quantity }} {{ currency }}</span>
         </div>
       </div>
-      <div class="total">
+      <div class="total" v-if="false">
         <span>total :</span>
         <span>{{ storeCart.totalSales }} {{ currency }}</span>
       </div>

@@ -7,7 +7,6 @@
 
     <div class="btns">
       <RouterLink to="/cart" class="link-cart">
-        <small>{{ userName || 'guest' }}</small>
         <x-icon icon="uil:store" />
         <span v-if="totalItems > 0" class="total-items">{{ Math.min(totalItems, 99) }}</span>
       </RouterLink>
@@ -20,7 +19,6 @@
 
 import { RouterLink } from 'vue-router'
 import { useCartStore } from '@/stores/cart'
-import { useUserStore } from '@/stores/user'
 import { storeToRefs } from 'pinia'
 import { useRouter } from 'vue-router'
 import { computed } from 'vue'
@@ -29,9 +27,8 @@ import { computed } from 'vue'
 const router = useRouter()
 const currentRoute = computed(() => router.currentRoute.value.name)
 const cartStore = useCartStore()
-const userStore = useUserStore()
 const { totalItems } = storeToRefs(cartStore)
-const { userName } = storeToRefs(userStore)
+
 
 // const handleLogout = () => {
 //   userStore.logout()
@@ -84,7 +81,7 @@ header {
       align-items: center;
       justify-content: center;
       position: relative;
-      gap: 8px;
+      gap: 4px;
       small {
         font-size: 16px;
         font-weight: 400;

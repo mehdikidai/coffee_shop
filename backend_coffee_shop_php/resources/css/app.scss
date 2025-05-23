@@ -1,0 +1,104 @@
+// @import 'tailwindcss';
+
+// @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+// @source '../../storage/framework/views/*.php';
+// @source '../**/*.blade.php';
+// @source '../**/*.js';
+
+@forward "tailwindcss";
+@forward "./edit_bootstrap";
+@forward "./global";
+@forward "./home";
+@forward "./users";
+@forward "./product";
+
+.app {
+    background: var(--background-color);
+    height: 100dvh;
+    display: grid;
+    grid-template-columns: 240px 1fr;
+    .sidebar {
+        background: var(--background-color-two);
+        max-height: 100dvh;
+        min-height: 100dvh;
+        overflow-y: auto;
+        .logo-box {
+            height: 70px;
+            background: var(--background-color-two);
+            display: flex;
+            align-items: center;
+            padding: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            position: sticky;
+            top: 0;
+            z-index: 99;
+            h2{
+                color: var(--color-white);
+                text-transform: capitalize;
+                font-size: 24px;
+                margin: 0;
+            }
+        }
+        ul {
+            padding: 20px;
+            display: grid;
+            gap: 4px;
+            li {
+                list-style: none;
+                //background: red;
+                height: 40px;
+                a {
+                    color: var(--color-white);
+                    text-decoration: none;
+                    display: flex;
+                    align-items: center;
+                    gap: 6px;
+                    height: 40px;
+                    i{
+                        color: var(--color-white);
+                        font-size: 22px;
+                    }
+                }
+            }
+        }
+    }
+    .main {
+        background: var(--background-color);
+        .header{
+            height: 70px;
+            //background: red;
+            padding-inline: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            h1{
+                font-size: 18px;
+                color: var(--color-white);
+                text-transform: capitalize;
+                margin: 0;
+            }
+            .box-user{
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                .photo{
+                    width: 32px;
+                    height: 32px;
+                    background: var(--background-color-two);
+                    clip-path: inset(0 round 16px);
+                }
+                span{
+                    color: var(--color-white);
+                    font-weight: 600;
+                    text-transform: capitalize;
+                }
+            }
+        }
+        .content{
+            padding: 20px;
+            max-height: calc(100dvh - 70px);
+            overflow-y: auto;
+        }
+    }
+}

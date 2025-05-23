@@ -15,6 +15,8 @@ const config: CapacitorConfig = {
       launchFadeOutDuration: 3000,
       splashFullScreen: true,
       layoutName: 'launch_screen',
+      splashImmersive: true,
+      androidScaleType: "CENTER_CROP",
     },
   },
 }

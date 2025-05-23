@@ -14,8 +14,9 @@ return new class extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->id();
             $table->string('name')->unique();
-             $table->decimal('price', 3, 2);
+            $table->decimal('price', 3, 2);
             $table->string('photo')->nullable();
+            $table->boolean('visible')->default(true);
             $table->foreignId('category_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });

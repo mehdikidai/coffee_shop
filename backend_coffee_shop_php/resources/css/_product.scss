@@ -1,0 +1,86 @@
+@use "./var" as v;
+
+.page-product {
+    table {
+        thead {
+            th {
+                background: var(--background-color-two) !important;
+            }
+        }
+
+        .th-actions {
+            width: 200px;
+        }
+        .td-actions {
+            .box-actions {
+                display: grid;
+                grid-template-columns: 1fr 1fr 1fr;
+                gap: 4px;
+                a,
+                button {
+                    display: flex;
+                    align-items: center;
+                    gap: 4px;
+                    width: 100%;
+                    text-transform: capitalize;
+                    i {
+                        font-size: 16px;
+                    }
+                }
+            }
+        }
+        .th-name {
+            width: 300px;
+        }
+        .th-id {
+            width: 60px;
+        }
+        .photo-product {
+            position: relative;
+            img {
+                width: 30px;
+                height: 30px;
+                object-fit: cover;
+                inset: 50%;
+                position: absolute;
+                transform: translate(-50%, -50%);
+                clip-path: inset(0 round 4px);
+            }
+        }
+        .th-photo {
+            width: 60px;
+        }
+    }
+    @include v.k-pagination;
+
+    .k-button-add-product {
+        gap: 2px;
+        i {
+            font-size: 16px;
+        }
+    }
+}
+
+.page-product-edit {
+    .box {
+        display: flex;
+        gap: 20px;
+        align-items: center;
+        button {
+            background: var(--background-color-two);
+            height: 32px;
+            width: 32px;
+            clip-path: inset(0 round 16px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            i {
+                color: var(--color-white);
+                font-size: 18px;
+            }
+        }
+        h2{
+            margin: 0;
+        }
+    }
+}
