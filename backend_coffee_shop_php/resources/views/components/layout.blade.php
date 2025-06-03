@@ -1,4 +1,4 @@
-@props(['title' => 'لوحة التحكم'])
+@props(['title' => 'dashboard', 'name_page'])
 
 
 <!DOCTYPE html>
@@ -21,6 +21,11 @@
 
     {{-- bootstrap --}}
 
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.14.1/themes/base/jquery-ui.css">
+
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <script src="https://code.jquery.com/ui/1.14.1/jquery-ui.js"></script>
+
     @vite(['resources/css/app.scss', 'resources/css/bootstrap.css'])
 
 </head>
@@ -37,8 +42,7 @@
             <li><a href="{{ route('home') }}"><x-icon name="home" /> home</a></li>
             <li><a href="{{ route('users') }}"><x-icon name="person" />users</a></li>
             <li><a href="{{ route('products.index') }}"><x-icon name="package_2" />products</a></li>
-            <li><a href="#"><x-icon name="receipt" />orders</a></li>
-            <li><a href="#"><x-icon name="settings" />setting</a></li>
+            <li><a href="{{ route('orders.index') }}"><x-icon name="receipt" />orders</a></li>
             <li><a href="#"><x-icon name="logout" />logout</a></li>
         </ul>
     </div>
@@ -54,13 +58,19 @@
             </div>
         </div>
         <div class="content">
-            {{ $slot }}
+            <div class="{{ $name_page }}">
+                <x-alert></x-alert>
+                {{ $slot }}
+            </div>
+
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO"
         crossorigin="anonymous"></script>
+
     @vite(['resources/js/app.js'])
+    
 </body>
 
 </html>

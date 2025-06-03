@@ -1,6 +1,6 @@
 @use "./var" as v;
 
-.page-users {
+.page-orders {
     thead {
         th {
             background: var(--background-color-two) !important;
@@ -14,7 +14,7 @@
         .td-actions {
             .box-actions {
                 display: grid;
-                grid-template-columns: 1fr 1fr 1fr;
+                grid-template-columns: 1fr 1fr;
                 gap: 4px;
                 a,
                 button {
@@ -28,16 +28,16 @@
                 }
             }
         }
-        .th-name {
-            width: 300px;
+        .th-order-id {
+            width: 100px;
         }
-        .th-id {
-            width: 60px;
+        .th-order-name {
+            width: 160px;
         }
-        .th-role {
-            width: 120px;
+        .th-quantity {
+            width: 100px;
         }
-        .th-orders {
+        .th-total {
             width: 100px;
         }
     }

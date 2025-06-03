@@ -27,7 +27,6 @@ class UserFactory extends Factory
         return [
             'name' => fake()->name(),
             'email' => fake()->unique()->safeEmail(),
-            'table_number' => fake()->numberBetween(1, 99),
             'table_key' => Str::random(64),
             'role' => UserRole::USER->value,
             'email_verified_at' => now(),

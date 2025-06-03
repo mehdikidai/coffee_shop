@@ -88,8 +88,21 @@ class UsersController extends Controller
         $user->update($validated);
 
         return redirect()->back()->with('success', 'User updated successfully.');
-
     }
+
+    public function toggleBlocked($id)
+    {
+
+        //dd($id);
+        $user = User::findOrFail($id);
+        $user->is_blocked = !$user->is_blocked;
+        $user->save();
+
+        $status = $user->is_blocked ? 'blocked' : 'unblocked';
+
+        return redirect()->back()->with('success', "User has been $status.");
+    }
+
 
 
     private function generateUniqueTableKey(): string

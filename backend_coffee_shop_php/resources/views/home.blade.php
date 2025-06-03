@@ -1,6 +1,6 @@
-<x-layout title="Home Page">
+<x-layout title="Home Page" name_page="statistics">
 
-    <div class="statistics">
+
         <div class="box">
             <h3>30</h3>
             <span><x-icon name="receipt" />orders</span>
@@ -25,6 +25,6 @@
             <h3>3001</h3>
             <span><x-icon name="paid" />test</span>
         </div>
-    </div>
+    
 
 </x-layout>

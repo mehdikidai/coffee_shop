@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\web\ProductsController as ProductControllerWeb;
 use App\Http\Controllers\web\HomeController;
+use App\Http\Controllers\web\OrdersController;
 use App\Http\Controllers\web\UsersController;
 use Illuminate\Support\Facades\Route;
 
@@ -21,7 +22,7 @@ Route::delete('/users/{id}', [UsersController::class, 'destroy'])->name('users.d
 
 Route::get('/users/{id}/edit', [UsersController::class, 'edit'])->name('users.edit');
 
-
+Route::patch('/users/{id}/toggle-blocked', [UsersController::class, 'toggleBlocked'])->name('users.toggleBlocked');
 
 
 
@@ -37,3 +38,9 @@ Route::put('/products/{id}',[ProductControllerWeb::class,'update'])->name('produ
 
 Route::patch('/products/{id}/toggle-visibility', [ProductControllerWeb::class, 'toggleVisibility'])->name('products.toggleVisibility');
 
+
+
+Route::get('/orders',[OrdersController::class,'index'])->name('orders.index');
+Route::get('/orders/{id}',[OrdersController::class,'show'])->name('orders.show');
+
+Route::delete('/orders/{id}',[OrdersController::class,'destroy'])->name('orders.destroy');

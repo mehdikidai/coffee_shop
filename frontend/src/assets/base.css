@@ -39,7 +39,7 @@
 }
 
 body {
-  background: var(--background-color);
+  background: #000;
 }
 
 a {

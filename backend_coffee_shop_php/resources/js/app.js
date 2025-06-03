@@ -1,5 +1,8 @@
 import "./bootstrap";
 import Swal from "sweetalert2";
+import AirDatepicker from "air-datepicker";
+import "air-datepicker/air-datepicker.css";
+import localeEn from "air-datepicker/locale/en";
 
 document.querySelectorAll(".form-delete-user").forEach((form) => {
     form.addEventListener("submit", function (e) {
@@ -27,3 +30,14 @@ document.querySelectorAll(".btns_remove_alert").forEach((btn) => {
     });
 });
 
+let today = new Date();
+let tomorrow = new Date();
+tomorrow.setDate(today.getDate());
+
+new AirDatepicker("#input_filter", {
+    locale: localeEn,
+    autoClose: true,
+    isMobile: false,
+    dateFormat: "yyyy-MM-dd",
+    //visible: true,
+});

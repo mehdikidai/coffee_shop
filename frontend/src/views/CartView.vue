@@ -43,6 +43,7 @@
 </template>
 
 <script setup lang="ts">
+
 import { useCartStore } from '@/stores/cart'
 import { storeToRefs } from 'pinia'
 import axios from 'axios'
@@ -72,9 +73,9 @@ const increaseItemQuantity = (item: (typeof cart.value)[number]) => {
 }
 
 const sendData = async () => {
-  
+
   const orderId = generateOrderId()
-  const today = moment().format('L')
+  const today = moment().format('DD/MM/YYYY')
   const hour = moment().format('HH:mm:ss')
 
   loading.value = true

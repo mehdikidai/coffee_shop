@@ -1,0 +1,103 @@
+@use "./var" as v;
+
+.page-show-order {
+    .box-container {
+        //background: red !important;
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        gap: 20px;
+        .box {
+            //background: gray;
+            .btn-and-title {
+                //background: red;
+                display: flex;
+                margin-bottom: 20px;
+                align-items: center;
+                gap: 10px;
+                .box-tit {
+                    color: var(--color-white);
+                    font-size: 18px;
+                    opacity: 0.6;
+                    text-transform: capitalize;
+                    margin: 0;
+                }
+                a{
+                    line-height: 1;
+                    text-decoration: none;
+                    display: flex;
+                    i{
+                        color: #fff;
+                        font-size: 22px;
+                    }
+                }
+            }
+
+            &-items {
+                //background: green;
+            }
+
+            &-total {
+                .total {
+                    background: var(--background-color-two);
+                    //min-height: 100px;
+                    border: 1px solid rgba(255, 255, 255, 0.2);
+                    padding: 10px;
+                    table.table {
+                        margin: 0;
+                    }
+                }
+            }
+        }
+    }
+
+    table {
+        thead {
+            th {
+                background: var(--background-color-two) !important;
+            }
+        }
+        &.table-sm > :not(caption) > * > * {
+            text-transform: capitalize;
+        }
+        .th-actions {
+            width: 200px;
+        }
+        .td-actions {
+            .box-actions {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 4px;
+                a,
+                button {
+                    display: flex;
+                    align-items: center;
+                    gap: 4px;
+                    width: 100%;
+                    i {
+                        font-size: 18px;
+                    }
+                }
+            }
+        }
+        .th-order-id {
+            width: 100px;
+        }
+        .th-order-name {
+            width: 160px;
+        }
+        .th-quantity {
+            width: 100px;
+        }
+        .th-total {
+            width: 100px;
+        }
+    }
+    @include v.k-pagination;
+
+    .k-button-add-user {
+        gap: 2px;
+        i {
+            font-size: 16px;
+        }
+    }
+}
