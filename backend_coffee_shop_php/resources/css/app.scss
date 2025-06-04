@@ -13,6 +13,20 @@
 @forward "./product";
 @forward "./orders";
 @forward "./order_show";
+@forward "./login";
+@forward "./air_date_picker.scss";
+
+.btn-filter {
+    width: fit-content;
+    i {
+        font-size: 16px;
+    }
+}
+
+.app-login {
+    background: var(--background-color);
+    height: 100dvh;
+}
 
 .app {
     background: var(--background-color);
@@ -59,6 +73,22 @@
                     i {
                         color: var(--color-white);
                         font-size: 22px;
+                    }
+                }
+                form {
+                    button {
+                        padding: 0;
+                        color: var(--color-white);
+                        text-decoration: none;
+                        display: flex;
+                        align-items: center;
+                        gap: 6px;
+                        height: 40px;
+                        width: 100%;
+                        i {
+                            color: var(--color-white);
+                            font-size: 22px;
+                        }
                     }
                 }
             }

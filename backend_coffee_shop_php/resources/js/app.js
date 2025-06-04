@@ -41,3 +41,14 @@ new AirDatepicker("#input_filter", {
     dateFormat: "yyyy-MM-dd",
     //visible: true,
 });
+
+new AirDatepicker("#input_filter_statistics", {
+    locale: localeEn,
+    autoClose: true,
+    isMobile: false,
+    dateFormat: "d-MM-yy",
+    range: true,
+    multipleDatesSeparator: ' | ',
+    //inline: true
+    //visible: true,
+});

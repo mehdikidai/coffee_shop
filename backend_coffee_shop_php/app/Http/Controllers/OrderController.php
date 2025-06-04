@@ -23,13 +23,19 @@ class OrderController extends Controller
         $user = $request->user();
 
         $order = DB::transaction(function () use ($validated, $user) {
+
+            $total = 0;
+
             $order = Order::create([
                 'user_id' => $user->id,
                 'table_number' => $user->table_number,
+                'total_price' => 0,
             ]);
 
             foreach ($validated['items'] as $item) {
                 $product = Product::find($item['product_id']);
+                $lineTotal = $product->price * $item['quantity'];
+                $total += $lineTotal;
                 OrderItem::create([
                     'order_id' => $order->id,
                     'product_id' => $product->id,
@@ -37,6 +43,10 @@ class OrderController extends Controller
                     'price' => $product->price,
                 ]);
             }
+
+            $order->update([
+                'total_price' => $total,
+            ]);
 
             return $order;
         });

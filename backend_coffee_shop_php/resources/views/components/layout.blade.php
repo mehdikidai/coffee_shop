@@ -21,11 +21,6 @@
 
     {{-- bootstrap --}}
 
-    <link rel="stylesheet" href="https://code.jquery.com/ui/1.14.1/themes/base/jquery-ui.css">
-
-    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
-    <script src="https://code.jquery.com/ui/1.14.1/jquery-ui.js"></script>
-
     @vite(['resources/css/app.scss', 'resources/css/bootstrap.css'])
 
 </head>
@@ -43,7 +38,14 @@
             <li><a href="{{ route('users') }}"><x-icon name="person" />users</a></li>
             <li><a href="{{ route('products.index') }}"><x-icon name="package_2" />products</a></li>
             <li><a href="{{ route('orders.index') }}"><x-icon name="receipt" />orders</a></li>
-            <li><a href="#"><x-icon name="logout" />logout</a></li>
+            <li>
+                <form action="{{ route('auth.logout') }}" method="POST" style="display: inline;">
+                    @csrf
+                    <button type="submit" class="btn btn-logout btn-link d-flex">
+                        <x-icon name="logout" /> Logout
+                    </button>
+                </form>
+            </li>
         </ul>
     </div>
 
@@ -51,7 +53,7 @@
         <div class="header">
             <h1>welcome admin</h1>
             <div class="box-user">
-                <span>mehdi</span>
+                <span>{{ auth()->user()->name }}</span>
                 <div class="photo">
                     <img src="{{ asset('uploads/global/photo_profile.png') }}" alt="user">
                 </div>
@@ -70,7 +72,7 @@
         crossorigin="anonymous"></script>
 
     @vite(['resources/js/app.js'])
-    
+
 </body>
 
 </html>
