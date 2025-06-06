@@ -19,6 +19,9 @@
         href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
         rel="stylesheet">
 
+
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
+
     {{-- bootstrap --}}
 
     @vite(['resources/css/app.scss', 'resources/css/bootstrap.css'])
@@ -28,32 +31,68 @@
 
 <body class="app">
 
-    <div class="sidebar">
+    <div class="sidebar" id="sidebar">
 
         <div class="logo-box">
             <h2>coffee shop</h2>
+            <button class="k-btn-close" id="btn_close">
+                <x-icon name="close" />
+            </button>
         </div>
         <ul>
-            <li><a href="{{ route('home') }}"><x-icon name="home" /> home</a></li>
-            <li><a href="{{ route('users') }}"><x-icon name="person" />users</a></li>
-            <li><a href="{{ route('products.index') }}"><x-icon name="package_2" />products</a></li>
-            <li><a href="{{ route('orders.index') }}"><x-icon name="receipt" />orders</a></li>
+            <li class="{{ request()->routeIs('home') ? 'active' : '' }}">
+                <a href="{{ route('home') }}">
+                    <x-icon name="home" /> {{ __('nav.home') ?? "home"}}
+                </a>
+            </li>
+
+            <li class="{{ request()->routeIs('users.*') ? 'active' : '' }}">
+                <a href="{{ route('users.index') }}">
+                    <x-icon name="person" /> {{ __('nav.users') ?? "users" }}
+                </a>
+            </li>
+
+            <li class="{{ request()->routeIs('products.*') ? 'active' : '' }}">
+                <a href="{{ route('products.index') }}">
+                    <x-icon name="package_2" /> {{ __('nav.products') ?? "products" }}
+                </a>
+            </li>
+
+            <li class="{{ request()->routeIs('categories.*') ? 'active' : '' }}">
+                <a href="{{ route('categories.index') }}">
+                    <x-icon name="category" /> {{ __('nav.categories') ?? "categories" }}
+                </a>
+            </li>
+
+            <li class="{{ request()->routeIs('orders.*') ? 'active' : '' }}">
+                <a href="{{ route('orders.index') }}">
+                    <x-icon name="receipt" /> {{ __('nav.orders') ?? "orders" }}
+                </a>
+            </li>
+
             <li>
                 <form action="{{ route('auth.logout') }}" method="POST" style="display: inline;">
                     @csrf
                     <button type="submit" class="btn btn-logout btn-link d-flex">
-                        <x-icon name="logout" /> Logout
+                        <x-icon name="logout" /> {{ __('nav.logout') ?? "logout"}}
                     </button>
                 </form>
             </li>
         </ul>
+
     </div>
 
     <div class="main">
         <div class="header">
-            <h1>welcome admin</h1>
+            <button id="btn_menu" class="btn_menu">
+                <x-icon name="menu"></x-icon>
+            </button>
+            <h1> {{ __('t.welcome') ?? "welcome" }} {{ auth()->user()->name }}</h1>
             <div class="box-user">
-                <span>{{ auth()->user()->name }}</span>
+                <div class="name-and-email">
+                    <span>{{ auth()->user()->name }}</span>
+                    <small>{{ auth()->user()->email }}</small>
+                </div>
                 <div class="photo">
                     <img src="{{ asset('uploads/global/photo_profile.png') }}" alt="user">
                 </div>
@@ -70,6 +109,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO"
         crossorigin="anonymous"></script>
+
 
     @vite(['resources/js/app.js'])
 

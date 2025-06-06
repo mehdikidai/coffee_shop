@@ -4,25 +4,29 @@ import AirDatepicker from "air-datepicker";
 import "air-datepicker/air-datepicker.css";
 import localeEn from "air-datepicker/locale/en";
 
-document.querySelectorAll(".form-delete-user").forEach((form) => {
-    form.addEventListener("submit", function (e) {
-        e.preventDefault();
+const confirmDelete = (els) => {
+    document.querySelectorAll(els).forEach((form) => {
+        form.addEventListener("submit", function (e) {
+            e.preventDefault();
 
-        Swal.fire({
-            title: "Are you sure?",
-            text: "This action cannot be undone.",
-            showCancelButton: true,
-            confirmButtonColor: "#d33",
-            cancelButtonColor: "#3085d6",
-            confirmButtonText: "Yes, delete it!",
-            cancelButtonText: "Cancel",
-        }).then((result) => {
-            if (result.isConfirmed) {
-                form.submit();
-            }
+            Swal.fire({
+                title: "Are you sure?",
+                text: "This action cannot be undone.",
+                showCancelButton: true,
+                confirmButtonColor: "#d33",
+                cancelButtonColor: "#3085d6",
+                confirmButtonText: "Yes, delete it!",
+                cancelButtonText: "Cancel",
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    form.submit();
+                }
+            });
         });
     });
-});
+};
+
+confirmDelete(".form-delete-user");
 
 document.querySelectorAll(".btns_remove_alert").forEach((btn) => {
     btn.addEventListener("click", () => {
@@ -48,7 +52,26 @@ new AirDatepicker("#input_filter_statistics", {
     isMobile: false,
     dateFormat: "d-MM-yy",
     range: true,
-    multipleDatesSeparator: ' | ',
+    multipleDatesSeparator: " | ",
     //inline: true
     //visible: true,
 });
+
+
+const btnMenu = document.getElementById("btn_menu");
+if (btnMenu) {
+    btnMenu.addEventListener("click", function () {
+        document.getElementById("sidebar").classList.add("active");
+    });
+}
+
+const btnClose = document.getElementById("btn_close");
+if (btnClose) {
+    btnClose.addEventListener("click", function () {
+        document.getElementById("sidebar").classList.remove("active");
+    });
+}
+
+
+
+confirmDelete(".form-delete-category");

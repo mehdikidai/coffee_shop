@@ -1,11 +1,13 @@
+@use "./var" as *;
+
 .page-login {
     height: 100dvh;
     .container-login {
-        width: 100%;
+        width: calc(100vw - 40px);
         max-width: 460px;
         margin: 0 auto;
         transform: translateY(130px);
-        background: var(--background-color-two);;
+        background: var(--background-color-two);
         padding: 50px 20px;
         border-radius: 6px;
         .form-login {
@@ -15,7 +17,23 @@
                 font-weight: 700;
                 opacity: 0.6;
             }
+        }
+    }
+}
 
+@include respond-to("mobile") {
+    .page-login .container-login .form-login h1 {
+        font-size: 1.3rem;
+    }
+    .form-login {
+        label {
+            font-size: 14px;
+        }
+        input{
+            font-size: 14px;
+        }
+        button{
+            font-size: 14px;
         }
     }
 }

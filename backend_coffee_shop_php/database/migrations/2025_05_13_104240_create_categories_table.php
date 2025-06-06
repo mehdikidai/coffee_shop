@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name')->unique();
             $table->string('icon')->default('uil:coffee');
+            $table->integer('index')->default(0);
             $table->timestamps();
         });
     }

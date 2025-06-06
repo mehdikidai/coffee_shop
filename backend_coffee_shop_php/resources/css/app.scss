@@ -5,6 +5,8 @@
 // @source '../**/*.blade.php';
 // @source '../**/*.js';
 
+@use "./var" as *;
+
 @forward "tailwindcss";
 @forward "./edit_bootstrap";
 @forward "./global";
@@ -14,7 +16,8 @@
 @forward "./orders";
 @forward "./order_show";
 @forward "./login";
-@forward "./air_date_picker.scss";
+@forward "./air_date_picker";
+@forward "./categories";
 
 .btn-filter {
     width: fit-content;
@@ -27,6 +30,7 @@
     background: var(--background-color);
     height: 100dvh;
 }
+
 
 .app {
     background: var(--background-color);
@@ -54,6 +58,9 @@
                 font-size: 24px;
                 margin: 0;
             }
+            .k-btn-close {
+                display: none;
+            }
         }
         ul {
             padding: 20px;
@@ -70,9 +77,15 @@
                     align-items: center;
                     gap: 6px;
                     height: 40px;
+                    text-transform: capitalize;
                     i {
                         color: var(--color-white);
                         font-size: 22px;
+                    }
+                }
+                &.active{
+                    a{
+                        color: var(--main-color) !important;
                     }
                 }
                 form {
@@ -104,6 +117,18 @@
             align-items: center;
             justify-content: space-between;
             border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            .btn_menu {
+                width: 20px;
+                height: 20px;
+                //background: rgba(255, 255, 255, 0.11);
+                display: none;
+                align-items: center;
+                justify-content: center;
+                i {
+                    color: var(--color-white);
+                }
+            }
+
             h1 {
                 font-size: 18px;
                 color: var(--color-white);
@@ -114,16 +139,29 @@
                 display: flex;
                 align-items: center;
                 gap: 10px;
+
                 .photo {
                     width: 32px;
                     height: 32px;
                     background: var(--background-color-two);
                     clip-path: inset(0 round 16px);
                 }
-                span {
-                    color: var(--color-white);
-                    font-weight: 600;
-                    text-transform: capitalize;
+                .name-and-email {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: end;
+                    span {
+                        color: var(--color-white);
+                        font-weight: 600;
+                        text-transform: capitalize;
+                        line-height: 1;
+                    }
+                    small {
+                        color: var(--color-white);
+                        font-weight: 400;
+                        opacity: 0.6;
+                        line-height: 1;
+                    }
                 }
             }
         }
@@ -131,6 +169,72 @@
             padding: 20px;
             max-height: calc(100dvh - 70px);
             overflow-y: auto;
+        }
+    }
+}
+
+@include respond-to("mobile") {
+    table {
+        * {
+            font-size: 14px !important;
+        }
+        tr {
+            white-space: nowrap;
+        }
+    }
+
+    .cont-table {
+        width: calc(100vw - 40px);
+        overflow-x: auto;
+    }
+
+    .app {
+        grid-template-columns: 1fr;
+        .sidebar {
+            position: fixed;
+            width: 80vw;
+            left: -80vw;
+            height: 100dvh;
+            z-index: 999;
+            border-right: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease-in-out;
+            .logo-box {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                h2 {
+                    font-size: 20px;
+                }
+                .k-btn-close {
+                    background: transparent;
+                    height: 20px;
+                    width: 20px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    cursor: pointer;
+                    border-radius: 2px;
+                    i {
+                        color: var(--color-white);
+                    }
+                }
+            }
+
+            &.active {
+                left: 0;
+            }
+        }
+        .main {
+            .header {
+                //display: none;
+                justify-content: space-between;
+                h1 {
+                    display: none !important;
+                }
+                .btn_menu {
+                    display: flex;
+                }
+            }
         }
     }
 }

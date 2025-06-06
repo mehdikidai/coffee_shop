@@ -7,6 +7,7 @@
     </div>
 @endif
 
+
 @if ($errors->any())
     @foreach ($errors->all() as $error)
         <div class="k-alert alert alert-danger" role="alert">

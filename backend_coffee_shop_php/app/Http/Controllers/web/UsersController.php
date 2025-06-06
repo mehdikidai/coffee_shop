@@ -7,6 +7,7 @@ use App\Enum\UserRole;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
 
@@ -38,6 +39,10 @@ class UsersController extends Controller
     {
         $user = User::findOrFail($id);
 
+        if (!Gate::allows('delete-user',$user)) {
+            return redirect()->back()->withErrors( 'You do not have permission to delete this user.');
+        }
+
         $user->delete();
 
         return redirect()->back()->with('success', 'User deleted successfully.');
@@ -50,6 +55,8 @@ class UsersController extends Controller
             'email' => 'required|email|unique:users',
             'password' => 'required|min:8'
         ]);
+
+        Gate::authorize('create-user');
 
         $validated['table_key'] = $this->generateUniqueTableKey();
         $validated['password'] = Hash::make($validated['password']);
@@ -78,6 +85,8 @@ class UsersController extends Controller
         ]);
 
         $user = User::findOrFail($id);
+
+        Gate::authorize('update-user',$user);
 
         if (!empty($validated['password'])) {
             $validated['password'] = Hash::make($validated['password']);

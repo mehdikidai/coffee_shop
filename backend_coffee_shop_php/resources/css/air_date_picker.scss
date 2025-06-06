@@ -1,5 +1,17 @@
 .air-datepicker-cell.-selected- {
 	color: #fff;
 	border: none;
-	background: red !important;
+	background: var(--background-color) !important;
+    border-radius: 0 !important;
+}
+
+.air-datepicker-cell.-in-range- {
+	background: rgba(42, 60, 61, 0.8) !important;
+	border-radius: 0;
+	color: #fff;
+}
+
+
+.air-datepicker-body--day-name {
+	color: var(--main-color) !important;
 }

@@ -1,6 +1,6 @@
 @use "./var" as v;
 
-.page-orders {
+.page-categories {
     display: flex;
     flex-direction: column;
     .filter-order {
@@ -19,13 +19,15 @@
 
     table {
         .th-actions {
-            width: 200px;
+            width: 1% !important;
+            white-space: nowrap !important;
         }
         .td-actions {
             .box-actions {
                 display: grid;
                 grid-template-columns: 1fr 1fr;
                 gap: 4px;
+                width: 200px;
                 a,
                 button {
                     display: flex;
@@ -33,7 +35,7 @@
                     gap: 4px;
                     width: 100%;
                     i {
-                        font-size: 18px;
+                        font-size: 16px;
                     }
                 }
             }
@@ -54,10 +56,34 @@
 
     @include v.k-pagination;
 
-    .k-button-add-user {
+    .k-button-add-category {
         gap: 2px;
         i {
             font-size: 16px;
+        }
+    }
+}
+
+.page-update-category {
+    .box {
+        display: flex;
+        gap: 20px;
+        align-items: center;
+        button {
+            background: var(--background-color-two);
+            height: 32px;
+            width: 32px;
+            clip-path: inset(0 round 16px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            i {
+                color: var(--color-white);
+                font-size: 18px;
+            }
+        }
+        h2 {
+            margin: 0;
         }
     }
 }

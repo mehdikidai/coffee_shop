@@ -1,9 +1,10 @@
-.statistics {
+@use "./var" as *;
 
-    .filter{
-        max-width: 300px;
+.statistics {
+    .filter {
+        max-width: 440px;
         width: 100%;
-        form{
+        form {
             display: grid;
             grid-template-columns: 2fr auto;
             gap: 10px;
@@ -22,10 +23,14 @@
             padding: 20px;
             display: flex;
             flex-direction: column;
+            border: 1px solid rgba(255, 255, 255, 0.2);
             gap: 20px;
             h3 {
                 font-size: 22px;
                 color: var(--color-white);
+                small {
+                    opacity: 0.4;
+                }
             }
             span {
                 display: flex;
@@ -38,6 +43,29 @@
                     color: var(--main-color);
                 }
             }
+        }
+    }
+}
+
+@include respond-to("mobile") {
+    .statistics .statistics-boxes {
+        grid-template-columns: 1fr;
+    }
+    .statistics .statistics-boxes .box {
+        height: 100px;
+        border-radius: 2px;
+        padding: 20px;
+        display: flex;
+        gap: 5px;
+        span {
+            font-size: 14px;
+            i {
+                font-size: 18px;
+                color: var(--main-color);
+            }
+        }
+        h3 {
+            font-size: 20px;
         }
     }
 }

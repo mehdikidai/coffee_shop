@@ -1,74 +1,89 @@
 <x-layout title="orders Page" name_page="page-orders">
 
 
-        <div class="filter filter-order">
-            <form method="GET" class="d-flex gap-2 " data-bs-theme="dark">
-                <div class="input-group input-group-sm">
+    <div class="filter filter-order">
+        <form method="GET" class="d-flex gap-2 " data-bs-theme="dark">
+            <div class="input-group input-group-sm">
 
-                    <select name="user_id" id="user_id" class="form-select">
-                        <option value="">All</option>
-                        @foreach ($users as $user)
-                            <option value="{{ $user->id }}" @selected(request('user_id') == $user->id)>{{ $user->name }}
-                            </option>
-                        @endforeach
-                    </select>
-                </div>
-                <div class="input-group input-group-sm">
-                    <input class="form-control" type="text" name="date" id="input_filter" value="{{ request('date') }}"
-                        placeholder="dd-mm-yyyy">
-                </div>
-                <div class="input-group-sm d-grid">
-                    <button type="submit" class="btn btn-primary d-flex align-items-center gap-2 btn-filter"> <x-icon
-                            name="event" /> Filter</button>
-                </div>
+                <select name="user_id" id="user_id" class="form-select">
+                    <option value="">All</option>
+                    @foreach ($users as $user)
+                        <option class="text-capitalize" value="{{ $user->id }}" @selected(request('user_id') == $user->id)>{{ $user->name }}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="input-group input-group-sm">
+                <input class="form-control text-capitalize" type="text" name="date" id="input_filter" value="{{ request('date') }}"
+                    placeholder="{{ __('t.filter_by_date') ?? "filter by date" }}">
+            </div>
+            <div class="input-group-sm d-grid">
+                <button type="submit" class="btn btn-primary d-flex align-items-center gap-2 btn-filter text-capitalize"> <x-icon
+                        name="event" /> {{ __('t.filter') ?? "filter" }} </button>
+            </div>
 
-            </form>
-        </div>
+        </form>
+    </div>
 
 
 
     @if($orders->isNotEmpty())
-
-        <table class="table table-bordered table-sm" data-bs-theme="dark">
-            <thead>
-                <tr>
-                    <th scope="col" class="th-order-id">Order Id</th>
-                    <th scope="col" class="th-order-name">Name</th>
-                    <th scope="col" class="th-quantity">Quantity</th>
-                    <th scope="col" class="th-total">Total</th>
-                    <th scope="col" class="th-date">Date</th>
-                    <th scope="col" class="th-actions">-</th>
-                </tr>
-            </thead>
-            <tbody>
-
-                @foreach ($orders as $order)
+        <div class="cont-table">
+            <table class="table table-bordered table-sm" data-bs-theme="dark">
+                <thead>
                     <tr>
-                        <th scope="row" class="px-2">{{ $order->id }}</th>
-                        <td class="px-2">{{ $order->user->name }}</td>
-                        <td class="px-2">{{ $order->items->count() }}</td>
-                        <td class="px-2">{{ $order->total_price }} <small>{{ config('setting.currency') }}</small></td>
-                        <td class="px-2">{{ $order->created_at }}</td>
-                        <td class="td-actions">
-                            <div class="box-actions">
-                                <form class="form-delete-product" action="{{ route('orders.destroy', $order->id) }}"
-                                    method="POST" style="display:inline-block;">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button class="btn btn-sm btn-danger">
-                                        <x-icon name="delete" /> Delete
-                                    </button>
-                                </form>
-                                <a href="{{ route('orders.show', $order->id) }}" class="btn btn-sm btn-primary">
-                                    <x-icon name="list_alt" />Details
-                                </a>
-                            </div>
-                        </td>
+                        <th scope="col" class="th-order-id text-capitalize"> {{ __('t.order_id') ?? "order id" }} </th>
+                        <th scope="col" class="th-order-name text-capitalize"> {{ __('t.name') ?? "name" }} </th>
+                        <th scope="col" class="th-quantity text-capitalize"> {{ __('t.quantity') ?? "quantity" }} </th>
+                        <th scope="col" class="th-total text-capitalize">{{ __('t.total') ?? "total" }}</th>
+                        <th scope="col" class="th-date text-capitalize">{{ __('t.date') ?? "date" }} </th>
+                        <th scope="col" class="th-actions text-capitalize"> {{ __('t.actions') ?? "actions" }} </th>
                     </tr>
-                @endforeach
+                </thead>
+                <tbody>
 
-            </tbody>
-        </table>
+                    @foreach ($orders as $order)
+                        <tr>
+                            <th scope="row" class="px-2">{{ $order->id }}</th>
+                            <td class="px-2">{{ $order->user->name }}</td>
+                            <td class="px-2">{{ $order->items->count() }}</td>
+                            <td class="px-2">{{ $order->total_price }} <small>{{ config('setting.currency') }}</small></td>
+                            <td class="px-2">{{ $order->created_at }}</td>
+                            <td class="td-actions">
+                                <div class="box-actions">
+                                    <form class="form-delete-product" action="{{ route('orders.destroy', $order->id) }}"
+                                        method="POST" style="display:inline-block;">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button class="btn btn-sm btn-danger">
+                                            <x-icon name="delete" /> Delete
+                                        </button>
+                                    </form>
+                                    <a href="{{ route('orders.show', $order->id) }}" class="btn btn-sm btn-primary">
+                                        <x-icon name="list_alt" />Details
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    @endforeach
+
+                </tbody>
+            </table>
+        </div>
+
+        @if ($orders->lastPage() > 1)
+            <nav>
+                <ul class="k-pagination">
+                    @for ($i = 1; $i <= $orders->lastPage(); $i++)
+                        @if ($i == $orders->currentPage())
+                            <li class="page-item active"><span class="page-link">{{ $i }}</span></li>
+                        @else
+                            <li class="page-item"><a class="page-link" href="{{ $orders->url($i) }}">{{ $i }}</a></li>
+                        @endif
+                    @endfor
+                </ul>
+            </nav>
+        @endif
 
 
     @else

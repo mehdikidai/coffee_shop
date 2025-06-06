@@ -37,14 +37,8 @@ const filterBy = (filterId: number | null) => {
   console.log(`Filtering by: ${filterId}`)
 }
 
-const categories = computed(() => {
-  const original = storeProducts.categories
-  if (original.length > 5) {
-    const moveOne = moveItem(original, 6, 1)
-    return moveItem(moveOne, 6, 2)
-  }
-  return original
-})
+const categories = computed(() => storeProducts.categories )
+
 </script>
 
 <template>
@@ -53,7 +47,7 @@ const categories = computed(() => {
     <XCover />
     <!-- end cover -->
     <!-- start filter -->
-    <div class="filter">
+    <div class="filter" v-if="categories">
       <Splide
         :options="{
           autoWidth: true,

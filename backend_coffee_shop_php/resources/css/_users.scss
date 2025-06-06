@@ -8,6 +8,7 @@
     }
 
     table {
+        //display: none;
         .th-actions {
             width: 200px;
         }
@@ -23,7 +24,7 @@
                     gap: 4px;
                     width: 100%;
                     i {
-                        font-size: 18px;
+                        font-size: 16px;
                     }
                 }
             }

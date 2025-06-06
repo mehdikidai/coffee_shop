@@ -1,6 +1,8 @@
 <?php
 
+
 use App\Http\Controllers\web\AuthController;
+use App\Http\Controllers\web\CategoryController;
 use App\Http\Controllers\web\ProductsController as ProductControllerWeb;
 use App\Http\Controllers\web\HomeController;
 use App\Http\Controllers\web\OrdersController;
@@ -10,38 +12,71 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', HomeController::class)->name('home')->middleware('auth');
 
-Route::get('/users', [UsersController::class,'index'])->name('users')->middleware('auth');;
 
-Route::post('/users', [UsersController::class,'store'])->name('users.store')->middleware('auth');;
+Route::controller(UsersController::class)
 
-Route::put('/users/{id}', [UsersController::class,'update'])->name('users.update')->middleware('auth');;
+    ->prefix('users')
+    ->name('users.')
+    ->middleware('auth')
+    ->group(function () {
 
-Route::delete('/users/{id}', [UsersController::class, 'destroy'])->name('users.destroy')->middleware('auth');;
+        Route::get('/', 'index')->name('index');
+        Route::post('/',  'store')->name('store');
+        Route::put('/{id}',  'update')->name('update');
+        Route::delete('/{id}',  'destroy')->name('destroy');
+        Route::get('/{id}/edit',  'edit')->name('edit');
+        Route::patch('/{id}/toggle-blocked',  'toggleBlocked')->name('toggleBlocked');
 
-Route::get('/users/{id}/edit', [UsersController::class, 'edit'])->name('users.edit')->middleware('auth');;
+    });
 
-Route::patch('/users/{id}/toggle-blocked', [UsersController::class, 'toggleBlocked'])->name('users.toggleBlocked')->middleware('auth');;
 
-Route::get('/products',[ProductControllerWeb::class,'index'])->name('products.index')->middleware('auth');;
+Route::controller(ProductControllerWeb::class)
 
-Route::post('/products',[ProductControllerWeb::class,'store'])->name('products.store')->middleware('auth');;
+    ->prefix('products')
+    ->name('products.')
+    ->middleware('auth')
+    ->group(function () {
 
-Route::get('/products/{id}/edit',[ProductControllerWeb::class,'edit'])->name('products.edit')->middleware('auth');;
+        Route::get('/', 'index')->name('index');
+        Route::post('/', 'store')->name('store');
+        Route::get('/{id}/edit', 'edit')->name('edit');
+        Route::delete('/{id}', 'destroy')->name('destroy');
+        Route::put('/{id}', 'update')->name('update');
+        Route::patch('/{id}/toggle-visibility', 'toggleVisibility')->name('toggleVisibility');
+    });
 
-Route::delete('/products/{id}',[ProductControllerWeb::class,'destroy'])->name('products.destroy')->middleware('auth');;
 
-Route::put('/products/{id}',[ProductControllerWeb::class,'update'])->name('products.update')->middleware('auth');;
 
-Route::patch('/products/{id}/toggle-visibility', [ProductControllerWeb::class, 'toggleVisibility'])->name('products.toggleVisibility')->middleware('auth');;
+Route::controller(OrdersController::class)
+    ->prefix('orders')
+    ->name('orders.')
+    ->middleware('auth')
 
-Route::get('/orders',[OrdersController::class,'index'])->name('orders.index')->middleware('auth');;
+    ->group(function () {
 
-Route::get('/orders/{id}',[OrdersController::class,'show'])->name('orders.show')->middleware('auth');;
+        Route::get('/', 'index')->name('index');
+        Route::get('/{id}', 'show')->name('show');
+        Route::delete('/{id}', 'destroy')->name('destroy');
+    });
 
-Route::delete('/orders/{id}',[OrdersController::class,'destroy'])->name('orders.destroy')->middleware('auth');;
 
-Route::get('/login',[AuthController::class,'pageLogin'])->name('login')->middleware('guest');
+Route::controller(CategoryController::class)
+    ->prefix('categories')
+    ->name('categories.')
+    ->middleware('auth')
+    ->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::post('/', 'store')->name('store');
+        Route::delete('/{category}', 'destroy')->name('destroy');
+        Route::put('/{category}', 'update')->name('update');
+        Route::get('/{category}/edit', 'edit')->name('edit');
+    });
 
-Route::post('/login',[AuthController::class,'login'])->name('auth.login')->middleware('guest');
 
-Route::post('/logout',[AuthController::class,'logout'])->name('auth.logout')->middleware('auth');
+
+Route::controller(AuthController::class)->group(function () {
+
+    Route::get('/login', 'pageLogin')->name('login')->middleware('guest');
+    Route::post('/login', 'login')->name('auth.login')->middleware('guest');
+    Route::post('/logout', 'logout')->name('auth.logout')->middleware('auth');
+});
