@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->integer('table_number')->default(0);
-            $table->integer('table_key')->unique();
+            $table->string('table_key')->unique();
             $table->enum('role', UserRole::values())->default(UserRole::USER->value);
             $table->boolean('is_blocked')->default(false); // new column
             $table->timestamp('email_verified_at')->nullable();

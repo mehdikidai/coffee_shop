@@ -1,16 +1,10 @@
 @use "./var" as v;
 
-.page-product {
+.page-ingredients {
     table {
         thead {
             th {
                 background: var(--background-color-two) !important;
-            }
-        }
-        td {
-            span.break {
-                color: var(--main-color);
-                margin-inline: 4px;
             }
         }
 
@@ -67,7 +61,7 @@
     }
 }
 
-.page-product-edit {
+.page-ingredients {
     .box {
         display: flex;
         gap: 20px;
@@ -85,7 +79,7 @@
                 font-size: 18px;
             }
         }
-        h2 {
+        h2{
             margin: 0;
         }
     }

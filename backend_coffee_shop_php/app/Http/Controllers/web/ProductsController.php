@@ -15,7 +15,7 @@ class ProductsController extends Controller
      */
     public function index()
     {
-        $products = Product::with('category')->latest()->paginate(10);
+        $products = Product::with(['category','ingredients'])->latest()->paginate(10);
 
         $categories = Cache::rememberForever('all_categories', fn() => Category::all());
 

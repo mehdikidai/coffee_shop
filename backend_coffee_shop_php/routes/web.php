@@ -1,13 +1,14 @@
 <?php
 
 
-use App\Http\Controllers\web\AuthController;
-use App\Http\Controllers\web\CategoryController;
-use App\Http\Controllers\web\ProductsController as ProductControllerWeb;
-use App\Http\Controllers\web\HomeController;
-use App\Http\Controllers\web\OrdersController;
-use App\Http\Controllers\web\UsersController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\web\AuthController;
+use App\Http\Controllers\web\HomeController;
+use App\Http\Controllers\web\UsersController;
+use App\Http\Controllers\web\OrdersController;
+use App\Http\Controllers\web\CategoryController;
+use App\Http\Controllers\web\IngredientController;
+use App\Http\Controllers\web\ProductsController as ProductControllerWeb;
 
 
 Route::get('/', HomeController::class)->name('home')->middleware('auth');
@@ -26,7 +27,6 @@ Route::controller(UsersController::class)
         Route::delete('/{id}',  'destroy')->name('destroy');
         Route::get('/{id}/edit',  'edit')->name('edit');
         Route::patch('/{id}/toggle-blocked',  'toggleBlocked')->name('toggleBlocked');
-
     });
 
 
@@ -80,3 +80,12 @@ Route::controller(AuthController::class)->group(function () {
     Route::post('/login', 'login')->name('auth.login')->middleware('guest');
     Route::post('/logout', 'logout')->name('auth.logout')->middleware('auth');
 });
+
+
+Route::controller(IngredientController::class)
+    ->prefix('ingredients')
+    ->name('ingredients.')
+    ->middleware('auth')
+    ->group(function () {
+        route::get('/', 'index')->name('index');
+    });

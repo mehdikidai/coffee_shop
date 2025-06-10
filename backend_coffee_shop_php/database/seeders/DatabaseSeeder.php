@@ -7,6 +7,9 @@ use App\Enum\UserRole;
 use App\Models\Product;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use App\Models\Category;
+use App\Models\Ingredient;
+use App\Models\IngredientProduct;
+use Database\Factories\IngredientFactory;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
@@ -21,7 +24,6 @@ class DatabaseSeeder extends Seeder
         User::factory()->create([
             'name' => 'mehdi',
             'email' => 'mehdikidai@gmail.com',
-            'is_blocked' => true,
             'role' => UserRole::ADMIN->value,
             'password' => Hash::make('12345678')
         ]);
@@ -72,6 +74,32 @@ class DatabaseSeeder extends Seeder
                 ]
             );
         }
+
+        foreach ($this->ingredients as $in) {
+            Ingredient::factory()->create([
+                'name' => $in['name'],
+                'unit' => $in['unit'],
+                'stock' => $in['stock']
+            ]);
+        }
+
+        IngredientProduct::factory()->create([
+            'product_id' => 1,
+            'ingredient_id' => 1,
+            'quantity' => 14,
+        ]);
+
+        IngredientProduct::factory()->create([
+            'product_id' => 5,
+            'ingredient_id' => 1,
+            'quantity' => 14,
+        ]);
+
+        IngredientProduct::factory()->create([
+            'product_id' => 5,
+            'ingredient_id' => 2,
+            'quantity' => 1,
+        ]);
     }
 
     protected $categories = [
@@ -427,6 +455,24 @@ class DatabaseSeeder extends Seeder
             "price" => 3,
             "photo" => "https://zaz-fashion.com/wp-content/uploads/2025/05/honey.jpg",
             "categoryId" => 7,
+        ],
+    ];
+
+    protected $ingredients = [
+        [
+            "name" => "coffee",
+            "unit" => "g",
+            "stock" => 5000
+        ],
+        [
+            "name" => "milk",
+            "unit" => "l",
+            "stock" => 40
+        ],
+        [
+            "name" => "honey",
+            "unit" => "g",
+            "stock" => 3000
         ],
     ];
 }

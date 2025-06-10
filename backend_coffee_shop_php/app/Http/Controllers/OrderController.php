@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\IngredientProduct;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Product;
@@ -33,9 +34,19 @@ class OrderController extends Controller
             ]);
 
             foreach ($validated['items'] as $item) {
-                $product = Product::find($item['product_id']);
+
+                $product = Product::with('ingredients')->findOrFail($item['product_id']);
+
+                foreach ($product->ingredients as $ingredient) {
+                    $pivotQuantity = $ingredient->pivot->quantity;
+                    $totalQuantityUsed = $pivotQuantity * $item['quantity'];
+                    $ingredient->decrement('stock', $totalQuantityUsed);
+                }
+
                 $lineTotal = $product->price * $item['quantity'];
+
                 $total += $lineTotal;
+
                 OrderItem::create([
                     'order_id' => $order->id,
                     'product_id' => $product->id,
@@ -43,6 +54,7 @@ class OrderController extends Controller
                     'price' => $product->price,
                 ]);
             }
+
 
             $order->update([
                 'total_price' => $total,

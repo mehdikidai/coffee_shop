@@ -65,10 +65,19 @@
             </li>
 
             <li class="{{ request()->routeIs('orders.*') ? 'active' : '' }}">
+                <a href="{{ route('ingredients.index') }}">
+                    <x-icon name="shelves" /> ingredients
+                </a>
+            </li>
+
+            <li class="{{ request()->routeIs('orders.*') ? 'active' : '' }}">
                 <a href="{{ route('orders.index') }}">
                     <x-icon name="receipt" /> {{ __('nav.orders') ?? "orders" }}
                 </a>
             </li>
+
+
+
 
             <li>
                 <form action="{{ route('auth.logout') }}" method="POST" style="display: inline;">

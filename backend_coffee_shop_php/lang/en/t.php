@@ -9,6 +9,7 @@ return [
     'date_to' => 'Date To',
     'id' => 'id',
     'name' => 'name',
+    'unit' => 'unit',
     'email' => 'email',
     'password' => 'password',
     'role' => 'role',
@@ -44,5 +45,7 @@ return [
     "total" => "total",
     "date" => "date",
     "filter_by_date" => "filter by date",
+    "stock" => "stock",
+    "ingredients" => "ingredients",
 
 ];
