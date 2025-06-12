@@ -19,6 +19,7 @@
 @forward "./air_date_picker";
 @forward "./categories";
 @forward "./ingredients";
+@forward "./title_edit_component";
 
 .btn-filter {
     width: fit-content;
@@ -85,7 +86,7 @@
                 }
                 &.active {
                     a {
-                        i {
+                        &,* {
                             color: #ffb469 !important;
                         }
                     }
@@ -174,6 +175,8 @@
         }
     }
 }
+
+
 
 @include respond-to("mobile") {
     table {

@@ -57,7 +57,6 @@
             width: 60px;
         }
     }
-    @include v.k-pagination;
 
     .k-button-add-product {
         gap: 2px;
@@ -67,26 +66,4 @@
     }
 }
 
-.page-product-edit {
-    .box {
-        display: flex;
-        gap: 20px;
-        align-items: center;
-        button {
-            background: var(--background-color-two);
-            height: 32px;
-            width: 32px;
-            clip-path: inset(0 round 16px);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            i {
-                color: var(--color-white);
-                font-size: 18px;
-            }
-        }
-        h2 {
-            margin: 0;
-        }
-    }
-}
+

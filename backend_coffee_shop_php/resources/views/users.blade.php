@@ -66,25 +66,7 @@
         </table>
     </div>
 
-
-
-
-
-
-    @if ($users->lastPage() > 1)
-        <nav>
-            <ul class="k-pagination">
-                {{-- Page Number Links --}}
-                @for ($i = 1; $i <= $users->lastPage(); $i++)
-                    @if ($i == $users->currentPage())
-                        <li class="page-item active"><span class="page-link">{{ $i }}</span></li>
-                    @else
-                        <li class="page-item"><a class="page-link" href="{{ $users->url($i) }}">{{ $i }}</a></li>
-                    @endif
-                @endfor
-            </ul>
-        </nav>
-    @endif
+    {{ $users->links() }}
 
 
     <!-- Modal -->

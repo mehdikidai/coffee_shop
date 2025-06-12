@@ -9,8 +9,8 @@ class Ingredient extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['name', 'unit', 'unit_name', 'stock', 'price_per_unit', 'stock_threshold'];
 
-    protected $fillable = ['name', 'unit','stock'];
 
     public function products()
     {

@@ -57,7 +57,6 @@ new AirDatepicker("#input_filter_statistics", {
     //visible: true,
 });
 
-
 const btnMenu = document.getElementById("btn_menu");
 if (btnMenu) {
     btnMenu.addEventListener("click", function () {
@@ -72,6 +71,30 @@ if (btnClose) {
     });
 }
 
-
-
 confirmDelete(".form-delete-category");
+
+document.addEventListener("DOMContentLoaded", () => {
+    const wrapper = document.getElementById("ingredients-wrapper");
+    if (!wrapper) return;
+
+    function checkWrapperEmpty() {
+
+        if (wrapper.children.length === 0) {
+            wrapper.style.display = "none";
+        } else {
+            wrapper.style.display = "block";
+        }
+    }
+
+
+    checkWrapperEmpty();
+
+    wrapper.querySelectorAll(".remove-ingredient").forEach((btn) => {
+        btn.addEventListener("click", (e) => {
+            const group = e.target.closest(".ingredient-group");
+            group.remove();
+            checkWrapperEmpty();
+        });
+    });
+});
+

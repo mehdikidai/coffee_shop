@@ -54,36 +54,10 @@
         }
     }
 
-    @include v.k-pagination;
-
     .k-button-add-category {
         gap: 2px;
         i {
             font-size: 16px;
-        }
-    }
-}
-
-.page-update-category {
-    .box {
-        display: flex;
-        gap: 20px;
-        align-items: center;
-        button {
-            background: var(--background-color-two);
-            height: 32px;
-            width: 32px;
-            clip-path: inset(0 round 16px);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            i {
-                color: var(--color-white);
-                font-size: 18px;
-            }
-        }
-        h2 {
-            margin: 0;
         }
     }
 }

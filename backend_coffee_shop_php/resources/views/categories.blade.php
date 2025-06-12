@@ -54,19 +54,7 @@
         </div>
 
 
-        @if ($categories->lastPage() > 1)
-            <nav>
-                <ul class="k-pagination">
-                    @for ($i = 1; $i <= $categories->lastPage(); $i++)
-                        @if ($i == $categories->currentPage())
-                            <li class="page-item active"><span class="page-link">{{ $i }}</span></li>
-                        @else
-                            <li class="page-item"><a class="page-link" href="{{ $categories->url($i) }}">{{ $i }}</a></li>
-                        @endif
-                    @endfor
-                </ul>
-            </nav>
-        @endif
+        {{ $categories->links() }}
 
 
     @else

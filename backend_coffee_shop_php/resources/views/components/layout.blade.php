@@ -64,7 +64,7 @@
                 </a>
             </li>
 
-            <li class="{{ request()->routeIs('orders.*') ? 'active' : '' }}">
+            <li class="{{ request()->routeIs('ingredients.*') ? 'active' : '' }}">
                 <a href="{{ route('ingredients.index') }}">
                     <x-icon name="shelves" /> ingredients
                 </a>

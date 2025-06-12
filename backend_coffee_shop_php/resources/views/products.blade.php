@@ -14,9 +14,8 @@
                     <th scope="col" class="th-id text-capitalize"> {{ __('t.id') ?? "id" }} </th>
                     <th scope="col" class="th-name text-capitalize"> {{ __('t.name') ?? "name" }} </th>
                     <th scope="col" class="th-price text-capitalize"> {{ __('t.price') ?? "price" }} </th>
+                    <th scope="col" class="th-category text-capitalize"> {{ __('t.ingredients') ?? "ingredients" }}</th>
                     <th scope="col" class="th-category text-capitalize"> {{ __('t.category') ?? "category" }} </th>
-                    <th scope="col" class="th-category text-capitalize"> {{ __('t.ingredients') ?? "ingredients" }}
-                    </th>
                     <th scope="col" class="th-photo text-capitalize"> {{ __('t.photo') ?? "photo" }} </th>
                     <th scope="col" class="th-actions text-capitalize"> {{ __('t.actions') ?? "actions" }} </th>
                 </tr>
@@ -73,23 +72,7 @@
         </table>
     </div>
 
-
-
-
-
-    @if ($products->lastPage() > 1)
-        <nav>
-            <ul class="k-pagination">
-                @for ($i = 1; $i <= $products->lastPage(); $i++)
-                    @if ($i == $products->currentPage())
-                        <li class="page-item active"><span class="page-link">{{ $i }}</span></li>
-                    @else
-                        <li class="page-item"><a class="page-link" href="{{ $products->url($i) }}">{{ $i }}</a></li>
-                    @endif
-                @endfor
-            </ul>
-        </nav>
-    @endif
+     {{ $products->links() }}
 
     <!-- Modal -->
     <div class="modal fade" data-bs-theme="dark" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"

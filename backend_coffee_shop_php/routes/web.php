@@ -88,4 +88,8 @@ Route::controller(IngredientController::class)
     ->middleware('auth')
     ->group(function () {
         route::get('/', 'index')->name('index');
+        route::post('/', 'store')->name('store');
+        route::get('/{ingredient}/edit', 'edit')->name('edit');
+        route::delete('/{ingredient}', 'destroy')->name('destroy');
+        route::put('/{ingredient}', 'update')->name('update');
     });

@@ -1,11 +1,6 @@
 <x-layout title="update category Page" name_page="page-update-category container mt-3">
 
-    <div class="box">
-        <button class="back" onclick="history.back()">
-            <x-icon name="arrow_back" />
-        </button>
-        <h2 class="text-light">Update category</h2>
-    </div>
+    <x-title-edit text="Update category"></x-title-edit>
 
     <form action="{{ route('categories.update', $category->id) }}" method="POST" data-bs-theme="dark">
         @csrf

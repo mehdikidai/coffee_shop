@@ -13,9 +13,12 @@ return new class extends Migration
     {
         Schema::create('ingredients', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('name')->unique();
             $table->string('unit');
-            $table->integer('stock')->default(0);
+            $table->string('unit_name');
+            $table->decimal('stock', 10, 2)->default(0);
+            $table->decimal('price_per_unit', 10, 2)->default(0);
+            $table->decimal('stock_threshold', 10, 2)->default(0);
             $table->timestamps();
         });
     }

@@ -9,12 +9,12 @@
         }
 
         .th-actions {
-            width: 200px;
+            width: 320px;
         }
         .td-actions {
             .box-actions {
                 display: grid;
-                grid-template-columns: 1fr 1fr 1fr;
+                grid-template-columns: auto auto auto;
                 gap: 4px;
                 a,
                 button {
@@ -51,7 +51,7 @@
             width: 60px;
         }
     }
-    @include v.k-pagination;
+
 
     .k-button-add-product {
         gap: 2px;

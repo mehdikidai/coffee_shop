@@ -79,7 +79,10 @@ class DatabaseSeeder extends Seeder
             Ingredient::factory()->create([
                 'name' => $in['name'],
                 'unit' => $in['unit'],
-                'stock' => $in['stock']
+                'unit_name' => $in['unit_name'],
+                'stock' => $in['stock'],
+                'price_per_unit' => $in['price_per_unit'],
+                'stock_threshold' => $in['stock_threshold'],
             ]);
         }
 
@@ -462,17 +465,50 @@ class DatabaseSeeder extends Seeder
         [
             "name" => "coffee",
             "unit" => "g",
-            "stock" => 5000
+            "unit_name" => "gram",
+            "stock" => 5000,
+            "price_per_unit" => 0.05,
+            "stock_threshold" => 500,
         ],
         [
             "name" => "milk",
             "unit" => "l",
-            "stock" => 40
+            "unit_name" => "liter",
+            "stock" => 40,
+            "price_per_unit" => 1.20,
+            "stock_threshold" => 5,
         ],
         [
             "name" => "honey",
             "unit" => "g",
-            "stock" => 3000
+            "unit_name" => "gram",
+            "stock" => 3000,
+            "price_per_unit" => 0.10,
+            "stock_threshold" => 300,
+        ],
+        [
+            "name" => "water bottle 1.5",
+            "unit" => "bottle",
+            "unit_name" => "bottle",
+            "stock" => 100,
+            "price_per_unit" => 5,
+            "stock_threshold" => 20,
+        ],
+        [
+            "name" => "water bottle 0.5",
+            "unit" => "bottle",
+            "unit_name" => "bottle",
+            "stock" => 100,
+            "price_per_unit" => 3,
+            "stock_threshold" => 20,
+        ],
+        [
+            "name" => "water bottle 0.33",
+            "unit" => "bottle",
+            "unit_name" => "bottle",
+            "stock" => 100,
+            "price_per_unit" => 2,
+            "stock_threshold" => 20,
         ],
     ];
 }

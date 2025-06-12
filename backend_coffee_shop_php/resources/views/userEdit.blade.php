@@ -1,12 +1,6 @@
 <x-layout title="product edit Page" name_page="page-product-edit container mt-3">
 
-
-    <div class="box">
-        <button class="back" id="btn_back_edit_product" onclick="history.back()">
-            <x-icon name="arrow_back" />
-        </button>
-        <h2 class="text-light text-capitalize"> {{ __('t.update_user') ?? "update user" }} </h2>
-    </div>
+    <x-title-edit text="{{ __('t.update_user') ?? 'update user' }}"></x-title-edit>
 
     <form action="{{ route('users.update', $user->id) }}" method="POST" enctype="multipart/form-data"
         data-bs-theme="dark">

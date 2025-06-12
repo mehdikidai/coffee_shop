@@ -4,6 +4,7 @@ namespace App\Http\Controllers\web;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\Ingredient;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
@@ -15,7 +16,7 @@ class ProductsController extends Controller
      */
     public function index()
     {
-        $products = Product::with(['category','ingredients'])->latest()->paginate(10);
+        $products = Product::with(['category', 'ingredients'])->orderBy('id')->paginate(10);
 
         $categories = Cache::rememberForever('all_categories', fn() => Category::all());
 
@@ -85,26 +86,78 @@ class ProductsController extends Controller
 
         $categories = Cache::rememberForever('all_categories', fn() => Category::all());
 
-        return view("productEdit", compact('product', 'categories'));
+        $ingredients = Ingredient::all();
+
+        $oldIngredients = $product->ingredients->map(function ($ingredient) {
+            return [
+                'id' => $ingredient->id,
+                'quantity' => $ingredient->pivot->quantity,
+            ];
+        })->toArray();
+
+        return view("productEdit", compact('product', 'categories', 'ingredients', 'oldIngredients'));
     }
 
     /**
      * Update the specified resource in storage.
      */
+    // public function update(Request $request, string $id)
+    // {
+    //     $product = Product::findOrFail($id);
+
+    //     $data = $request->validate([
+    //         'name' => ['required', 'string', 'min:3'],
+    //         'price' => ['required', 'numeric', 'min:0'],
+    //         'photo' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048'],
+    //         'category_id' => ['required', 'integer', 'exists:categories,id'],
+    //         'ingredients.*.id' => 'required|exists:ingredients,id',
+    //         'ingredients.*.ingredient' => 'required|integer|min:1',
+    //     ]);
+
+
+    //     if ($request->hasFile('photo')) {
+
+    //         $oldPath = public_path(parse_url($product->photo, PHP_URL_PATH));
+    //         if (file_exists($oldPath)) {
+    //             unlink($oldPath);
+    //         }
+
+    //         $fileName = time() . '.' . $request->photo->extension();
+    //         $request->photo->move(public_path('uploads/products'), $fileName);
+    //         $uri = "uploads/products/$fileName";
+    //         $data['photo'] = asset($uri);
+    //     }
+
+
+    //     $product->update($data);
+
+    //     return redirect()->route('products.index')->with('success', 'Product updated successfully.');
+    // }
+
+
     public function update(Request $request, string $id)
     {
         $product = Product::findOrFail($id);
+
+        $ingredients = $request->input('ingredients', []);
+
+        $filteredIngredients = array_filter($ingredients, function ($ing) {
+            return isset($ing['id']) && $ing['id'] !== '' && isset($ing['quantity']) && $ing['quantity'] !== '';
+        });
+
+        $request->merge(['ingredients' => $filteredIngredients]);
 
         $data = $request->validate([
             'name' => ['required', 'string', 'min:3'],
             'price' => ['required', 'numeric', 'min:0'],
             'photo' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048'],
             'category_id' => ['required', 'integer', 'exists:categories,id'],
+            'ingredients' => ['sometimes', 'array'],
+            'ingredients.*.id' => ['required', 'integer', 'exists:ingredients,id'],
+            'ingredients.*.quantity' => ['required', 'numeric', 'min:0.01'],
         ]);
 
-
         if ($request->hasFile('photo')) {
-
             $oldPath = public_path(parse_url($product->photo, PHP_URL_PATH));
             if (file_exists($oldPath)) {
                 unlink($oldPath);
@@ -119,8 +172,17 @@ class ProductsController extends Controller
 
         $product->update($data);
 
+        if (isset($data['ingredients'])) {
+            $ingredients = [];
+            foreach ($data['ingredients'] as $ingredient) {
+                $ingredients[$ingredient['id']] = ['quantity' => $ingredient['quantity']];
+            }
+            $product->ingredients()->sync($ingredients);
+        }
+
         return redirect()->route('products.index')->with('success', 'Product updated successfully.');
     }
+
 
 
 

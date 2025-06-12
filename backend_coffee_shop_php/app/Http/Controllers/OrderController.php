@@ -38,9 +38,13 @@ class OrderController extends Controller
                 $product = Product::with('ingredients')->findOrFail($item['product_id']);
 
                 foreach ($product->ingredients as $ingredient) {
-                    $pivotQuantity = $ingredient->pivot->quantity;
+
+                    $pivotQuantity = $ingredient->pivot->quantity; // quantity in ingredient_product
+
                     $totalQuantityUsed = $pivotQuantity * $item['quantity'];
-                    $ingredient->decrement('stock', $totalQuantityUsed);
+
+                    $ingredient->decrement('stock', $totalQuantityUsed); // decrement stoke
+
                 }
 
                 $lineTotal = $product->price * $item['quantity'];

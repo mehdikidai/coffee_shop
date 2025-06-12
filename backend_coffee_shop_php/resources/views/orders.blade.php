@@ -71,19 +71,7 @@
             </table>
         </div>
 
-        @if ($orders->lastPage() > 1)
-            <nav>
-                <ul class="k-pagination">
-                    @for ($i = 1; $i <= $orders->lastPage(); $i++)
-                        @if ($i == $orders->currentPage())
-                            <li class="page-item active"><span class="page-link">{{ $i }}</span></li>
-                        @else
-                            <li class="page-item"><a class="page-link" href="{{ $orders->url($i) }}">{{ $i }}</a></li>
-                        @endif
-                    @endfor
-                </ul>
-            </nav>
-        @endif
+       {{ $orders->links() }}
 
 
     @else

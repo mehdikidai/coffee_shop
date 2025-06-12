@@ -1,11 +1,6 @@
 <x-layout title="product edit Page" name_page="page-product-edit container mt-3">
 
-    <div class="box">
-        <button class="back" id="btn_back_edit_product" onclick="history.back()">
-            <x-icon name="arrow_back" />
-        </button>
-        <h2 class="text-light">Update Product</h2>
-    </div>
+    <x-title-edit text="Update Product"></x-title-edit>
 
     <form action="{{ route('products.update', $product->id) }}" method="POST" enctype="multipart/form-data"
         data-bs-theme="dark">
@@ -34,6 +29,57 @@
                 @endforeach
             </select>
         </div>
+
+        @if (!empty($oldIngredients) && is_array($oldIngredients))
+            <div id="ingredients-wrapper">
+                <label for="ingredients" class="form-label text-light mb-2 text-capitalize">ingredients</label>
+                @foreach ($oldIngredients as $index => $old)
+                    <div class="ingredient-group input-group-sm d-flex gap-2 mb-2" data-index="{{ $index }}">
+                        <select name="ingredients[{{ $index }}][id]" class="form-select text-capitalize">
+                            <option value=""> {{ __('t.select_the_component') ?? "select the component" }} </option>
+                            @foreach($ingredients as $ingredient)
+                                <option value="{{ $ingredient->id }}" {{ $old['id'] == $ingredient->id ? 'selected' : '' }}>
+                                    {{ $ingredient->name }}
+                                </option>
+                            @endforeach
+                        </select>
+
+                        <input type="number" name="ingredients[{{ $index }}][quantity]" class="form-control"
+                            value="{{ $old['quantity'] }}" min="0" step="any"
+                            placeholder=" {{ __('t.quantity') ?? "quantity" }} ">
+                        <button type="button" class="btn btn-danger btn-sm remove-ingredient text-capitalize">
+                            {{ __('t.delete') }} </button>
+                    </div>
+                @endforeach
+            </div>
+        @endif
+
+
+
+
+
+        <div class="input-group-sm mb-2">
+            <label for="ingredients" class="form-label text-light mb-2 text-capitalize">new ingredient</label>
+            <div>
+                <div class="input-group-sm input-group-sm d-flex gap-2 mb-2">
+                    <select name="ingredients[{{ count($oldIngredients) }}][id]" class="form-select text-capitalize">
+                        <option value="" selected>select the ingredients</option>
+                        @foreach($ingredients as $ingredient)
+                            <option value="{{ $ingredient->id }}">
+                                {{ $ingredient->name }} | {{ $ingredient->unit_name }}
+                            </option>
+                        @endforeach
+                    </select>
+
+                    <input type="number" name="ingredients[{{ count($oldIngredients) }}][quantity]" class="form-control"
+                        min="0" step="any" placeholder="{{ __('t.quantity') ?? "Quantity" }}">
+                </div>
+
+            </div>
+        </div>
+
+
+
 
         <div class="mb-3 input-group-sm">
             <label for="formFile" class="form-label text-light">Photo product</label>

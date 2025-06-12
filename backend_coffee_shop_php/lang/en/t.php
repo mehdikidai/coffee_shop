@@ -10,6 +10,7 @@ return [
     'id' => 'id',
     'name' => 'name',
     'unit' => 'unit',
+    'unit_name' => 'unit name',
     'email' => 'email',
     'password' => 'password',
     'role' => 'role',
@@ -47,5 +48,10 @@ return [
     "filter_by_date" => "filter by date",
     "stock" => "stock",
     "ingredients" => "ingredients",
-
+    "new_ingredient" => "new ingredient",
+    "select_the_component" => "select the component",
+    "add_ingredient" => "add ingredient",
+    "price_per_unit" => "price per unit",
+    "stock_threshold" => "stock threshold",
+    "update_ingredient" => "update ingredient",
 ];
