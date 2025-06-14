@@ -45,17 +45,12 @@
 <script setup lang="ts">
 import { useCartStore } from '@/stores/cart'
 import { storeToRefs } from 'pinia'
-import axios from 'axios'
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
-import moment from 'moment'
 import { toast } from 'vue3-toastify'
 import { toastOptions } from '@/config/toast'
-import { useUserStore } from '@/stores/user.ts'
-import { generateOrderId } from '@/helper'
 import XEmpty from '@/components/XEmpty.vue'
 
-const userStore = useUserStore()
 
 const router = useRouter()
 const currency = import.meta.env.VITE_CURRENCY
@@ -64,57 +59,26 @@ const { cart, totalPrice } = storeToRefs(cartStore)
 const { decreaseItemQuantity, removeItemFromCart, addItemToCart } = cartStore
 const loading = ref<boolean>(false)
 
-const tokenSheetDb = import.meta.env.VITE_TOKEN_SHEETDB
-const uriSheetDb = import.meta.env.VITE_SHEETDB_URI
-
 const increaseItemQuantity = (item: (typeof cart.value)[number]) => {
   addItemToCart(item)
 }
 
 const sendData = async () => {
-  const orderId = generateOrderId()
-  const today = moment().format('DD/MM/YYYY')
-  const hour = moment().format('HH:mm:ss')
-
   loading.value = true
-
   try {
-    /*
-    for (const item of cart.value) {
-      await axios.post(
-        uriSheetDb,
-        {
-          id: 'INCREMENT',
-          order_id: orderId,
-          customer: userStore.userName,
-          customer_id: userStore.id,
-          date: today,
-          time: hour,
-          name: item.name,
-          price: item.price,
-          quantity: item.quantity,
-          total: `${item.price * item.quantity}`,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${tokenSheetDb}`,
-          },
-        },
-      )
-    } */
-
     await cartStore.createOrder()
-
     toast.success(`It's done`, {
       ...toastOptions,
       onClose: () => router.push('/'),
     })
   } catch (error) {
     console.error('Failed to send to Google Sheets:', error)
+    
   } finally {
     loading.value = false
   }
 }
+
 </script>
 
 <style scoped lang="scss">

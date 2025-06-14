@@ -1,0 +1,10 @@
+.setting {
+    h4 {
+        color: var(--color-white) !important;
+    }
+    .list-group{
+        &-item{
+            padding-inline: 0 !important;
+        }
+    }
+}

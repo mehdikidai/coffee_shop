@@ -9,6 +9,8 @@ use App\Models\Product;
 use App\Models\Category;
 use App\Models\Ingredient;
 use App\Models\IngredientProduct;
+use App\Models\Receipt;
+use App\Models\StockLog;
 use Database\Factories\IngredientFactory;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
@@ -103,6 +105,11 @@ class DatabaseSeeder extends Seeder
             'ingredient_id' => 2,
             'quantity' => 1,
         ]);
+
+        Receipt::factory(5)->create();
+
+        StockLog::factory(50)->create();
+
     }
 
     protected $categories = [

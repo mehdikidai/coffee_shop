@@ -5,8 +5,6 @@ import { ref, watch, onMounted, computed } from 'vue'
 import CupImg from '@/assets/imgs/cup-test.jpg'
 import { useProductsStore } from '@/stores/products.ts'
 import { useCartStore } from '@/stores/cart'
-import { moveItem } from '@/helper'
-
 
 const storeProducts = useProductsStore()
 const { addItemToCart, quantityInCart } = useCartStore()

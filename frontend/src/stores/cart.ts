@@ -109,12 +109,11 @@ export const useCartStore = defineStore('cart', () => {
           quantity: item.quantity,
         })),
       })
-
       console.log('Order response:', res.data)
-
       resetCart()
     } catch (error) {
       console.error('Order creation error:', error)
+      throw error
     }
   }
 

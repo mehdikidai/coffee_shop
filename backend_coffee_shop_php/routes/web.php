@@ -9,7 +9,8 @@ use App\Http\Controllers\web\OrdersController;
 use App\Http\Controllers\web\CategoryController;
 use App\Http\Controllers\web\IngredientController;
 use App\Http\Controllers\web\ProductsController as ProductControllerWeb;
-
+use App\Http\Controllers\web\SettingController;
+use App\Http\Controllers\web\StockLogController;
 
 Route::get('/', HomeController::class)->name('home')->middleware('auth');
 
@@ -93,3 +94,23 @@ Route::controller(IngredientController::class)
         route::delete('/{ingredient}', 'destroy')->name('destroy');
         route::put('/{ingredient}', 'update')->name('update');
     });
+
+
+Route::controller(StockLogController::class)
+    ->prefix('stock')
+    ->name('stock.log.')
+    ->middleware('auth')
+    ->group(function () {
+        Route::get('/log', 'index')->name('index');
+        Route::get('/add', 'showAddToStock')->name('show.add.to.stock');
+        Route::post('/', 'store')->name('store');
+    });
+
+Route::controller(SettingController::class)
+    ->prefix('setting')
+    ->name('setting.')
+    ->middleware('auth')
+    ->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::get('/lang/{locale}', 'lang')->name('lang');
+    });;

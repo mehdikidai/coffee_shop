@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\IngredientProduct;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Product;
@@ -87,8 +86,13 @@ class OrderController extends Controller
             ->orderBy('created_at', 'desc')
             ->get();
 
+        $total = 0;
 
-        $total = $sales->sum(fn($order) => $order->items->sum(fn($item) => $item->price * $item->quantity));
+        foreach ($sales as $order) {
+            foreach ($order->items as $item) {
+                $total += $item->price * $item->quantity;
+            }
+        }
 
         return response()->json([
             'total_sales' => $total,

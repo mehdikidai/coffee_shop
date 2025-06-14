@@ -180,7 +180,7 @@ class ProductsController extends Controller
             $product->ingredients()->sync($ingredients);
         }
 
-        return redirect()->route('products.index')->with('success', 'Product updated successfully.');
+        return redirect()->back()->with('success', 'Product updated successfully.');
     }
 
 

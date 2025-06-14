@@ -5,7 +5,8 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
-use App\Models\User;
+
+
 
 Route::get('/categories', [CategoryController::class, 'index'])->middleware('auth:sanctum');
 
@@ -23,8 +24,3 @@ Route::post('/orders', [OrderController::class, 'store'])->middleware('auth:sanc
 
 Route::get('/orders', [OrderController::class, 'salesToday'])->middleware('auth:sanctum');
 
-
-Route::get('/users',function(){
-    $users = User::all();
-    return response()->json($users);
-});

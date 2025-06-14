@@ -70,14 +70,25 @@
                 </a>
             </li>
 
+
+            <li class="{{ request()->routeIs('stock.log.*') ? 'active' : '' }}">
+                <a href="{{ route('stock.log.index') }}">
+                    <x-icon name="schedule" /> stock log
+                </a>
+            </li>
+
+
             <li class="{{ request()->routeIs('orders.*') ? 'active' : '' }}">
                 <a href="{{ route('orders.index') }}">
                     <x-icon name="receipt" /> {{ __('nav.orders') ?? "orders" }}
                 </a>
             </li>
 
-
-
+             <li class="{{ request()->routeIs('setting.*') ? 'active' : '' }}">
+                <a href="{{ route('setting.index') }}">
+                    <x-icon name="settings" /> {{ __('t.setting') ?? "setting" }} 
+                </a>
+            </li>
 
             <li>
                 <form action="{{ route('auth.logout') }}" method="POST" style="display: inline;">

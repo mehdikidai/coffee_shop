@@ -78,14 +78,12 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!wrapper) return;
 
     function checkWrapperEmpty() {
-
         if (wrapper.children.length === 0) {
             wrapper.style.display = "none";
         } else {
             wrapper.style.display = "block";
         }
     }
-
 
     checkWrapperEmpty();
 
@@ -98,3 +96,52 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 });
 
+document.querySelectorAll(".btn-receipt").forEach((el) => {
+    el.addEventListener("click", (e) => {
+        const imgUrl = e.target.dataset.img;
+        document.getElementById("receiptImage").src = imgUrl;
+
+        const modal = new bootstrap.Modal(
+            document.getElementById("receiptModal")
+        );
+        modal.show();
+    });
+});
+
+
+
+let index = 1;
+
+document.getElementById("add-ingredient").addEventListener("click", () => {
+    const wrapper = document.getElementById("ingredients-wrapper");
+    const firstItem = wrapper.querySelector(".ingredient-item");
+
+    const clone = firstItem.cloneNode(true);
+
+
+    clone.querySelectorAll("select, input").forEach(el => {
+        if (el.name.includes("ingredient_id")) {
+            el.name = `ingredients[${index}][ingredient_id]`;
+        }
+        if (el.name.includes("quantity")) {
+            el.name = `ingredients[${index}][quantity]`;
+        }
+        if (el.type !== "hidden") {
+            el.value = "";  // تنظيف القيم القديمة
+        }
+    });
+
+    wrapper.appendChild(clone);
+    index++;
+});
+
+document.addEventListener("click", e => {
+    if (e.target.classList.contains("remove-ingredient")) {
+        const item = e.target.closest(".ingredient-item");
+
+        if (!item) return;
+
+        item.remove();
+
+    }
+});
