@@ -94,7 +94,7 @@ input,select{
                 &.active {
                     a {
                         &,* {
-                            color: #ffb469 !important;
+                            color: var(--main-color) !important;
                         }
                     }
                 }

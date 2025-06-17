@@ -80,5 +80,14 @@ return [
     "photo_product" => "photo product",
     "update_product" => "update product",
     "update_category" => "update category",
-    "icon" => "icon"
+    "icon" => "icon",
+    'monday'    => 'Monday',
+    'tuesday'   => 'Tuesday',
+    'wednesday' => 'Wednesday',
+    'thursday'  => 'Thursday',
+    'friday'    => 'Friday',
+    'saturday'  => 'Saturday',
+    'sunday'    => 'Sunday',
+    'weekly_revenue' => 'weekly revenue',
+    'best_seller' => 'best seller'
 ];

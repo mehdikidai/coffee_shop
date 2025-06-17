@@ -15,7 +15,7 @@
         background: transparent;
         display: grid;
         grid-template-columns: 1fr 1fr 1fr 1fr;
-        gap: 10px;
+        gap: 15px;
         .box {
             height: 120px;
             background: var(--background-color-two);
@@ -43,6 +43,19 @@
                     color: var(--main-color);
                 }
             }
+        }
+    }
+    .chart-box {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 15px;
+        margin-top: 20px;
+        .box {
+            aspect-ratio: 19/9;
+            background: var(--background-color-two);
+            border-radius: 6px;
+            padding: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
     }
 }

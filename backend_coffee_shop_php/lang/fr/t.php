@@ -81,5 +81,13 @@ return [
     "update_product" => "mettre à jour le produit",
     "update_category" => "mettre à jour la catégorie",
     "icon" => "icône",
+    'monday'    => 'Lundi',
+    'tuesday'   => 'Mardi',
+    'wednesday' => 'Mercredi',
+    'thursday'  => 'Jeudi',
+    'friday'    => 'Vendredi',
+    'saturday'  => 'Samedi',
+    'sunday'    => 'Dimanche',
+    'weekly_revenue' => 'Revenu hebdomadaire',
 
 ];

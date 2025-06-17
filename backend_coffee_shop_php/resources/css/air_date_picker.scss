@@ -1,17 +1,82 @@
 .air-datepicker-cell.-selected- {
-	color: #fff;
-	border: none;
-	background: var(--background-color) !important;
+    color: #fff;
+    border: none;
+    background: var(--background-color) !important;
     border-radius: 0 !important;
 }
 
 .air-datepicker-cell.-in-range- {
-	background: rgba(42, 60, 61, 0.8) !important;
-	border-radius: 0;
-	color: #fff;
+    background: rgba(42, 60, 61, 0.8) !important;
+    border-radius: 0;
+    color: #fff;
 }
 
-
 .air-datepicker-body--day-name {
-	color: var(--main-color) !important;
+    color: var(--main-color) !important;
+}
+
+.air-datepicker {
+    border-radius: 4px !important;
+    background: var(--background-color-two) !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+
+    .air-datepicker-nav {
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2) !important;
+    }
+
+    .air-datepicker--buttons,
+    .air-datepicker--time {
+        border-top: 1px solid rgba(255, 255, 255, 0.2) !important;
+    }
+
+    .air-datepicker-nav--action path {
+        stroke: #fff;
+    }
+
+    .air-datepicker-nav--title,
+    .air-datepicker-nav--action,
+    .air-datepicker-button {
+        font-size: 14px;
+        &:hover {
+            background: var(--main-color);
+        }
+    }
+
+    * {
+        color: #fff !important;
+    }
+    .air-datepicker-cell {
+        border-radius: 0 !important;
+        font-size: 14px;
+        &:hover {
+            background: var(--background-color) !important;
+        }
+        &.-in-range- {
+            background: var(--background-color) !important;
+        }
+        &.-other-month- {
+            opacity: 0.3;
+        }
+        &.-current- {
+            background: var(--main-color) !important;
+        }
+    }
+}
+
+.air-datepicker-cell {
+    &.-range-to- {
+        border: none !important;
+        background-color: var(--adp-cell-background-color-in-range);
+        border-radius: 0 !important;
+    }
+    &.-range-from- {
+        border: none !important;
+        border-radius: 0 !important;
+    }
+}
+
+[dir="rtl"] {
+    .air-datepicker-nav--action {
+        transform: scale(-1);
+    }
 }

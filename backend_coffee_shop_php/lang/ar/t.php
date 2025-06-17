@@ -14,7 +14,7 @@ return [
     'email' => 'البريد الإلكتروني',
     'password' => 'كلمة المرور',
     'role' => 'الدور',
-    'table' => 'الجدول',
+    'table' => 'طاولة',
     'orders' => 'الطلبات',
     'actions' => 'الإجراءات',
     'edit' => 'تعديل',
@@ -81,5 +81,14 @@ return [
     "update_product" => "تحديث المنتج",
     "update_category" => "تحديث الفئة",
     "icon" => "أيقونة",
+    'monday'    => 'الإثنين',
+    'tuesday'   => 'الثلاثاء',
+    'wednesday' => 'الأربعاء',
+    'thursday'  => 'الخميس',
+    'friday'    => 'الجمعة',
+    'saturday'  => 'السبت',
+    'sunday'    => 'الأحد',
+    'weekly_revenue' => 'الإيرادات الأسبوعية',
+
 
 ];

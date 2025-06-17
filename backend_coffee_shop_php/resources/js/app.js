@@ -41,23 +41,23 @@ let tomorrow = new Date();
 tomorrow.setDate(today.getDate());
 
 const getLocale = () => {
-    const html = document.documentElement
+    const html = document.documentElement;
     switch (html.attributes.lang.value) {
         case "ar":
-            return localeAr
+            return localeAr;
         case "fr":
-            return localeFr
+            return localeFr;
         default:
-            return localeEn
+            return localeEn;
     }
-}
-
+};
 
 new AirDatepicker("#input_filter", {
     locale: getLocale(),
     autoClose: true,
     isMobile: false,
     dateFormat: "yyyy-MM-dd",
+
     //visible: true,
 });
 
@@ -68,8 +68,11 @@ new AirDatepicker("#input_filter_statistics", {
     dateFormat: "d-MM-yy",
     range: true,
     multipleDatesSeparator: " | ",
-    //inline: true
+    //inline: true,
     //visible: true,
+    buttons: ["clear"],
+    autoClose: true,
+    isMobile: true,
 });
 
 const btnMenu = document.getElementById("btn_menu");
