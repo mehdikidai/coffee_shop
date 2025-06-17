@@ -1,6 +1,6 @@
 <x-layout title="product edit Page" name_page="page-product-edit container mt-3">
 
-    <x-title-edit text="{{ __('t.update_user') ?? 'update user' }}"></x-title-edit>
+    <x-title-edit :text=" __('t.update_user') ?? 'update user'"></x-title-edit>
 
     <form action="{{ route('users.update', $user->id) }}" method="POST" enctype="multipart/form-data"
         data-bs-theme="dark">

@@ -27,11 +27,8 @@ class UsersController extends Controller
     public function edit(Request $request)
     {
         $id = $request->id;
-
         $user = User::findOrFail($id);
-
         $roles = UserRole::values();
-
         return view('userEdit', compact('user', 'roles'));
     }
 
@@ -44,8 +41,8 @@ class UsersController extends Controller
         }
 
         $user->delete();
-
         return redirect()->back()->with('success', 'User deleted successfully.');
+        
     }
 
     public function store(Request $request)

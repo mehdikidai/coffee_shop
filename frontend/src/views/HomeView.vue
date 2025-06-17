@@ -129,16 +129,19 @@ const categories = computed(() => storeProducts.categories )
   .product-card {
     background: var(--background-color-two);
     padding: 10px 10px 20px;
-    display: grid;
+    display: flex;
+    flex-direction: column;
     gap: 10px;
     border-radius: 6px;
     position: relative;
+    justify-content: start;
     .img {
       background: rgba(255, 255, 255, 0.1);
       aspect-ratio: 1;
       clip-path: inset(0 round 2px);
       display: flex;
       position: relative;
+      width: calc(100%);
       img {
         width: 100%;
         height: 100%;
@@ -171,6 +174,7 @@ const categories = computed(() => storeProducts.categories )
       color: var(--color-white);
       opacity: 0.7;
       font-size: 14px;
+      margin-top: auto;
     }
 
     .btn-add {

@@ -5,7 +5,7 @@
         <button type="button"
             class="k-button-add-category btn btn-primary mb-3 float-end btn-sm d-flex align-items-center"
             data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-            <x-icon name="add" /> New Product
+            <x-icon name="add" /> {{ __('t.new_category') ?? "new category" }}
         </button>
     </div>
 

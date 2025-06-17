@@ -50,10 +50,11 @@ div.alert {
     border-radius: 4px !important;
     height: 34px;
     width: 34px;
-    &:active,&:focus{
-      outline: none !important;
-      box-shadow: none !important;
-      background: var(--main-color) !important;
+    &:active,
+    &:focus {
+        outline: none !important;
+        box-shadow: none !important;
+        background: var(--main-color) !important;
     }
 }
 
@@ -80,4 +81,36 @@ div.alert {
 .pagination .page-item.active .page-link {
     background-color: var(--main-color);
     color: var(--color-white);
+}
+
+.dropdown {
+    .btn {
+        background: var(--background-color-two);
+        &:hover,
+        &:focus {
+            background: var(--background-color-two);
+        }
+    }
+    .dropdown-menu {
+        --bs-dropdown-bg: var(--background-color-two) !important;
+        &:hover,
+        .dropdown-item:focus {
+            color: var(--bs-dropdown-link-hover-color);
+            background-color: var(--background-color-two);
+            a {
+                &:hover {
+                    background: rgba(255, 255, 255, 0.05);
+                }
+            }
+        }
+    }
+}
+
+[dir="rtl"] {
+    .input-group-sm > .form-control:not([type="file"]),
+    .input-group-sm > .input-group-text {
+        padding: 0 0.5rem !important;
+        font-size: 0.875rem;
+        border-radius: var(--bs-border-radius-sm);
+    }
 }

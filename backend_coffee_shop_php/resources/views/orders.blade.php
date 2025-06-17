@@ -6,7 +6,7 @@
             <div class="input-group input-group-sm">
 
                 <select name="user_id" id="user_id" class="form-select">
-                    <option value="">All</option>
+                    <option value=""> {{ __('t.all') ?? "all" }} </option>
                     @foreach ($users as $user)
                         <option class="text-capitalize" value="{{ $user->id }}" @selected(request('user_id') == $user->id)>{{ $user->name }}
                         </option>
@@ -79,7 +79,7 @@
 
         <div class="box-alert">
             <div class="k-alert alert alert-secondary" role="alert">
-                There is nothing
+                {{ __('alert.there_is_nothing') ?? "there is nothing" }}
             </div>
         </div>
 

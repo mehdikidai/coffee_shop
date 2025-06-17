@@ -95,7 +95,7 @@
                         <div class="mb-3 input-group-sm">
                             <label for="exampleFormControlInput1" class="form-label text-capitalize">
                                 {{ __('t.price_product') ?? "price product" }} </label>
-                            <input type="number" name="price" class="form-control" placeholder="100">
+                            <input type="text" name="price" class="form-control" placeholder="100">
                         </div>
                         <div class="mb-3 input-group-sm">
                             <label for="exampleFormControlInput1" class="form-label text-capitalize">

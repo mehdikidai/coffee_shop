@@ -60,7 +60,8 @@
             text-transform: capitalize;
         }
         .th-actions {
-            width: 200px;
+            width: fit-content !important;
+            white-space: nowrap !important;
         }
         .td-actions {
             .box-actions {

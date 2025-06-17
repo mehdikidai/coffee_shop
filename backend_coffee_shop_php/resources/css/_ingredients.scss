@@ -9,12 +9,13 @@
         }
 
         .th-actions {
-            width: 320px;
+            width: fit-content !important;
+            white-space: nowrap !important;
         }
         .td-actions {
             .box-actions {
                 display: grid;
-                grid-template-columns: auto auto auto;
+                grid-template-columns: 1fr 1fr 1fr;
                 gap: 4px;
                 a,
                 button {
@@ -33,7 +34,7 @@
             width: 300px;
         }
         .th-id {
-            width: 60px;
+            width: 80px;
         }
         .photo-product {
             position: relative;
@@ -41,7 +42,8 @@
                 width: 30px;
                 height: 30px;
                 object-fit: cover;
-                inset: 50%;
+                left: 50%;
+                top: 50%;
                 position: absolute;
                 transform: translate(-50%, -50%);
                 clip-path: inset(0 round 4px);

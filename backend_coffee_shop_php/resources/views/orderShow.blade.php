@@ -1,9 +1,15 @@
 <x-layout title="show orders Page" name_page="page-show-order">
-    
+
     <div class="box-container">
         <div class="box box-items">
             <div class="btn-and-title">
-                <a href="{{ url()->previous() }}"><x-icon name="arrow_back" /></a>
+                <a href="{{ url()->previous() }}">
+                    @if (app()->getLocale() === 'ar')
+                        <x-icon name="arrow_forward" />
+                    @else
+                        <x-icon name="arrow_back" />
+                    @endif
+                </a>
                 <h2 class="box-tit">list items</h2>
             </div>
             <table class="table table-bordered table-sm" data-bs-theme="dark">
@@ -23,7 +29,8 @@
                             <td class="px-2">{{ $item->product->name }}</td>
                             <td class="px-2">{{ $item->quantity }}</td>
                             <td class="px-2">{{ number_format($item->product->price ?? 0, 2) }}
-                                <small>{{ config('setting.currency') }}</small></td>
+                                <small>{{ config('setting.currency') }}</small>
+                            </td>
                         </tr>
                     @endforeach
 
@@ -68,7 +75,8 @@
                             <th scope="row" class="px-2">Total</th>
                             <td class="px-2">
                                 {{ number_format($order->items->sum(fn($item) => $item->quantity * $item->product->price) ?? 0, 2) }}
-                                <small>{{ config('setting.currency') }}</small> </td>
+                                <small>{{ config('setting.currency') }}</small>
+                            </td>
                         </tr>
 
                     </tbody>

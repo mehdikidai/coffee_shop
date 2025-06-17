@@ -19,7 +19,7 @@
 
     table {
         .th-actions {
-            width: 1% !important;
+            width: fit-content !important;
             white-space: nowrap !important;
         }
         .td-actions {
@@ -27,7 +27,7 @@
                 display: grid;
                 grid-template-columns: 1fr 1fr;
                 gap: 4px;
-                width: 200px;
+                width: 100%;
                 a,
                 button {
                     display: flex;
@@ -44,7 +44,8 @@
             width: 100px;
         }
         .th-order-name {
-            width: 160px;
+            width: fit-content !important;
+            white-space: nowrap !important;
         }
         .th-quantity {
             width: 100px;

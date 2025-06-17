@@ -4,7 +4,6 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    //font-family: "Inter", sans-serif;
     font-family: "Space Grotesk", sans-serif;
 }
 
@@ -16,6 +15,12 @@
     --color-white: white;
     --width-app: 900px;
     --bs-table-bg: red;
+}
+
+:root[dir="rtl"] {
+    *:not(i) {
+        font-family: "Noto Sans Arabic", sans-serif;
+    }
 }
 
 input[type="number"] {

@@ -3,6 +3,8 @@ import Swal from "sweetalert2";
 import AirDatepicker from "air-datepicker";
 import "air-datepicker/air-datepicker.css";
 import localeEn from "air-datepicker/locale/en";
+import localeAr from "air-datepicker/locale/AR";
+import localeFr from "air-datepicker/locale/fr";
 
 const confirmDelete = (els) => {
     document.querySelectorAll(els).forEach((form) => {
@@ -38,8 +40,21 @@ let today = new Date();
 let tomorrow = new Date();
 tomorrow.setDate(today.getDate());
 
+const getLocale = () => {
+    const html = document.documentElement
+    switch (html.attributes.lang.value) {
+        case "ar":
+            return localeAr
+        case "fr":
+            return localeFr
+        default:
+            return localeEn
+    }
+}
+
+
 new AirDatepicker("#input_filter", {
-    locale: localeEn,
+    locale: getLocale(),
     autoClose: true,
     isMobile: false,
     dateFormat: "yyyy-MM-dd",
@@ -47,7 +62,7 @@ new AirDatepicker("#input_filter", {
 });
 
 new AirDatepicker("#input_filter_statistics", {
-    locale: localeEn,
+    locale: getLocale(),
     autoClose: true,
     isMobile: false,
     dateFormat: "d-MM-yy",
@@ -108,40 +123,42 @@ document.querySelectorAll(".btn-receipt").forEach((el) => {
     });
 });
 
+document.addEventListener("DOMContentLoaded", () => {
+    const btnAddIngredient = document.getElementById("add-ingredient");
 
+    if (btnAddIngredient) {
+        let index = 1;
 
-let index = 1;
+        btnAddIngredient.addEventListener("click", () => {
+            const wrapper = document.getElementById("ingredients-wrapper");
+            const firstItem = wrapper.querySelector(".ingredient-item");
 
-document.getElementById("add-ingredient").addEventListener("click", () => {
-    const wrapper = document.getElementById("ingredients-wrapper");
-    const firstItem = wrapper.querySelector(".ingredient-item");
+            const clone = firstItem.cloneNode(true);
 
-    const clone = firstItem.cloneNode(true);
+            clone.querySelectorAll("select, input").forEach((el) => {
+                if (el.name.includes("ingredient_id")) {
+                    el.name = `ingredients[${index}][ingredient_id]`;
+                }
+                if (el.name.includes("quantity")) {
+                    el.name = `ingredients[${index}][quantity]`;
+                }
+                if (el.type !== "hidden") {
+                    el.value = "";
+                }
+            });
 
+            wrapper.appendChild(clone);
+            index++;
+        });
+    }
 
-    clone.querySelectorAll("select, input").forEach(el => {
-        if (el.name.includes("ingredient_id")) {
-            el.name = `ingredients[${index}][ingredient_id]`;
-        }
-        if (el.name.includes("quantity")) {
-            el.name = `ingredients[${index}][quantity]`;
-        }
-        if (el.type !== "hidden") {
-            el.value = "";  // تنظيف القيم القديمة
+    document.addEventListener("click", (e) => {
+        if (e.target.classList.contains("remove-ingredient")) {
+            const item = e.target.closest(".ingredient-item");
+
+            if (!item) return;
+
+            item.remove();
         }
     });
-
-    wrapper.appendChild(clone);
-    index++;
-});
-
-document.addEventListener("click", e => {
-    if (e.target.classList.contains("remove-ingredient")) {
-        const item = e.target.closest(".ingredient-item");
-
-        if (!item) return;
-
-        item.remove();
-
-    }
 });

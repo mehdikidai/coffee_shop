@@ -2,7 +2,8 @@
 
 
 <!DOCTYPE html>
-<html lang="en">
+
+<html lang="{{ app()->getLocale() }}" @if(app()->getLocale() === 'ar') dir="rtl" @endif>
 
 <head>
     <meta charset="UTF-8">
@@ -15,16 +16,18 @@
     {{-- font google --}}
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
-        rel="stylesheet">
 
+    @if (app()->getLocale() === 'ar')
 
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@100..900&display=swap" rel="stylesheet">
+        @vite(['resources/css/app.scss', 'resources/css/bootstrap.rtl.min.css'])
+    @else
+        <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
+        @vite(['resources/css/app.scss', 'resources/css/bootstrap.css'])
+
+    @endif
 
     {{-- bootstrap --}}
-
-    @vite(['resources/css/app.scss', 'resources/css/bootstrap.css'])
 
 </head>
 
@@ -66,14 +69,14 @@
 
             <li class="{{ request()->routeIs('ingredients.*') ? 'active' : '' }}">
                 <a href="{{ route('ingredients.index') }}">
-                    <x-icon name="shelves" /> ingredients
+                    <x-icon name="shelves" /> {{ __('nav.ingredients') ?? "ingredients" }}
                 </a>
             </li>
 
 
             <li class="{{ request()->routeIs('stock.log.*') ? 'active' : '' }}">
                 <a href="{{ route('stock.log.index') }}">
-                    <x-icon name="schedule" /> stock log
+                    <x-icon name="schedule" /> {{ __('nav.stock_log') }}
                 </a>
             </li>
 
@@ -84,9 +87,9 @@
                 </a>
             </li>
 
-             <li class="{{ request()->routeIs('setting.*') ? 'active' : '' }}">
+            <li class="{{ request()->routeIs('setting.*') ? 'active' : '' }}">
                 <a href="{{ route('setting.index') }}">
-                    <x-icon name="settings" /> {{ __('t.setting') ?? "setting" }} 
+                    <x-icon name="settings" /> {{ __('t.setting') ?? "setting" }}
                 </a>
             </li>
 

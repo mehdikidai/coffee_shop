@@ -16,7 +16,7 @@
                     <th scope="col" class="th-unit text-capitalize"> {{ __('t.unit') ?? "unit" }} </th>
                     <th scope="col" class="th-unit text-capitalize"> {{ __('t.unit_name') ?? "unit_name" }} </th>
                     <th scope="col" class="th-stock text-capitalize"> {{ __('t.stock') ?? "stock" }} </th>
-                    <th scope="col" class="th-actions text-capitalize"> {{ __('t.stock') ?? "stock" }} </th>
+                    <th scope="col" class="th-actions text-capitalize"> {{ __('t.actions') ?? "actions" }} </th>
                 </tr>
             </thead>
             <tbody>
@@ -37,7 +37,7 @@
                                 </a>
 
                                 <a href="{{ route('ingredients.edit', $in->id) }}" class="btn btn-sm btn-success">
-                                    <x-icon name="add" /> add stock
+                                    <x-icon name="add" /> {{ __('t.add_stock') ?? "add stock" }}
                                 </a>
 
                                 <form class="form-delete-product" id="destroy_ingredient" action="{{ route('ingredients.destroy', $in->id) }}"
@@ -101,21 +101,21 @@
                         <div class="mb-3 input-group-sm">
                             <label for="stock" class="form-label text-capitalize">
                                 {{ __('t.stock') ?? "stock" }} </label>
-                            <input type="number" name="stock" value="{{ old('stock') }}" class="form-control"
+                            <input type="text" name="stock" value="{{ old('stock') }}" class="form-control"
                                 placeholder="100">
                         </div>
 
                         <div class="mb-3 input-group-sm">
                             <label for="stock" class="form-label text-capitalize">
                                 {{ __('t.stock_threshold') ?? "stock threshold" }} </label>
-                            <input type="number" name="stock_threshold" value="{{ old('stock_threshold') }}"
+                            <input type="text" name="stock_threshold" value="{{ old('stock_threshold') }}"
                                 class="form-control" placeholder="stock threshold">
                         </div>
 
                         <div class="mb-3 input-group-sm">
                             <label for="stock" class="form-label text-capitalize">
                                 {{ __('t.price_per_unit') ?? "price_per_unit" }} </label>
-                            <input type="number" name="price_per_unit" value="{{ old('price_per_unit') }}"
+                            <input type="text" name="price_per_unit" value="{{ old('price_per_unit') }}"
                                 class="form-control" placeholder="price per unit">
                         </div>
 

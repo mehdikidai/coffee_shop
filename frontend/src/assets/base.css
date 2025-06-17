@@ -40,7 +40,12 @@
 
 body {
   background: #000;
+  --sb-track-color: var(--background-color-two);
+  --sb-thumb-color: var(--main-color);
+  --sb-size: 6px;
 }
+
+
 
 a {
   text-decoration: none;

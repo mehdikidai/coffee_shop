@@ -1,10 +1,12 @@
 <?php
 
 return [
-    'home' => 'Accueil',
-    'users' => 'Utilisateurs',
-    'products' => 'Produits',
-    'categories' => 'Catégories',
-    'orders' => 'Commandes',
-    'logout' => 'Déconnexion',
+    'home' => 'accueil',
+    'users' => 'utilisateurs',
+    'products' => 'produits',
+    'categories' => 'catégories',
+    'orders' => 'commandes',
+    'logout' => 'déconnexion',
+    'ingredients' => 'ingrédients',
+    'stock_log' => 'journal de stock',
 ];

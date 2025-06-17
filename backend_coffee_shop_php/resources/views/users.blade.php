@@ -12,7 +12,7 @@
         <table class="table table-bordered table-sm" data-bs-theme="dark">
             <thead>
                 <tr>
-                    <th scope="col" class="th-id text-capitalize">id</th>
+                    <th scope="col" class="th-id text-capitalize">{{ __('t.id') ?? "id" }}</th>
                     <th scope="col" class="th-name text-capitalize">{{ __('t.name') ?? "name" }}</th>
                     <th scope="col" class="th-email text-capitalize">{{ __('t.email') ?? "email" }}</th>
                     <th scope="col" class="th-role text-capitalize">{{ __('t.role') ?? "role" }}</th>
@@ -28,7 +28,7 @@
                         <th scope="row" class="px-2">{{ $user->id }}</th>
                         <td class="px-2">{{ $user->name }}</td>
                         <td class="px-2">{{ $user->email }}</td>
-                        <td class="px-2">{{ $user->role }}</td>
+                        <td class="px-2">{{ __("t.{$user->role}") ?? $user->role }}</td>
                         <td class="px-2">{{ $user->table_number > 0 ? $user->table_number : '-'  }}</td>
                         <td class="px-2"> {{ $user->orders_count }} </td>
                         <td class="td-actions">

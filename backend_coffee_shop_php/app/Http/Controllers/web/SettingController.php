@@ -14,7 +14,7 @@ class SettingController extends Controller
      */
     public function index()
     {
-        return view('setting');
+        return view('setting', ['languages' => $this->languages]);
     }
 
     /**
@@ -23,14 +23,13 @@ class SettingController extends Controller
 
     public function lang($locale)
     {
-        if (!in_array($locale, ['en', 'fr'])) {
+        if (!array_key_exists($locale, $this->languages)) {
             abort(400);
         }
 
         Session::put('locale', $locale);
         App::setLocale($locale);
         return redirect()->back();
-
     }
 
     /**
@@ -80,4 +79,11 @@ class SettingController extends Controller
     {
         //
     }
+
+
+    private $languages = [
+        'en' => ['name' => 'English', 'flag' => 'https://countryflagsapi.netlify.app/flag/gb.svg'],
+        'fr' => ['name' => 'Français', 'flag' => 'https://countryflagsapi.netlify.app/flag/fr.svg'],
+        'ar' => ['name' => 'العربية', 'flag' => 'https://countryflagsapi.netlify.app/flag/ma.svg'],
+    ];
 }

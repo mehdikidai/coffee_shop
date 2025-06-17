@@ -2,9 +2,10 @@
 
     <div class="container mt-2 mb-4">
 
-        <h3 class="text-light mb-3 text-capitalize">add to stock</h3>
+        <h3 class="text-light mb-3 text-capitalize"> {{ __('t.add_to_stock') ?? "add to stock" }} </h3>
 
         <form action="{{ route('stock.log.store') }}" method="post" enctype="multipart/form-data" data-bs-theme="dark">
+            
             @csrf
 
             <div id="ingredients-wrapper">
@@ -21,7 +22,7 @@
 
                     <div class="mb-3 input-group-sm">
                         <label class="form-label text-capitalize text-light">{{ __('t.quantity') ?? 'quantity' }}</label>
-                        <input type="number" name="ingredients[0][quantity]" class="form-control" placeholder="{{ __('t.quantity') ?? 'quantity' }}">
+                        <input type="text" name="ingredients[0][quantity]" class="form-control" placeholder="{{ __('t.quantity') ?? 'quantity' }}">
                     </div>
 
                     <button type="button" class="remove-ingredient">

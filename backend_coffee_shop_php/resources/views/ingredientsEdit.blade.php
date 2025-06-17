@@ -1,6 +1,6 @@
 <x-layout title="EditIngredients Page" name_page="page-edit-ingredients container mt-3">
-    
-    <x-title-edit text="update ingredient"></x-title-edit>
+
+    <x-title-edit :text="__('t.update_ingredient')"></x-title-edit>
 
 
     <form action="{{ route('ingredients.update', $ingredient->id) }}" method="POST" enctype="multipart/form-data"
@@ -30,20 +30,20 @@
         <div class="mb-3 input-group-sm">
             <label for="stock" class="form-label text-light text-capitalize">
                 {{ __('t.stock') ?? "stock" }} </label>
-            <input type="number" name="stock" value="{{ old('stock',$ingredient->stock) }}" class="form-control" placeholder="100">
+            <input type="text" name="stock" value="{{ old('stock',$ingredient->stock) }}" class="form-control" placeholder="100">
         </div>
 
         <div class="mb-3 input-group-sm">
             <label for="stock" class="form-label text-light text-capitalize">
                 {{ __('t.stock_threshold') ?? "stock threshold" }} </label>
-            <input type="number" name="stock_threshold" value="{{ old('stock_threshold',$ingredient->stock_threshold) }}" class="form-control"
+            <input type="text" name="stock_threshold" value="{{ old('stock_threshold',$ingredient->stock_threshold) }}" class="form-control"
                 placeholder="stock threshold">
         </div>
 
         <div class="mb-3 input-group-sm">
             <label for="stock" class="form-label text-light text-capitalize">
                 {{ __('t.price_per_unit') ?? "price_per_unit" }} </label>
-            <input type="number" name="price_per_unit" value="{{ old('price_per_unit',$ingredient->price_per_unit) }}" class="form-control"
+            <input type="text" name="price_per_unit" value="{{ old('price_per_unit',$ingredient->price_per_unit) }}" class="form-control"
                 placeholder="price per unit">
         </div>
 

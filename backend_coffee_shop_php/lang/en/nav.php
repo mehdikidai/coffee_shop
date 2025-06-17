@@ -7,4 +7,6 @@ return [
     'categories' => 'categories',
     'orders' => 'orders',
     'logout' => 'logout',
+    'ingredients' => 'ingredients',
+    'stock_log' => 'stock log',
 ];
