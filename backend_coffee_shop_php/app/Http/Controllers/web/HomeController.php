@@ -159,6 +159,6 @@ class HomeController extends Controller
 
         uasort($sales, fn($a, $b) => $b['total'] <=> $a['total']);
 
-        return $sales;
+        return  array_slice($sales, 0, 5,true);
     }
 }
