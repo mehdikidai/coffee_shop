@@ -3,11 +3,19 @@
 
     <div class="filter mb-3 float-end">
         <form method="GET" class="" data-bs-theme="dark">
+
             <div class="input-group input-group-sm">
-                <input class="form-control" type="text" name="date" id="input_filter_statistics"
-                    value="{{ request('date') }}"
-                    placeholder="{{ __('t.date_from') ?? 'date from' }} | {{ __('t.date_to') ?? 'date to' }}">
+                <input class="form-control" type="text" name="date_from" id="date_from"
+                    value="{{ request('date_from') }}"
+                    placeholder="{{ __('t.date_from') ?? 'date from' }}">
             </div>
+
+            <div class="input-group input-group-sm">
+                <input class="form-control" type="text" name="date_to" id="date_to"
+                    value="{{ request('date_to') }}"
+                    placeholder="{{ __('t.date_to') ?? 'date to' }}">
+            </div>
+
             <div class="input-group input-group-sm d-grid">
                 <button type="submit"
                     class="btn btn-primary d-flex align-items-center gap-2 btn-filter text-capitalize"> <x-icon
@@ -60,16 +68,26 @@
     </div>
     <div class="chart-box">
         <div class="box box-one">
-            <h5 class="text-white mb-4">best selling product</h5>
-            <canvas id="best-selling-product"></canvas>
+            <h5 class="text-white mb-4 text-capitalize opacity-75"> {{ __('t.best_selling_product') ?? "best selling product" }} </h5>
+            @if (!empty($best_selling_products) && count($best_selling_products) > 0)
+                <canvas id="best-selling-product"></canvas>
+            @else
+                <span class="text-white opacity-50 text-capitalize">message</span>
+            @endif
         </div>
         <div class="box box-two">
-            <h5 class="text-white mb-4"> {{ __('t.weekly_revenue') ?? "weekly revenue" }} </h5>
+            <h5 class="text-white mb-4 text-capitalize opacity-75"> {{ __('t.weekly_revenue') ?? "weekly revenue" }}
+            </h5>
             <canvas id="best-seller"></canvas>
+
         </div>
         <div class="box box-three">
-            <h5 class="text-white mb-4"> {{ __('t.best_seller') ?? "best seller" }} </h5>
-            <canvas id="best-user"></canvas>
+            <h5 class="text-white mb-4 text-capitalize opacity-75"> {{ __('t.best_seller') ?? "best seller" }} </h5>
+            @if (!empty($best_sellers) && count($best_sellers) > 0)
+                <canvas id="best-user"></canvas>
+            @else
+                <span class="text-white opacity-50 text-capitalize">message</span>
+            @endif
         </div>
     </div>
 
@@ -85,9 +103,6 @@
         plugins: {
             legend: {
                 display: false,
-                labels: {
-                    color: "#fff",
-                },
             },
         },
         scales: {
@@ -97,7 +112,6 @@
                     display: true,
                     autoSkip: false,
                     precision: 0,
-                    stepSize: 1,
                     font: {
                         size: 12
                     }
@@ -120,9 +134,7 @@
     };
 
     const ctxBestSeller = document.getElementById("best-seller");
-
     const ctxBestSellingProduct = document.getElementById("best-selling-product");
-
     const bestUser = document.getElementById("best-user");
 
 
@@ -130,14 +142,15 @@
         new Chart(ctxBestSellingProduct, {
             type: "bar",
             data: {
-                labels: @json(array_column($orders_last_7days, 'product_name')),
+                labels: @json(array_column($best_selling_products, 'product_name')),
                 datasets: [
                     {
                         label: "# of Votes",
-                        data: @json(array_column($orders_last_7days, 'quantity')),
+                        data: @json(array_column($best_selling_products, 'quantity')),
                         borderWidth: 0,
                         backgroundColor: "rgba(238, 155, 0, 1)",
                         borderColor: "rgba(255, 99, 132, 0)",
+                        barThickness: 10,
                     },
                 ],
             },
@@ -157,12 +170,12 @@
                     {
                         label: "Weekly Sales",
                         data: @json(array_values($daily_sales_last_7Days)),
-                        borderColor: "rgba(10, 147, 150, 1)", // ✅ لون المنحنى (مثلاً أخضر فاتح)
-                        backgroundColor: "rgba(10, 147, 150, 0.2)", // ✅ لون المساحة تحت الخط
-                        tension: 0.3, // لتنعيم الخط
-                        fill: true, // يملأ المساحة أسفل المنحنى
-                        pointBackgroundColor: "#fff", // لون النقاط
-                        pointBorderColor: "rgba(10, 147, 150, 1)", // حدود النقاط
+                        borderColor: "rgba(10, 147, 150, 1)",
+                        backgroundColor: "rgba(10, 147, 150, 0.1)",
+                        tension: 0.3,
+                        fill: true,
+                        pointBackgroundColor: "rgba(10, 147, 150, 1)",
+                        pointBorderColor: "rgba(10, 147, 150, 1)",
                     }
                 ],
             },
@@ -181,15 +194,51 @@
                         data: @json(array_column(array_values($best_sellers), 'total')),
                         borderColor: "rgba(238, 155, 0, 1)",
                         backgroundColor: "rgba(238, 155, 0,1)",
+                        barThickness: 10,
                     }
                 ],
             },
-            options: darkChartOptions,
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        display: false,
+                    },
+                },
+                scales: {
+                    x: {
+                        ticks: {
+                            color: "#fff",
+                            display: true,
+                            autoSkip: false,
+                            precision: 0,
+                            stepSize: 1,
+                            font: {
+                                size: 12
+                            }
+                        },
+                        grid: {
+                            color: "rgba(255,255,255,0.05)",
+                        },
+                    },
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            color: "#fff",
+
+                        },
+                        grid: {
+                            color: "rgba(255,255,255,0.05)",
+                        },
+                    },
+                },
+            },
         });
     }
 
-    console.log(x, y)
 
+    console.log(@json(array_column(array_values($best_sellers), 'user')))
+    console.log(@json(array_column(array_values($best_sellers), 'total')))
 
 
 </script>

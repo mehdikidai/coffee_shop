@@ -89,6 +89,6 @@ return [
     'saturday'  => 'السبت',
     'sunday'    => 'الأحد',
     'weekly_revenue' => 'الإيرادات الأسبوعية',
-
-
+    'best_seller' => 'أفضل بائع',
+    'best_selling_product' => 'المنتج الأكثر مبيعًا',
 ];

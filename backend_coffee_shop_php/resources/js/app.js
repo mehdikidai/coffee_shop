@@ -61,15 +61,21 @@ new AirDatepicker("#input_filter", {
     //visible: true,
 });
 
-new AirDatepicker("#input_filter_statistics", {
+new AirDatepicker("#date_from", {
     locale: getLocale(),
     autoClose: true,
     isMobile: false,
-    dateFormat: "d-MM-yy",
-    range: true,
-    multipleDatesSeparator: " | ",
-    //inline: true,
-    //visible: true,
+    dateFormat: "d-MM-yyyy",
+    buttons: ["clear"],
+    autoClose: true,
+    isMobile: true,
+});
+
+new AirDatepicker("#date_to", {
+    locale: getLocale(),
+    autoClose: true,
+    isMobile: false,
+    dateFormat: "d-MM-yyyy",
     buttons: ["clear"],
     autoClose: true,
     isMobile: true,

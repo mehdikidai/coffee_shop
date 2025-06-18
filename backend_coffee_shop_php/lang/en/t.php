@@ -89,5 +89,6 @@ return [
     'saturday'  => 'Saturday',
     'sunday'    => 'Sunday',
     'weekly_revenue' => 'weekly revenue',
-    'best_seller' => 'best seller'
+    'best_seller' => 'best seller',
+    'best_selling_product' => 'best selling product',
 ];

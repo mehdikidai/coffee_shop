@@ -2,12 +2,15 @@
 
 .statistics {
     .filter {
-        max-width: 440px;
+        max-width: 340px;
         width: 100%;
         form {
             display: grid;
-            grid-template-columns: 2fr auto;
+            grid-template-columns: 1fr 1fr auto;
             gap: 10px;
+            input{
+                text-align: center;
+            }
         }
     }
     .statistics-boxes {
@@ -56,6 +59,10 @@
             border-radius: 6px;
             padding: 20px;
             border: 1px solid rgba(255, 255, 255, 0.2);
+            h5 {
+                pointer-events: none;
+                user-select: none;
+            }
         }
     }
 }

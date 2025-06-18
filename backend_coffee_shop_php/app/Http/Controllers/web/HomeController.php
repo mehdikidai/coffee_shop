@@ -13,23 +13,32 @@ class HomeController extends Controller
 {
     public function __invoke(Request $request)
     {
-        $rawDate = $request->input('date');
+
         $ordersQuery = Order::query();
+        // date from => date to
+        $dateFrom = $request->input('date_from');
+        $dateTo = $request->input('date_to');
 
 
+        try {
+            if ($dateFrom && $dateTo) {
+                $fromDate = Carbon::createFromFormat('d-m-Y', $dateFrom)->startOfDay(); // 12-06-2025
+                $toDate = Carbon::createFromFormat('d-m-Y', $dateTo)->endOfDay();
 
-        if ($rawDate && str_contains($rawDate, '|')) {
+                if ($fromDate->gt($toDate)) {
+                    return back()->withErrors(['date' => "the start date must be earlier than or equal to the end date"]);
+                }
 
-            [$from, $to] = array_map('trim', explode('|', $rawDate));
-
-            try {
-                $fromDate = Carbon::createFromFormat('d-m-y', $from)->startOfDay();
-                $toDate = Carbon::createFromFormat('d-m-y', $to)->endOfDay();
                 $ordersQuery->whereBetween('created_at', [$fromDate, $toDate]);
-            } catch (\Exception $e) {
-                return back()->withErrors(['date' => 'Invalid date format.']);
+            } elseif ($dateFrom && !$dateTo) {
+                $onlyDate = Carbon::createFromFormat('d-m-Y', $dateFrom)->toDateString();
+                $ordersQuery->whereDate('created_at', $onlyDate);
             }
+        } catch (\Exception $e) {
+            return back()->withErrors(['date' => "invalid date format"]);
         }
+
+
 
         $ordersFiltered = $ordersQuery->count();
         $ordersTotal = Order::count();
@@ -40,15 +49,20 @@ class HomeController extends Controller
         $products = Product::count();
         $ordersTotalPriceFiltered =  $ordersQuery->sum('total_price');
 
-        $ordersLast7Days = $this->ordersLast7Days();
+        // best_selling_products_query
+        $best_selling_products_query = $ordersQuery->with('items.product')->get();
+        $best_selling_products = $this->best_selling_products($best_selling_products_query);
+
+
+        // daily sales last 7 days
         $dailySalesLast7Days  = $this->dailySalesLast7Days();
 
-        //  bestSeller
-        $bestSellers = $ordersQuery->with(['user', 'items.product'])->get();
+        //  best sellers query
+        $bestSellers_query = $ordersQuery->with(['user', 'items.product'])->get();
+        $bestSellers = $this->bestSellers($bestSellers_query);
 
-        $bestSellers = $this->bestSellers($bestSellers);
 
-
+        // return
         return view('home', [
             'statistics' => [
                 'orders_filtered' => $ordersFiltered,
@@ -60,22 +74,16 @@ class HomeController extends Controller
                 'orders_total_price_all' => $ordersTotalPriceAll,
                 'orders_total_price_filtered' => $ordersTotalPriceFiltered,
             ],
-            'orders_last_7days' => $ordersLast7Days,
+            'best_selling_products' => $best_selling_products,
             'daily_sales_last_7Days' => $dailySalesLast7Days,
             'best_sellers' => $bestSellers,
-            'date' => $rawDate
+            'date_from' => $dateFrom,
+            'date_to' => $dateTo,
         ]);
     }
 
-    private function ordersLast7Days(): array
+    private function best_selling_products($orders): array
     {
-        $fromDate = Carbon::now()->subDays(6)->startOfDay();
-        $toDate = Carbon::now()->endOfDay();
-
-        $orders = Order::with('items.product')
-            ->whereBetween('created_at', [$fromDate, $toDate])
-            ->get();
-
         $sales = [];
 
         foreach ($orders as $order) {
