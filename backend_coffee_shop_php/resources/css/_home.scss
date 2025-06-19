@@ -8,7 +8,7 @@
             display: grid;
             grid-template-columns: 1fr 1fr auto;
             gap: 10px;
-            input{
+            input {
                 text-align: center;
             }
         }
@@ -17,10 +17,10 @@
         width: 100%;
         background: transparent;
         display: grid;
-        grid-template-columns: 1fr 1fr 1fr 1fr;
+        grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
         gap: 15px;
         .box {
-            height: 120px;
+            height: fit-content;
             background: var(--background-color-two);
             border-radius: 6px;
             padding: 20px;
@@ -28,13 +28,45 @@
             flex-direction: column;
             border: 1px solid rgba(255, 255, 255, 0.2);
             gap: 20px;
-            h3 {
-                font-size: 22px;
-                color: var(--color-white);
-                small {
-                    opacity: 0.4;
+
+            .box-tit {
+                display: flex;
+                justify-content: space-between;
+                align-items: start;
+                h3 {
+                    font-size: 22px;
+                    color: var(--color-white);
+                    margin-bottom: 0 !important;
+                    small {
+                        opacity: 0.4;
+                    }
+                }
+                span.rate {
+                    display: inline-flex;
+                    align-items: center;
+                    gap: 4px;
+                    font-size: 14px;
+                    i {
+                        font-size: 12px;
+                        transition: transform 0.3s;
+                    }
+                    &.text-success {
+                        color: rgb(47, 255, 158) !important;
+                        i {
+                            transform: rotate(0deg);
+                            color: rgb(47, 255, 158) !important;
+                        }
+                    }
+                    &.text-danger {
+                        color: rgb(255, 127, 139) !important;
+                        i {
+                            transform: rotate(180deg);
+                            color: rgb(255, 127, 139) !important;
+                        }
+                    }
                 }
             }
+
             span {
                 display: flex;
                 align-items: center;
@@ -42,7 +74,7 @@
                 gap: 6px;
                 text-transform: capitalize;
                 i {
-                    font-size: 22px;
+                    font-size: 20px;
                     color: var(--main-color);
                 }
             }
@@ -50,9 +82,10 @@
     }
     .chart-box {
         display: grid;
-        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
         gap: 15px;
         margin-top: 20px;
+        align-items: stretch;
         .box {
             aspect-ratio: 19/9;
             background: var(--background-color-two);
@@ -87,5 +120,16 @@
         h3 {
             font-size: 20px;
         }
+    }
+    .statistics .chart-box {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 15px;
+        margin-top: 20px;
+        align-items: stretch;
+    }
+    .statistics .filter {
+        max-width: none;
+        width: 100%;
     }
 }

@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\web;
 
-use App\Http\Controllers\Controller;
+use App\Models\Product;
 use App\Models\Category;
 use App\Models\Ingredient;
-use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Contracts\View\View;
+use App\Http\Controllers\Controller;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Cache;
 
 class ProductsController extends Controller
@@ -14,13 +16,32 @@ class ProductsController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request): View
     {
-        $products = Product::with(['category', 'ingredients'])->orderBy('id')->paginate(10);
+
+        // $search = $request->input('search');
+        // if ($search) {
+        //     dd($search);
+        // }
+        // $products = Product::with(['category', 'ingredients'])->orderBy('id')->paginate(10);
+        // $categories = Cache::rememberForever('all_categories', fn() => Category::all());
+        // return view('products', compact('products', 'categories'));
+
+        $search = $request->input('search');
+
+        $products = Product::with(['category', 'ingredients'])
+            ->when($search, function ($query, $search) {
+                $query->where('name', 'like', "%$search%")
+                    ->orWhere('price', 'like', "%$search%")
+                    ->orWhereHas('category', fn($q) => $q->where('name', 'like', "%$search%"))
+                    ->orWhereHas('ingredients', fn($q) => $q->where('name', 'like', "%$search%"));
+            })
+            ->orderBy('id')
+            ->paginate(10);
 
         $categories = Cache::rememberForever('all_categories', fn() => Category::all());
 
-        return view('products', compact('products', 'categories'));
+        return view('products.index', compact('products', 'categories'));
     }
 
     /**
@@ -79,7 +100,7 @@ class ProductsController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(string $id): View
     {
 
         $product = Product::with('category')->findOrFail($id);
@@ -88,14 +109,15 @@ class ProductsController extends Controller
 
         $ingredients = Ingredient::all();
 
-        $oldIngredients = $product->ingredients->map(function ($ingredient) {
-            return [
+        $oldIngredients = $product->ingredients->map(
+            fn($ingredient)
+            => [
                 'id' => $ingredient->id,
                 'quantity' => $ingredient->pivot->quantity,
-            ];
-        })->toArray();
+            ]
+        )->toArray();
 
-        return view("productEdit", compact('product', 'categories', 'ingredients', 'oldIngredients'));
+        return view("products.edit", compact('product', 'categories', 'ingredients', 'oldIngredients'));
     }
 
     /**
@@ -135,15 +157,14 @@ class ProductsController extends Controller
     // }
 
 
-    public function update(Request $request, string $id)
+    public function update(Request $request, string $id): RedirectResponse
     {
         $product = Product::findOrFail($id);
-
         $ingredients = $request->input('ingredients', []);
 
-        $filteredIngredients = array_filter($ingredients, function ($ing) {
-            return isset($ing['id']) && $ing['id'] !== '' && isset($ing['quantity']) && $ing['quantity'] !== '';
-        });
+        $filteredIngredients = array_filter($ingredients, fn ($ing)
+            => isset($ing['id']) && $ing['id'] !== '' && isset($ing['quantity']) && $ing['quantity'] !== ''
+        );
 
         $request->merge(['ingredients' => $filteredIngredients]);
 
@@ -162,7 +183,6 @@ class ProductsController extends Controller
             if (file_exists($oldPath)) {
                 unlink($oldPath);
             }
-
             $fileName = time() . '.' . $request->photo->extension();
             $request->photo->move(public_path('uploads/products'), $fileName);
             $uri = "uploads/products/$fileName";
@@ -189,23 +209,19 @@ class ProductsController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(string $id): RedirectResponse
     {
         $product = Product::findOrFail($id);
-
         $product->delete();
-
         return redirect()->back()->with('success', 'Product deleted successfully.');
     }
 
-    public function toggleVisibility(string $id)
+    public function toggleVisibility(string $id): RedirectResponse
     {
         $product = Product::findOrFail($id);
         $product->visible = !$product->visible;
         $product->save();
-
         $status = $product->visible ? 'visible' : 'hidden';
-
         return redirect()->back()->with('success', "Product is now $status.");
     }
 }

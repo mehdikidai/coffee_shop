@@ -16,7 +16,7 @@
         .td-actions {
             .box-actions {
                 display: grid;
-                grid-template-columns: 1fr 1fr 1fr;
+                grid-template-columns: 1fr 1fr 1fr auto;
                 gap: 4px;
                 a,
                 button {
@@ -26,6 +26,7 @@
                     width: 100%;
                     i {
                         font-size: 16px;
+                        pointer-events: none;
                     }
                 }
             }

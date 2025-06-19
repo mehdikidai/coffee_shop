@@ -54,7 +54,8 @@ div.alert {
     &:focus {
         outline: none !important;
         box-shadow: none !important;
-        background: var(--main-color) !important;
+        //background: var(--main-color) !important;
+        background-color: var(--main-color-two) !important;
     }
 }
 
@@ -79,7 +80,7 @@ div.alert {
 }
 
 .pagination .page-item.active .page-link {
-    background-color: var(--main-color);
+    background-color: var(--main-color-two);
     color: var(--color-white);
 }
 
@@ -103,6 +104,22 @@ div.alert {
                 }
             }
         }
+    }
+}
+
+.modal-header {
+    padding-block: 10px !important;
+}
+
+.alert.alert-secondary {
+    background: var(--background-color-two);
+    color: var(--color-white);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+input{
+    &:active,&:focus{
+        box-shadow: none !important;
     }
 }
 

@@ -91,4 +91,10 @@ return [
     'weekly_revenue' => 'weekly revenue',
     'best_seller' => 'best seller',
     'best_selling_product' => 'best selling product',
+    'search' => 'Search',
+    'site_name' => 'site name',
+    'site_email' => 'site email ',
+    'daily_expected_income' => 'daily expected income',
+    'currency' => 'currency',
+    'no_data_found' => 'no data found '
 ];

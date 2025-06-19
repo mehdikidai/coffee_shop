@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\web;
 
-use App\Enum\UserRole;
-use App\Http\Controllers\Controller;
-use App\Models\Order;
 use App\Models\User;
+use App\Models\Order;
+use App\Enum\UserRole;
+use App\Models\Product;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class OrdersController extends Controller
 {
@@ -16,17 +17,17 @@ class OrdersController extends Controller
     public function index(Request $request)
     {
 
-        $users = User::whereNot('role',UserRole::USER->value)->get();
+        $users = User::whereNot('role', UserRole::USER->value)->get();
         //$orders = Order::with(['items', 'user'])->latest()->paginate(10);
 
         $orders = Order::with(['items', 'user'])
-        ->when($request->user_id, fn($query) => $query->where('user_id', $request->user_id))
-        ->when($request->date, fn($query) => $query->whereDate('created_at', $request->date))
-        ->latest()
-        ->paginate(10);
+            ->when($request->user_id, fn($query) => $query->where('user_id', $request->user_id))
+            ->when($request->date, fn($query) => $query->whereDate('created_at', $request->date))
+            ->latest()
+            ->paginate(10);
 
 
-        return view('orders', compact('orders','users'));
+        return view('orders', compact('orders', 'users'));
     }
 
     /**
@@ -52,7 +53,7 @@ class OrdersController extends Controller
     {
         $order  = Order::whereId($id)->with(['items.product', 'user'])->first(); // items use a product
 
-        return view('orderShow',compact('order'));
+        return view('orderShow', compact('order'));
     }
 
     /**
@@ -76,7 +77,20 @@ class OrdersController extends Controller
      */
     public function destroy(string $id)
     {
-        $order = Order::findOrFail($id);
+
+        $order = Order::with('items')->findOrFail($id);
+
+        foreach ($order->items as $item) {
+
+            $product = Product::with('ingredients')->findOrFail($item['product_id']);
+
+            foreach ($product->ingredients as $ingredient) {
+                $pivotQuantity = $ingredient->pivot->quantity;
+                $totalQuantityUsed = $pivotQuantity * $item['quantity'];
+                $ingredient->increment('stock', $totalQuantityUsed);
+            }
+
+        }
 
         $order->delete();
 

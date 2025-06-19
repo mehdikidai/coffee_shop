@@ -42,8 +42,21 @@ class HomeController extends Controller
 
         $ordersFiltered = $ordersQuery->count();
         $ordersTotal = Order::count();
+
+        // ---------------
+
         $ordersToday = Order::whereDate('created_at', today())->count();
+        $ordersYesterday = Order::whereDate('created_at', Carbon::yesterday())->count();
+        $percentageChangeOrders = $this->percentageChange($ordersToday, $ordersYesterday);
+
+        // ---------------
+
         $ordersTotalPriceToday = Order::whereDate('created_at', today())->sum('total_price');
+        $dailyExpectedIncome = (int) setting('daily_expected_income', 200);
+        $dailyIncomeDifference = $this->percentageChange($ordersTotalPriceToday, $dailyExpectedIncome);
+
+        // ---------------
+
         $ordersTotalPriceAll = Order::sum('total_price');
         $users = User::count();
         $products = Product::count();
@@ -71,8 +84,11 @@ class HomeController extends Controller
                 'users' => $users,
                 'products' => $products,
                 'orders_total_price_today' => $ordersTotalPriceToday,
+                'orders_yesterday' => $ordersYesterday,
+                'percentage_change_orders' => $percentageChangeOrders,
                 'orders_total_price_all' => $ordersTotalPriceAll,
                 'orders_total_price_filtered' => $ordersTotalPriceFiltered,
+                'daily_income_difference' => $dailyIncomeDifference
             ],
             'best_selling_products' => $best_selling_products,
             'daily_sales_last_7Days' => $dailySalesLast7Days,
@@ -159,6 +175,22 @@ class HomeController extends Controller
 
         uasort($sales, fn($a, $b) => $b['total'] <=> $a['total']);
 
-        return  array_slice($sales, 0, 5,true);
+        return  array_slice($sales, 0, 5, true);
+    }
+
+    private function percentageChange($ordersToday, $ordersYesterday): int
+    {
+
+        $percentageChange = null;
+
+        if ($ordersYesterday > 0) {
+            $percentageChange = (($ordersToday - $ordersYesterday) / $ordersYesterday) * 100;
+        } elseif ($ordersToday > 0) {
+            $percentageChange = 100;
+        } else {
+            $percentageChange = 0;
+        }
+
+        return (int) $percentageChange;
     }
 }

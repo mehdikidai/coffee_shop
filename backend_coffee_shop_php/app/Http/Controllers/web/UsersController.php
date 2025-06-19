@@ -6,25 +6,39 @@ use App\Models\User;
 use App\Enum\UserRole;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
+use Illuminate\Contracts\View\View;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\Rule;
+use Illuminate\Http\RedirectResponse;
 
 class UsersController extends Controller
 {
     /**
      * Handle the incoming request.
      */
-    public function index(Request $request)
+    public function index(Request $request): View
     {
+        $search = $request->input('search');
+        $usersQuery = User::withCount('orders')->latest();
 
-        $users = User::withCount('orders')->latest()->paginate(10);
-
+        if ($search === "blocked") {
+            $usersQuery->where('is_blocked', 1);
+        } elseif ($search) {
+            $usersQuery->where(function ($query) use ($search) {
+                $query->where('email', 'like', "%$search%")
+                    ->orWhere('name', 'like', "%$search%")
+                    ->orWhere('role', 'like', "%$search%")
+                    ->orWhere('id', 'like', $search);
+            });
+        }
+        $users = $usersQuery->paginate(10);
         return view('users', compact('users'));
     }
 
-    public function edit(Request $request)
+
+    public function edit(Request $request): View
     {
         $id = $request->id;
         $user = User::findOrFail($id);
@@ -36,16 +50,15 @@ class UsersController extends Controller
     {
         $user = User::findOrFail($id);
 
-        if (!Gate::allows('delete-user',$user)) {
-            return redirect()->back()->withErrors( 'You do not have permission to delete this user.');
+        if (!Gate::allows('delete-user', $user)) {
+            return redirect()->back()->withErrors('You do not have permission to delete this user.');
         }
 
         $user->delete();
         return redirect()->back()->with('success', 'User deleted successfully.');
-        
     }
 
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
         $validated = $request->validate([
             'name' => 'required|min:3',
@@ -60,7 +73,6 @@ class UsersController extends Controller
         $validated['role'] = UserRole::USER->value;
 
         User::create($validated);
-
         return redirect()->back()->with('success', 'User added successfully.');
     }
 
@@ -68,7 +80,7 @@ class UsersController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, string $id): RedirectResponse
     {
 
         $rolesArray = UserRole::values();
@@ -83,7 +95,7 @@ class UsersController extends Controller
 
         $user = User::findOrFail($id);
 
-        Gate::authorize('update-user',$user);
+        Gate::authorize('update-user', $user);
 
         if (!empty($validated['password'])) {
             $validated['password'] = Hash::make($validated['password']);
@@ -92,20 +104,15 @@ class UsersController extends Controller
         }
 
         $user->update($validated);
-
         return redirect()->back()->with('success', 'User updated successfully.');
     }
 
     public function toggleBlocked($id)
     {
-
-        //dd($id);
         $user = User::findOrFail($id);
         $user->is_blocked = !$user->is_blocked;
         $user->save();
-
         $status = $user->is_blocked ? 'blocked' : 'unblocked';
-
         return redirect()->back()->with('success', "User has been $status.");
     }
 

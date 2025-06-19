@@ -111,6 +111,9 @@ Route::controller(SettingController::class)
     ->name('setting.')
     ->middleware('auth')
     ->group(function () {
+
         Route::get('/', 'index')->name('index');
         Route::get('/lang/{locale}', 'lang')->name('lang');
+        Route::put('/', 'update')->name('update');
+
     });;

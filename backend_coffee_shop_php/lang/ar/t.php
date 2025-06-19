@@ -91,4 +91,11 @@ return [
     'weekly_revenue' => 'الإيرادات الأسبوعية',
     'best_seller' => 'أفضل بائع',
     'best_selling_product' => 'المنتج الأكثر مبيعًا',
+    'search' => 'بحث',
+    'site_name' => 'اسم الموقع',
+    'site_email' => 'البريد الإلكتروني للموقع',
+    'daily_expected_income' => 'الدخل المتوقع يومياً',
+    'currency' => 'العملة',
+    'no_data_found' => 'لا توجد بيانات',
+
 ];

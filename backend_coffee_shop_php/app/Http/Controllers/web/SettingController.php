@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\web;
 
-use App\Http\Controllers\Controller;
+use App\Models\Setting;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\App;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Session;
 
 class SettingController extends Controller
 {
@@ -67,9 +68,30 @@ class SettingController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request)
     {
-        //
+
+        $validated = $request->validate([
+            'site_name' => 'required|string|max:255',
+            'site_email' => 'required|email|max:255',
+            'daily_expected_income' => 'required|numeric|min:0',
+            'currency' => 'required|string|max:10',
+        ]);
+
+
+        foreach ($validated as $key => $value) {
+            Setting::updateOrCreate(
+                ['key' => $key],
+                ['value' => $value]
+            );
+        }
+
+    
+        foreach (array_keys($validated) as $key) {
+            cache()->forget("setting_{$key}");
+        }
+
+        return redirect()->back()->with('success', 'Settings updated successfully.');
     }
 
     /**

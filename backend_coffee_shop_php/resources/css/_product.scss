@@ -1,4 +1,4 @@
-@use "./var" as v;
+@use "./var" as *;
 
 .page-product {
     table {
@@ -67,3 +67,4 @@
         }
     }
 }
+

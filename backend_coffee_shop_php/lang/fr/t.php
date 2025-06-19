@@ -89,5 +89,7 @@ return [
     'saturday'  => 'Samedi',
     'sunday'    => 'Dimanche',
     'weekly_revenue' => 'Revenu hebdomadaire',
+    'search' => 'Search',
+    'no_data_found' => 'Aucune donnée trouvée',
 
 ];

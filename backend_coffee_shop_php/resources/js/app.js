@@ -57,29 +57,94 @@ new AirDatepicker("#input_filter", {
     autoClose: true,
     isMobile: false,
     dateFormat: "yyyy-MM-dd",
+    isMobile: true,
 
     //visible: true,
 });
 
-new AirDatepicker("#date_from", {
+
+/*
+
+const dateFromPicker = new AirDatepicker("#date_from", {
     locale: getLocale(),
-    autoClose: true,
-    isMobile: false,
-    dateFormat: "d-MM-yyyy",
+    dateFormat: "dd-MM-yyyy",
     buttons: ["clear"],
     autoClose: true,
     isMobile: true,
+    onSelect({ date }) {
+        if (!date) {
+            dateFromPicker.hide();
+            document.querySelector("#date_to").value = "";
+            dateToPicker.selectDate(null);
+        }
+    },
 });
 
-new AirDatepicker("#date_to", {
+const dateToPicker = new AirDatepicker("#date_to", {
     locale: getLocale(),
-    autoClose: true,
-    isMobile: false,
-    dateFormat: "d-MM-yyyy",
+    dateFormat: "dd-MM-yyyy",
     buttons: ["clear"],
     autoClose: true,
     isMobile: true,
+    onSelect({ date }) {
+        if (!date) {
+            dateToPicker.hide();
+        }
+    },
 });
+
+*/
+
+
+
+let dateToPicker;
+
+const dateFromPicker = new AirDatepicker("#date_from", {
+    locale: getLocale(),
+    dateFormat: "dd-MM-yyyy",
+    buttons: ["clear"],
+    autoClose: true,
+    isMobile: true,
+    onSelect({ date }) {
+        if (!date) {
+            dateFromPicker.hide();
+            const dateToInput = document.querySelector("#date_to");
+            if (dateToInput) {
+                dateToInput.value = "";
+            }
+
+            if (dateToPicker) {
+                dateToPicker.destroy();
+                dateToPicker = new AirDatepicker("#date_to", {
+                    locale: getLocale(),
+                    dateFormat: "dd-MM-yyyy",
+                    buttons: ["clear"],
+                    autoClose: true,
+                    isMobile: true,
+                    onSelect({ date }) {
+                        if (!date) {
+                            dateToPicker.hide();
+                        }
+                    },
+                });
+            }
+        }
+    },
+});
+
+dateToPicker = new AirDatepicker("#date_to", {
+    locale: getLocale(),
+    dateFormat: "dd-MM-yyyy",
+    buttons: ["clear"],
+    autoClose: true,
+    isMobile: true,
+    onSelect({ date }) {
+        if (!date) {
+            dateToPicker.hide();
+        }
+    },
+});
+
 
 const btnMenu = document.getElementById("btn_menu");
 if (btnMenu) {
@@ -169,5 +234,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
             item.remove();
         }
+    });
+});
+
+
+const btnQrCode = document.querySelectorAll('.btn_qr_code')
+
+btnQrCode.forEach(btn => {
+    btn.addEventListener('click', () => {
+        const key = btn.dataset.key;
+        const imgUrl = `https://api.qrserver.com/v1/create-qr-code/?data=${encodeURIComponent(key)}`;
+        window.open(imgUrl, '_blank');
     });
 });

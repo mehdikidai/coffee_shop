@@ -23,6 +23,7 @@
 @forward "./stock_log";
 @forward "./add_to_stock";
 @forward "./setting";
+@forward "./search";
 
 .btn-filter {
     width: fit-content;
@@ -31,8 +32,9 @@
     }
 }
 
-input,select{
-     border-color: rgba(255, 255, 255, 0.2) !important;
+input,
+select {
+    border-color: rgba(255, 255, 255, 0.2) !important;
 }
 
 .app-login {
@@ -50,6 +52,8 @@ input,select{
         max-height: 100dvh;
         min-height: 100dvh;
         overflow-y: auto;
+        display: flex;
+        flex-direction: column;
         .logo-box {
             height: 70px;
             background: var(--background-color-two);
@@ -93,7 +97,8 @@ input,select{
                 }
                 &.active {
                     a {
-                        &,* {
+                        &,
+                        * {
                             color: var(--main-color) !important;
                         }
                     }
@@ -114,6 +119,12 @@ input,select{
                         }
                     }
                 }
+            }
+            &.ul-logout {
+                margin-top: auto;
+                margin-bottom: 0;
+                padding-block: 15px;
+                border-top: 1px solid rgba(255, 255, 255, 0.2);
             }
         }
     }
@@ -183,8 +194,6 @@ input,select{
     }
 }
 
-
-
 @include respond-to("mobile") {
     table {
         * {
@@ -248,5 +257,10 @@ input,select{
                 }
             }
         }
+    }
+
+    .box-title {
+        flex-direction: column;
+        margin-bottom: 20px;
     }
 }

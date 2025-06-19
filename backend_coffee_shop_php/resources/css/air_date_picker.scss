@@ -38,7 +38,7 @@
     .air-datepicker-button {
         font-size: 14px;
         &:hover {
-            background: var(--main-color);
+            background: var(--main-color-two);
         }
     }
 
@@ -58,7 +58,7 @@
             opacity: 0.3;
         }
         &.-current- {
-            background: var(--main-color) !important;
+            background: var(--main-color-two) !important;
         }
     }
 }

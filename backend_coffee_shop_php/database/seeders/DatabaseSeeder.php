@@ -6,14 +6,15 @@ use App\Models\User;
 use App\Enum\UserRole;
 use App\Models\Product;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use App\Models\Category;
-use App\Models\Ingredient;
-use App\Models\IngredientProduct;
 use App\Models\Receipt;
+use App\Models\Setting;
+use App\Models\Category;
 use App\Models\StockLog;
-use Database\Factories\IngredientFactory;
+use App\Models\Ingredient;
 use Illuminate\Database\Seeder;
+use App\Models\IngredientProduct;
 use Illuminate\Support\Facades\Hash;
+use Database\Factories\IngredientFactory;
 
 class DatabaseSeeder extends Seeder
 {
@@ -23,6 +24,8 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
 
+
+        
         User::factory()->create([
             'name' => 'mehdi',
             'email' => 'mehdikidai@gmail.com',
@@ -38,8 +41,8 @@ class DatabaseSeeder extends Seeder
         ]);
 
         User::factory()->create([
-            'name' => 'youssef',
-            'email' => 'youssef@gmail.com',
+            'name' => 'hiba',
+            'email' => 'hiba@gmail.com',
             'role' => UserRole::BARISTA->value,
             'password' => Hash::make('12345678')
         ]);
@@ -109,6 +112,12 @@ class DatabaseSeeder extends Seeder
         Receipt::factory(5)->create();
 
         StockLog::factory(50)->create();
+
+        Setting::updateOrCreate(['key' => 'site_name'], ['value' => 'bee coffee']);
+        Setting::updateOrCreate(['key' => 'site_email'], ['value' => 'admin@beecoffee.com']);
+        Setting::updateOrCreate(['key' => 'maintenance_mode'], ['value' => 'off']);
+        Setting::updateOrCreate(['key' => 'daily_expected_income'], ['value' => '400']);
+        Setting::updateOrCreate(['key' => 'currency'], ['value' => 'DH']);
 
     }
 

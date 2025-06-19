@@ -7,6 +7,7 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta name="robots" content="noindex, nofollow">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ $title }}</title>
     {{-- Material icon --}}
@@ -29,6 +30,8 @@
 
     {{-- bootstrap --}}
 
+    @livewireStyles
+
 </head>
 
 
@@ -37,7 +40,7 @@
     <div class="sidebar" id="sidebar">
 
         <div class="logo-box">
-            <h2>coffee shop</h2>
+            <h2> {{ config('setting.site_name') }} </h2>
             <button class="k-btn-close" id="btn_close">
                 <x-icon name="close" />
             </button>
@@ -93,6 +96,10 @@
                 </a>
             </li>
 
+
+        </ul>
+
+        <ul class="ul-logout">
             <li>
                 <form action="{{ route('auth.logout') }}" method="POST" style="display: inline;">
                     @csrf
@@ -111,6 +118,9 @@
                 <x-icon name="menu"></x-icon>
             </button>
             <h1> {{ __('t.welcome') ?? "welcome" }} {{ auth()->user()->name }}</h1>
+
+            <livewire:search />
+
             <div class="box-user">
                 <div class="name-and-email">
                     <span>{{ auth()->user()->name }}</span>
@@ -137,6 +147,8 @@
 
 
     @vite(['resources/js/app.js'])
+
+    @livewireScripts
 
 </body>
 

@@ -28,5 +28,6 @@ class AppServiceProvider extends ServiceProvider
         Gate::define('update-user',[UserPolicyWeb::class,'update']);
         Gate::define('create-user',[UserPolicyWeb::class,'create']);
         Gate::define('delete-user',[UserPolicyWeb::class,'delete']);
+
     }
 }
