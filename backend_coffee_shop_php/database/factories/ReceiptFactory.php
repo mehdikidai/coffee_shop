@@ -19,7 +19,8 @@ class ReceiptFactory extends Factory
     public function definition(): array
     {
         return [
-            'number' => "INV-" . mt_rand(1000000000000000, 9999999999999999),
+            'number' => 'INV-' . fake()->unique()->numerify('################'),
+            'receipt_amount' => fake()->numberBetween(500, 2000),
             'receipt_photo' => 'uploads/receipts/example.jpg',
         ];
     }

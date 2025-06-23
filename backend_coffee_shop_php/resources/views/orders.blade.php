@@ -51,16 +51,16 @@
                             <td class="px-2">{{ $order->created_at }}</td>
                             <td class="td-actions">
                                 <div class="box-actions">
-                                    <form class="form-delete-product" action="{{ route('orders.destroy', $order->id) }}"
+                                    <form class="form-delete-order" action="{{ route('orders.destroy', $order->id) }}"
                                         method="POST" style="display:inline-block;">
                                         @csrf
                                         @method('DELETE')
                                         <button class="btn btn-sm btn-danger">
-                                            <x-icon name="delete" /> Delete
+                                            <x-icon name="delete" /> {{ __('t.delete') }}
                                         </button>
                                     </form>
                                     <a href="{{ route('orders.show', $order->id) }}" class="btn btn-sm btn-primary">
-                                        <x-icon name="list_alt" />Details
+                                        <x-icon name="list_alt" /> {{ __('t.details') }}
                                     </a>
                                 </div>
                             </td>
@@ -86,6 +86,7 @@
 
     @endif
 
-
-
 </x-layout>
+
+
+<x-swal class_form=".form-delete-order"></x-swal>

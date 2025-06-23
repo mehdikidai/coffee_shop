@@ -24,6 +24,7 @@
 @forward "./add_to_stock";
 @forward "./setting";
 @forward "./search";
+@forward "./swal";
 
 .btn-filter {
     width: fit-content;
@@ -190,6 +191,20 @@ select {
             padding: 20px;
             max-height: calc(100dvh - 70px);
             overflow-y: auto;
+            --sb-track-color: var(--background-color-two);
+            --sb-thumb-color: var(--main-color);
+            --sb-size: 6px;
+            &::-webkit-scrollbar {
+                width: var(--sb-size);
+            }
+
+            &::-webkit-scrollbar-track {
+                background: var(--sb-track-color);
+            }
+
+            &::-webkit-scrollbar-thumb {
+                background: var(--sb-thumb-color);
+            }
         }
     }
 }

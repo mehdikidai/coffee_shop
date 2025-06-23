@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('receipts', function (Blueprint $table) {
             $table->id();
             $table->string('number')->unique();
+            $table->decimal('receipt_amount', 8, 2);
             $table->string('receipt_photo')->nullable();
             $table->timestamps();
         });

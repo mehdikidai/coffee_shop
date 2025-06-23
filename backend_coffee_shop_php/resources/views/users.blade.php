@@ -68,7 +68,8 @@
                                             <x-icon name="delete" /> {{ __('t.delete') ?? "delete" }}
                                         </button>
                                     </form>
-                                    <button class="btn_qr_code btn btn-sm btn-primary text-capitalize" data-key="{{ $user->table_key }}">
+                                    <button class="btn_qr_code btn btn-sm btn-primary text-capitalize"
+                                        data-key="{{ $user->table_key }}" data-name="{{ $user->name }}">
                                         <x-icon name="qr_code" />
                                     </button>
                                 </div>
@@ -131,4 +132,32 @@
         </div>
     </div>
 
+    <!-- Modal qr code -->
+    <!-- Modal qr code -->
+    <div class="modal fade" id="qrCodeModal" tabindex="-1" aria-labelledby="qrCodeModalLabel" aria-hidden="true"
+        data-bs-theme="dark">
+        <div class="modal-dialog modal-dialog-centered" style="width: fit-content;margin: 0 auto;">
+            <div class="modal-content text-center">
+                <div class="modal-header py-2 px-3 d-none">
+                    <h6 class="modal-title" id="qrCodeModalLabel">QR Code</h6>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                        style="font-size: .8rem;"></button>
+                </div>
+                <div class="modal-body p-3 d-flex flex-column align-items-center">
+                    <img id="qrCodeImage" src="" alt="QR Code" class="img-fluid mb-3" style="max-width: 100%;" />
+                    <button id="downloadQrCodeBtn"
+                        class="download-qr-code-btn btn btn-sm btn-sm btn-primary d-flex w-100 text-capitalize">
+                        download <x-icon name="arrow_downward" />
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
 </x-layout>
+
+<x-swal class_form=".form-delete-user"></x-swal>
+

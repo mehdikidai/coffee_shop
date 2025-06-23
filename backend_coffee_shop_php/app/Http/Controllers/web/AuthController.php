@@ -26,10 +26,18 @@ class AuthController extends Controller
             [
                 'email' => ['required', 'email'],
                 'password' => ['required', 'min:8'],
+                'remember_me' => ['nullable'],
             ]
         );
 
-        if (Auth::attempt($loginData)) {
+        $remember = $request->boolean('remember_me');
+
+        if (Auth::attempt([
+
+            'email' => $loginData['email'],
+            'password' => $loginData['password'],
+
+        ], $remember)) {
 
             $request->session()->regenerate();
 

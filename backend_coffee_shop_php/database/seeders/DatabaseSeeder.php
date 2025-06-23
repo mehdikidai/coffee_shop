@@ -25,7 +25,7 @@ class DatabaseSeeder extends Seeder
     {
 
 
-        
+
         User::factory()->create([
             'name' => 'mehdi',
             'email' => 'mehdikidai@gmail.com',
@@ -118,6 +118,7 @@ class DatabaseSeeder extends Seeder
         Setting::updateOrCreate(['key' => 'maintenance_mode'], ['value' => 'off']);
         Setting::updateOrCreate(['key' => 'daily_expected_income'], ['value' => '400']);
         Setting::updateOrCreate(['key' => 'currency'], ['value' => 'DH']);
+        Setting::updateOrCreate(['key' => 'pagination_limit'], ['value' => '12']);
 
     }
 

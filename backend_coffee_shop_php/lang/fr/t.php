@@ -91,5 +91,17 @@ return [
     'weekly_revenue' => 'Revenu hebdomadaire',
     'search' => 'Search',
     'no_data_found' => 'Aucune donnée trouvée',
+    'stock_purchase' => 'achat de stock',
+    'details' => 'détails',
+    'list_items' => 'éléments de la liste',
+    'product_id' => 'ID du produit',
+    'total_order' => 'commande totale',
+    'user_name' => 'nom d’utilisateur',
+    'time' => 'heure',
+    'are_you_sure' => 'Êtes-vous sûr ?',
+    'this_action_cannot_be_undone' => 'Cette action est irréversible.',
+    'yes_delete_it' => 'Oui, supprimez-le !',
+    'cancel' => 'Annuler',
+
 
 ];

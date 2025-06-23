@@ -27,36 +27,6 @@
     <div class="statistics-boxes">
 
         <div class="box">
-            <div class="box-tit justify-content-start">
-                <h3>{{ $statistics['orders_filtered'] }}</h3>
-            </div>
-
-            <span><x-icon name="receipt" /> {{ __('t.orders_filtered') ?? "orders filtered" }} </span>
-        </div>
-
-        <div class="box">
-            <div class="box-tit">
-                <h3>{{$statistics['users']}}</h3>
-            </div>
-            <span><x-icon name="group" /> {{ __('t.users') ?? 'users' }} </span>
-        </div>
-
-        <div class="box">
-            <div class="box-tit">
-                <h3> {{ $statistics['products'] }} </h3>
-            </div>
-
-            <span><x-icon name="package_2" /> {{ __('t.products') ?? "products" }} </span>
-        </div>
-
-        <div class="box">
-            <div class="box-tit">
-                <h3>{{ $statistics['orders_total'] }}</h3>
-            </div>
-            <span><x-icon name="receipt" /> {{ __('t.orders_total') ?? "orders total" }} </span>
-        </div>
-
-        <div class="box">
             <div class="box-tit">
                 <h3 class="d-flex justify-content-between align-items-center">
                     {{ $statistics['orders_today'] }}
@@ -74,18 +44,6 @@
             <span><x-icon name="receipt" /> {{ __('t.orders_today') ?? "orders today" }} </span>
         </div>
 
-        <div class="box">
-
-            <div class="box-tit">
-                <h3>{{ number_format($statistics['orders_total_price_filtered'], 2, ',', '.') . " "  }}
-                    <small>{{config('setting.currency')}}</small>
-                </h3>
-            </div>
-
-
-            <span><x-icon name="paid" /> {{ __('t.orders_total_price_filtered') ?? "orders total price filtered" }}
-            </span>
-        </div>
 
         <div class="box">
 
@@ -111,6 +69,57 @@
 
         </div>
 
+
+        <div class="box">
+            <div class="box-tit justify-content-start">
+                <h3>{{ $statistics['orders_filtered'] }}</h3>
+            </div>
+
+            <span><x-icon name="receipt" /> {{ __('t.orders_filtered') ?? "orders filtered" }} </span>
+        </div>
+
+        <div class="box">
+            <div class="box-tit">
+                <h3>{{$statistics['users']}}</h3>
+            </div>
+            <span><x-icon name="group" /> {{ __('t.users') ?? 'users' }} </span>
+        </div>
+
+        <div class="box">
+            <div class="box-tit">
+                <h3> {{ $statistics['products'] }} </h3>
+            </div>
+
+            <span><x-icon name="package_2" /> {{ __('t.products') ?? "products" }} </span>
+        </div>
+
+        <div class="box">
+            <div class="box-tit">
+                <h3>
+                    {{ $statistics['total_procurement_cost_today'] }}
+                    <small>{{config('setting.currency')}}</small>
+                </h3>
+            </div>
+            <span><x-icon name="receipt" /> {{ __('t.stock_purchase') ?? "stock purchase" }} </span>
+        </div>
+
+
+
+        <div class="box">
+
+            <div class="box-tit">
+                <h3>{{ number_format($statistics['orders_total_price_filtered'], 2, ',', '.') . " "  }}
+                    <small>{{config('setting.currency')}}</small>
+                </h3>
+            </div>
+
+
+            <span><x-icon name="paid" /> {{ __('t.orders_total_price_filtered') ?? "orders total price filtered" }}
+            </span>
+        </div>
+
+
+
         <div class="box">
             <div class="box-tit">
                 <h3>{{ number_format($statistics['orders_total_price_all'], 2, ',', '.') . " "  }}
@@ -120,7 +129,7 @@
 
             <span><x-icon name="paid" /> {{ __('t.orders_total_price') ?? "orders total price" }} </span>
         </div>
-        
+
     </div>
     <div class="chart-box">
         <div class="box box-one">

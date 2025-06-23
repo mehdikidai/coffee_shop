@@ -1,13 +1,9 @@
 <x-layout title="add to stock Page" name_page="add-to-stock">
 
     <div class="container mt-2 mb-4">
-
         <h3 class="text-light mb-3 text-capitalize"> {{ __('t.add_to_stock') ?? "add to stock" }} </h3>
-
         <form action="{{ route('stock.log.store') }}" method="post" enctype="multipart/form-data" data-bs-theme="dark">
-            
             @csrf
-
             <div id="ingredients-wrapper">
                 <div class="ingredient-item mb-3 border rounded p-4 pt-4">
                     <div class="mb-3 input-group-sm">
@@ -28,6 +24,7 @@
                     <button type="button" class="remove-ingredient">
                         <x-icon name="close"></x-icon>
                     </button>
+
                 </div>
             </div>
 
@@ -35,8 +32,13 @@
                 {{ __('t.add_ingredient') ?? 'add another ingredient' }}
             </button>
 
-            <div class="mb-3 input-group-sm mt-3">
-                <label class="form-label text-capitalize">{{ __('t.receipt') ?? "receipt" }}</label>
+            <div class="mt-3 input-group-sm">
+                  <label class="form-label text-capitalize text-light">{{ __('t.receipt_amount') ?? "receipt_amount" }}</label>
+                <input class="form-control" name="receipt_amount" type="text"  placeholder="{{ __('t.receipt_amount') ?? "receipt_amount" }}">
+            </div>
+
+            <div class="mb-3 input-group-sm mt-2">
+                <label class="form-label text-capitalize text-light">{{ __('t.receipt') ?? "receipt" }}</label>
                 <input class="form-control" name="receipt_photo" type="file">
             </div>
 

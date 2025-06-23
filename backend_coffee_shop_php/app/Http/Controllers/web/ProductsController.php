@@ -29,6 +29,8 @@ class ProductsController extends Controller
 
         $search = $request->input('search');
 
+        $pagination_limit = (int) config('setting.pagination_limit');
+
         $products = Product::with(['category', 'ingredients'])
             ->when($search, function ($query, $search) {
                 $query->where('name', 'like', "%$search%")
@@ -37,7 +39,7 @@ class ProductsController extends Controller
                     ->orWhereHas('ingredients', fn($q) => $q->where('name', 'like', "%$search%"));
             })
             ->orderBy('id')
-            ->paginate(10);
+            ->paginate($pagination_limit);
 
         $categories = Cache::rememberForever('all_categories', fn() => Category::all());
 

@@ -3,6 +3,7 @@
 return [
 
     'currency' => 'DH',
-    'site_name' => 'site name'
+    'site_name' => 'site name',
+    'pagination_limit' => '12'
 
 ];

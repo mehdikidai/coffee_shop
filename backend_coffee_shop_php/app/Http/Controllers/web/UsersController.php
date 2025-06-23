@@ -33,7 +33,11 @@ class UsersController extends Controller
                     ->orWhere('id', 'like', $search);
             });
         }
-        $users = $usersQuery->paginate(10);
+
+        $pagination_limit = (int) config('setting.pagination_limit');
+
+        $users = $usersQuery->paginate( $pagination_limit);
+        
         return view('users', compact('users'));
     }
 

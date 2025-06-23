@@ -10,15 +10,15 @@
                         <x-icon name="arrow_back" />
                     @endif
                 </a>
-                <h2 class="box-tit">list items</h2>
+                <h2 class="box-tit"> {{ __('t.list_items') }} </h2>
             </div>
             <table class="table table-bordered table-sm" data-bs-theme="dark">
                 <thead>
                     <tr>
-                        <th scope="col" class="th-order-id">Product Id</th>
-                        <th scope="col" class="th-order-name">Name</th>
-                        <th scope="col" class="th-quantity">Quantity</th>
-                        <th scope="col" class="th-total">Price</th>
+                        <th scope="col" class="th-order-id"> {{ __('t.product_id') }} </th>
+                        <th scope="col" class="th-order-name">{{ __('t.name') ?? 'name' }} </th>
+                        <th scope="col" class="th-quantity"> {{ __('t.quantity') ?? 'quantity' }} </th>
+                        <th scope="col" class="th-total"> {{ __('t.price') ?? 'price' }} </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -39,7 +39,7 @@
         </div>
         <div class="box box-total">
             <div class="btn-and-title">
-                <h2 class="box-tit">Total Order</h2>
+                <h2 class="box-tit"> {{ __('t.total_order') ?? 'total order' }} </h2>
             </div>
             <div class="total">
                 <table class="table table-sm" data-bs-theme="dark">
@@ -52,27 +52,27 @@
                     <tbody>
 
                         <tr>
-                            <th scope="row" class="px-2">user name</th>
+                            <th scope="row" class="px-2"> {{ __('t.user_name') ?? 'user name' }} </th>
                             <td class="px-2">{{ $order->user->name }}</td>
                         </tr>
                         <tr>
-                            <th scope="row" class="px-2">order id</th>
+                            <th scope="row" class="px-2"> {{ __('t.order_id') ?? 'order id' }} </th>
                             <td class="px-2">{{ $order->id }}</td>
                         </tr>
                         <tr>
-                            <th scope="row" class="px-2">date</th>
+                            <th scope="row" class="px-2">{{ __('t.date') ?? 'date' }} </th>
                             <td class="px-2">{{ $order->created_at->format('d/m/Y')}}</td>
                         </tr>
                         <tr>
-                            <th scope="row" class="px-2">time</th>
+                            <th scope="row" class="px-2">{{ __('t.time') ?? 'time' }} </th>
                             <td class="px-2">{{ $order->created_at->format('H:i')}}</td>
                         </tr>
                         <tr>
-                            <th scope="row" class="px-2">quantity</th>
+                            <th scope="row" class="px-2"> {{ __('t.quantity') ?? 'quantity' }} </th>
                             <td class="px-2"> {{ $order->items->sum('quantity') }} </td>
                         </tr>
                         <tr>
-                            <th scope="row" class="px-2">Total</th>
+                            <th scope="row" class="px-2"> {{ __('t.total') ?? 'total' }} </th>
                             <td class="px-2">
                                 {{ number_format($order->items->sum(fn($item) => $item->quantity * $item->product->price) ?? 0, 2) }}
                                 <small>{{ config('setting.currency') }}</small>

@@ -11,7 +11,7 @@ class Receipt extends Model
 {
     /** @use HasFactory<\Database\Factories\ReceiptFactory> */
     use HasFactory;
-    protected $fillable = ['number', 'receipt_photo'];
+    protected $fillable = ['number', 'receipt_amount', 'receipt_photo'];
 
     public function stockLogs(): HasMany
     {

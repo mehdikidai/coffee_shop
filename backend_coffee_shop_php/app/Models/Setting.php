@@ -11,5 +11,16 @@ class Setting extends Model
     use HasFactory;
 
     protected $fillable = ['key', 'value'];
-    
+
+
+    public static function boot()
+    {
+
+
+        parent::boot();
+
+        static::updated(function ($setting): void {
+            cache()->forget("setting_{$setting->key}");
+        });
+    }
 }

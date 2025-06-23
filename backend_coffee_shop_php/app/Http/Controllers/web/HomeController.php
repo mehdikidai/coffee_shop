@@ -2,19 +2,24 @@
 
 namespace App\Http\Controllers\web;
 
+use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Order;
 use App\Models\Product;
+use App\Models\Receipt;
 use Illuminate\Http\Request;
+use Illuminate\Contracts\View\View;
 use App\Http\Controllers\Controller;
-use Carbon\Carbon;
+use Illuminate\Http\RedirectResponse;
 
 class HomeController extends Controller
 {
-    public function __invoke(Request $request)
+    public function __invoke(Request $request): RedirectResponse|View
     {
 
         $ordersQuery = Order::query();
+        $receiptQuery = Receipt::query();
+
         // date from => date to
         $dateFrom = $request->input('date_from');
         $dateTo = $request->input('date_to');
@@ -30,9 +35,15 @@ class HomeController extends Controller
                 }
 
                 $ordersQuery->whereBetween('created_at', [$fromDate, $toDate]);
+                $receiptQuery->whereBetween('created_at', [$fromDate, $toDate]);
+
             } elseif ($dateFrom && !$dateTo) {
+
                 $onlyDate = Carbon::createFromFormat('d-m-Y', $dateFrom)->toDateString();
+
                 $ordersQuery->whereDate('created_at', $onlyDate);
+                $receiptQuery->whereDate('created_at', $onlyDate);
+
             }
         } catch (\Exception $e) {
             return back()->withErrors(['date' => "invalid date format"]);
@@ -41,7 +52,9 @@ class HomeController extends Controller
 
 
         $ordersFiltered = $ordersQuery->count();
-        $ordersTotal = Order::count();
+
+        $totalProcurementCostToday = $receiptQuery->sum('receipt_amount');
+
 
         // ---------------
 
@@ -79,8 +92,8 @@ class HomeController extends Controller
         return view('home', [
             'statistics' => [
                 'orders_filtered' => $ordersFiltered,
-                'orders_total' => $ordersTotal,
                 'orders_today' => $ordersToday,
+                'total_procurement_cost_today' =>  $totalProcurementCostToday,
                 'users' => $users,
                 'products' => $products,
                 'orders_total_price_today' => $ordersTotalPriceToday,

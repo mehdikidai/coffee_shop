@@ -20,9 +20,11 @@ class StockLogController extends Controller
     public function index(): View
     {
 
-        $stock_log = StockLog::with(['ingredient', 'user'])->latest()->paginate(10);
+        $pagination_limit = (int) config('setting.pagination_limit');
 
-        $ingredients = Ingredient::latest()->paginate(10);
+        $stock_log = StockLog::with(['ingredient', 'user'])->latest()->paginate( $pagination_limit);
+
+        $ingredients = Ingredient::all();
 
         return view('stockLog', compact('stock_log', 'ingredients'));
     }
@@ -56,6 +58,7 @@ class StockLogController extends Controller
     {
         $validated = $request->validate([
             'receipt_photo' => 'nullable|image|max:2048',
+            'receipt_amount' => 'required|numeric|min:0',
             'ingredients' => 'required|array|min:1',
             'ingredients.*.ingredient_id' => 'required|exists:ingredients,id',
             'ingredients.*.quantity' => 'required|numeric|min:1',
@@ -69,15 +72,14 @@ class StockLogController extends Controller
             $receiptPath = "uploads/receipts/$fileName";
         }
 
-        do {
-            $number = "INV-" . mt_rand(1000000000000000, 9999999999999999);
-        } while (Receipt::where('number', $number)->exists());
+       $number = 'INV-' . Str::uuid();
 
-        DB::transaction(function () use ($request, $receiptPath,$number) {
+        DB::transaction(function () use ($request, $receiptPath, $number, $validated) {
 
 
             $receipt = Receipt::create([
                 'receipt_photo' => $receiptPath,
+                'receipt_amount' => $validated['receipt_amount'],
                 'number' => $number,
             ]);
 

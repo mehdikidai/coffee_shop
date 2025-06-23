@@ -40,7 +40,7 @@
                                     <x-icon name="add" /> {{ __('t.add_stock') ?? "add stock" }}
                                 </a>
 
-                                <form class="form-delete-product" id="destroy_ingredient" action="{{ route('ingredients.destroy', $in->id) }}"
+                                <form class="form-delete-ingredient" id="destroy_ingredient" action="{{ route('ingredients.destroy', $in->id) }}"
                                     method="POST" style="display:inline-block;">
                                     @csrf
                                     @method('DELETE')
@@ -131,3 +131,6 @@
 
 
 </x-layout>
+
+
+<x-swal class_form=".form-delete-ingredient"></x-swal>

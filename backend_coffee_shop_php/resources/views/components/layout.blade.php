@@ -9,6 +9,7 @@
     <meta charset="UTF-8">
     <meta name="robots" content="noindex, nofollow">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}">
     <title>{{ $title }}</title>
     {{-- Material icon --}}
     <link rel="stylesheet"
@@ -22,13 +23,16 @@
 
         <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@100..900&display=swap" rel="stylesheet">
         @vite(['resources/css/app.scss', 'resources/css/bootstrap.rtl.min.css'])
+
     @else
+
         <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
         @vite(['resources/css/app.scss', 'resources/css/bootstrap.css'])
 
+
     @endif
 
-    {{-- bootstrap --}}
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     @livewireStyles
 
@@ -142,6 +146,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO"
         crossorigin="anonymous"></script>
+    <!-- الصحيح -->
+
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 

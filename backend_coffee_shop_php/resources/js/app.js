@@ -1,34 +1,11 @@
 import "./bootstrap";
-import Swal from "sweetalert2";
 import AirDatepicker from "air-datepicker";
 import "air-datepicker/air-datepicker.css";
 import localeEn from "air-datepicker/locale/en";
 import localeAr from "air-datepicker/locale/AR";
 import localeFr from "air-datepicker/locale/fr";
 
-const confirmDelete = (els) => {
-    document.querySelectorAll(els).forEach((form) => {
-        form.addEventListener("submit", function (e) {
-            e.preventDefault();
 
-            Swal.fire({
-                title: "Are you sure?",
-                text: "This action cannot be undone.",
-                showCancelButton: true,
-                confirmButtonColor: "#d33",
-                cancelButtonColor: "#3085d6",
-                confirmButtonText: "Yes, delete it!",
-                cancelButtonText: "Cancel",
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    form.submit();
-                }
-            });
-        });
-    });
-};
-
-confirmDelete(".form-delete-user");
 
 document.querySelectorAll(".btns_remove_alert").forEach((btn) => {
     btn.addEventListener("click", () => {
@@ -62,7 +39,6 @@ new AirDatepicker("#input_filter", {
     //visible: true,
 });
 
-
 /*
 
 const dateFromPicker = new AirDatepicker("#date_from", {
@@ -94,8 +70,6 @@ const dateToPicker = new AirDatepicker("#date_to", {
 });
 
 */
-
-
 
 let dateToPicker;
 
@@ -145,7 +119,6 @@ dateToPicker = new AirDatepicker("#date_to", {
     },
 });
 
-
 const btnMenu = document.getElementById("btn_menu");
 if (btnMenu) {
     btnMenu.addEventListener("click", function () {
@@ -160,7 +133,7 @@ if (btnClose) {
     });
 }
 
-confirmDelete(".form-delete-category");
+// confirmDelete(".form-delete-category");
 
 document.addEventListener("DOMContentLoaded", () => {
     const wrapper = document.getElementById("ingredients-wrapper");
@@ -237,13 +210,51 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 });
 
+// const btnQrCode = document.querySelectorAll('.btn_qr_code')
 
-const btnQrCode = document.querySelectorAll('.btn_qr_code')
+// btnQrCode.forEach(btn => {
+//     btn.addEventListener('click', () => {
+//         const key = btn.dataset.key;
+//         const imgUrl = `https://api.qrserver.com/v1/create-qr-code/?data=${encodeURIComponent(key)}`;
+//         window.open(imgUrl, '_blank');
+//     });
+// });
 
-btnQrCode.forEach(btn => {
-    btn.addEventListener('click', () => {
-        const key = btn.dataset.key;
-        const imgUrl = `https://api.qrserver.com/v1/create-qr-code/?data=${encodeURIComponent(key)}`;
-        window.open(imgUrl, '_blank');
+const downloadQrCode = async (imageSrc, fileName) => {
+    const fullName = `qrcode_${fileName}.png`;
+    const image = await fetch(imageSrc);
+    const imageBlob = await image.blob();
+    const imageURL = URL.createObjectURL(imageBlob);
+    const link = document.createElement("a");
+    link.href = imageURL;
+    link.download = fullName;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+};
+
+const qrCodeModal = document.getElementById("qrCodeModal");
+
+if (qrCodeModal !== null) {
+    const btnQrCode = document.querySelectorAll(".btn_qr_code");
+    const qrImage = document.getElementById("qrCodeImage");
+    const qrModal = new bootstrap.Modal(qrCodeModal);
+    const downloadBtn = document.getElementById("downloadQrCodeBtn");
+
+    btnQrCode.forEach((btn) => {
+        btn.addEventListener("click", () => {
+
+            const key = btn.dataset.key;
+            const name = String(btn.dataset.name).replace(" ", "_");
+            const imgUrl = `https://api.qrserver.com/v1/create-qr-code/?data=${encodeURIComponent(
+                key
+            )}&margin=15&size=300x300`;
+            qrImage.src = imgUrl;
+
+            downloadBtn.addEventListener("click", () => {
+                downloadQrCode(imgUrl, name);
+            });
+            qrModal.show();
+        });
     });
-});
+}

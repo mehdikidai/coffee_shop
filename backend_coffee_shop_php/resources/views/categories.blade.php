@@ -101,3 +101,6 @@
 
 
 </x-layout>
+
+
+<x-swal class_form=".form-delete-category"></x-swal>

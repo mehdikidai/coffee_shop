@@ -97,5 +97,19 @@ return [
     'daily_expected_income' => 'الدخل المتوقع يومياً',
     'currency' => 'العملة',
     'no_data_found' => 'لا توجد بيانات',
+    'stock_purchase' => 'شراء المخزون',
+    'pagination_limit' => 'عدد العناصر في كل صفحة',
+    'details' => 'التفاصيل',
+    'list_items' => 'عناصر القائمة',
+    'product_id' => 'معرّف المنتج',
+    'total_order' => 'إجمالي الطلب',
+    'user_name' => 'اسم المستخدم',
+    'time' => 'الوقت',
+    'are_you_sure' => 'هل أنت متأكد؟',
+    'this_action_cannot_be_undone' => 'لا يمكن التراجع عن هذا الإجراء.',
+    'yes_delete_it' => 'نعم، احذفه!',
+    'cancel' => 'إلغاء',
+
+
 
 ];

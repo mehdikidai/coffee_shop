@@ -4,8 +4,10 @@ namespace App\Http\Controllers\web;
 
 use App\Models\Setting;
 use Illuminate\Http\Request;
+use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\App;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Session;
 
 class SettingController extends Controller
@@ -13,7 +15,7 @@ class SettingController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(): View
     {
         return view('setting', ['languages' => $this->languages]);
     }
@@ -68,7 +70,7 @@ class SettingController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request)
+    public function update(Request $request): RedirectResponse
     {
 
         $validated = $request->validate([
@@ -76,6 +78,7 @@ class SettingController extends Controller
             'site_email' => 'required|email|max:255',
             'daily_expected_income' => 'required|numeric|min:0',
             'currency' => 'required|string|max:10',
+            'pagination_limit' => 'required|numeric|min:4|max:30',
         ]);
 
 
@@ -84,11 +87,6 @@ class SettingController extends Controller
                 ['key' => $key],
                 ['value' => $value]
             );
-        }
-
-    
-        foreach (array_keys($validated) as $key) {
-            cache()->forget("setting_{$key}");
         }
 
         return redirect()->back()->with('success', 'Settings updated successfully.');

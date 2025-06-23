@@ -28,13 +28,14 @@
                 }
             }
         }
-
         .btn_add_ingredient {
             background: var(--main-color) !important;
-            color: var(--color-white);
+            color: var(--background-color);
+            text-transform: capitalize;
+            font-weight: 600;
             &:hover {
                 background: var(--main-color) !important;
-                color: var(--color-white);
+                color: var(--background-color);
             }
         }
     }

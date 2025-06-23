@@ -160,8 +160,7 @@
         </div>
     </div>
 
-
-
-
-
 </x-layout>
+
+<x-swal class_form=".form-delete-product"></x-swal>
+
