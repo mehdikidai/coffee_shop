@@ -65,14 +65,14 @@
             <li class="list-group-item bg-transparent text-capitalize border-0">
                 <div class="mb-1 input-group-sm">
                     <label for="currency" class="form-label opacity-75"> {{ __('t.currency') ?? "currency" }} </label>
-                    <input type="text" class="form-control" id="currency" name="currency" placeholder=" {{ __('t.currency') ?? "currency" }} "
+                    <input type="text" class="form-control ltr" id="currency" name="currency" placeholder=" {{ __('t.currency') ?? "currency" }} "
                         value="{{ old('currency', setting('currency', '$')) }}">
                 </div>
             </li>
         </ul>
 
         <div class="mt-4 input-group-sm d-flex">
-            <button type="submit" class="btn btn-primary">Save Settings</button>
+            <button type="submit" class="btn btn-primary"> {{ __('t.save_settings') ?? 'Save Settings' }} </button>
         </div>
     </form>
 </x-layout>

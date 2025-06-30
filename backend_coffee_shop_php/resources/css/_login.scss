@@ -55,15 +55,14 @@
                         transform: scale(0);
                         transition: 120ms transform ease-in-out;
                         box-shadow: inset 1em 1em #005f73;
-
                     }
 
                     input[type="checkbox"]:checked::before {
                         transform: scale(1);
                     }
 
-                    .form-check{
-                        label{
+                    .form-check {
+                        label {
                             font-size: 14px;
                         }
                     }
@@ -74,8 +73,30 @@
 }
 
 @include respond-to("mobile") {
-    .page-login .container-login .form-login h1 {
-        font-size: 1.3rem;
+    .page-login {
+        grid-template-columns: 1fr;
+        grid-template-rows: 160px 1fr;
+        .box_one {
+            background: transparent;
+            clip-path: inset(10px round 0 0 12px 12px);
+            position: relative;
+        }
+        .box_two {
+            display: flex;
+            align-items: start;
+            justify-content: center;
+            .container-login {
+                width: calc(100vw - 40px);
+                max-width: 460px;
+                margin: 0 auto;
+                background: transparent;
+                padding: 20px 0px;
+                border-radius: 6px;
+            }
+        }
+        .container-login .form-login h1 {
+            font-size: 1.3rem;
+        }
     }
     .form-login {
         label {

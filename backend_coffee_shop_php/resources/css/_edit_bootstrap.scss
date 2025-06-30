@@ -15,6 +15,13 @@
     --bs-btn-disabled-border-color: #005f73;
 }
 
+.rtl {
+    direction: rtl !important;
+}
+.ltr {
+    direction: ltr !important;
+}
+
 .table > :not(caption) > * > * {
     background-color: var(--background-color) !important;
 }

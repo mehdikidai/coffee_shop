@@ -11,8 +11,8 @@
         <form method="get">
             <div class="d-flex input-group-sm gap-2">
                 <input class="form-control" type="text" value="{{ request('search') }}" name="search" id="search"
-                    placeholder="Search">
-                <button class="btn btn-sm btn-primary">Search</button>
+                    placeholder="{{ __('t.search') ?? 'search' }}">
+                <button class="btn btn-sm btn-primary"> {{ __('t.search') ?? 'search' }} </button>
             </div>
 
         </form>
@@ -147,7 +147,7 @@
                     <img id="qrCodeImage" src="" alt="QR Code" class="img-fluid mb-3" style="max-width: 100%;" />
                     <button id="downloadQrCodeBtn"
                         class="download-qr-code-btn btn btn-sm btn-sm btn-primary d-flex w-100 text-capitalize">
-                        download <x-icon name="arrow_downward" />
+                        {{ __('t.download' ?? 'download') }} <x-icon name="arrow_downward" />
                     </button>
                 </div>
             </div>

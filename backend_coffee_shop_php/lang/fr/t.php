@@ -102,6 +102,6 @@ return [
     'this_action_cannot_be_undone' => 'Cette action est irréversible.',
     'yes_delete_it' => 'Oui, supprimez-le !',
     'cancel' => 'Annuler',
-
-
+    'download' => 'télécharger',
+    'save_settings' => 'enregistrer les paramètres'
 ];

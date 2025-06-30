@@ -110,4 +110,6 @@ return [
     'are_you_sure' => 'Are you sure?',
     'this_action_cannot_be_undone' => 'This action cannot be undone.',
     'yes_delete_it' => 'Yes, delete it!',
+    'download' => 'download',
+    'save_settings' => 'save settings'
 ];

@@ -109,7 +109,8 @@ return [
     'this_action_cannot_be_undone' => 'لا يمكن التراجع عن هذا الإجراء.',
     'yes_delete_it' => 'نعم، احذفه!',
     'cancel' => 'إلغاء',
-
+    'download' => 'تحميل',
+    'save_settings' => 'حفظ الإعدادات'
 
 
 ];

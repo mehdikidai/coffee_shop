@@ -20,11 +20,13 @@ class OrdersController extends Controller
         $users = User::whereNot('role', UserRole::USER->value)->get();
         //$orders = Order::with(['items', 'user'])->latest()->paginate(10);
 
+        $pagination_limit = (int) config('setting.pagination_limit');
+
         $orders = Order::with(['items', 'user'])
             ->when($request->user_id, fn($query) => $query->where('user_id', $request->user_id))
             ->when($request->date, fn($query) => $query->whereDate('created_at', $request->date))
             ->latest()
-            ->paginate(10);
+            ->paginate($pagination_limit);
 
 
         return view('orders', compact('orders', 'users'));

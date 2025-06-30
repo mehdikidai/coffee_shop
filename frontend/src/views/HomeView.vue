@@ -35,8 +35,7 @@ const filterBy = (filterId: number | null) => {
   console.log(`Filtering by: ${filterId}`)
 }
 
-const categories = computed(() => storeProducts.categories )
-
+const categories = computed(() => storeProducts.categories)
 </script>
 
 <template>
@@ -119,11 +118,9 @@ const categories = computed(() => storeProducts.categories )
   }
 }
 
-
 .product-list {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-
+  grid-template-columns: 1fr 1fr 1fr 1fr;
   gap: 15px;
   padding: 20px;
   .product-card {
@@ -198,4 +195,31 @@ const categories = computed(() => storeProducts.categories )
     }
   }
 }
+
+
+@media only screen and (min-width: 320px) {
+  .product-list {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media only screen and (min-width: 480px) {
+  .product-list {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .product-list {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+
+@media only screen and (min-width: 992px) {
+  .product-list {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
+}
+
+
 </style>

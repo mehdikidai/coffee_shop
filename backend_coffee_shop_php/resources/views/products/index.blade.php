@@ -12,8 +12,8 @@
         <form method="get">
             <div class="d-flex input-group-sm gap-2">
                 <input class="form-control" type="text" value="{{ request('search') }}" name="search" id="search"
-                    placeholder="Search">
-                <button class="btn btn-sm btn-primary">Search</button>
+                    placeholder="{{ __('t.search') ?? 'search' }}">
+                <button class="btn btn-sm btn-primary">{{ __('t.search') ?? 'search' }}</button>
             </div>
 
         </form>
