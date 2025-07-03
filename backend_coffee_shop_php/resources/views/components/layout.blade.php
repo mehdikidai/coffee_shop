@@ -44,7 +44,7 @@
     <div class="sidebar" id="sidebar">
 
         <div class="logo-box">
-            <h2> {{ config('setting.site_name') }} </h2>
+            <h2> @setting('site_name', 'name app') </h2>
             <button class="k-btn-close" id="btn_close">
                 <x-icon name="close" />
             </button>
@@ -123,7 +123,9 @@
             </button>
             <h1> {{ __('t.welcome') ?? "welcome" }} {{ auth()->user()->name }}</h1>
 
-            <livewire:search />
+            <x-only-admin>
+                <livewire:search />
+            </x-only-admin>
 
             <div class="box-user">
                 <div class="name-and-email">
@@ -146,8 +148,6 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO"
         crossorigin="anonymous"></script>
-    <!-- الصحيح -->
-
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 

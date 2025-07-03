@@ -1,11 +1,13 @@
 <x-layout title="Ingredients Page" name_page="page-ingredients">
 
     <!-- Button trigger modal -->
-    <button type="button"
-        class="k-button-add-product btn btn-primary mb-3 float-end btn-sm d-flex align-items-center text-capitalize"
-        data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-        <x-icon name="add" /> {{ __('t.new_ingredient') ?? "new ingredient" }}
-    </button>
+    <x-only-admin>
+        <button type="button"
+            class="k-button-add-product btn btn-primary mb-3 float-end btn-sm d-flex align-items-center text-capitalize px-3"
+            data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+            <x-icon name="add" /> {{ __('t.new_ingredient') ?? "new ingredient" }}
+        </button>
+    </x-only-admin>
 
     <div class="cont-table">
         <table class="table table-bordered table-sm" data-bs-theme="dark">
@@ -16,7 +18,9 @@
                     <th scope="col" class="th-unit text-capitalize"> {{ __('t.unit') ?? "unit" }} </th>
                     <th scope="col" class="th-unit text-capitalize"> {{ __('t.unit_name') ?? "unit_name" }} </th>
                     <th scope="col" class="th-stock text-capitalize"> {{ __('t.stock') ?? "stock" }} </th>
-                    <th scope="col" class="th-actions text-capitalize"> {{ __('t.actions') ?? "actions" }} </th>
+                    <x-only-admin>
+                        <th scope="col" class="th-actions text-capitalize"> {{ __('t.actions') ?? "actions" }} </th>
+                    </x-only-admin>
                 </tr>
             </thead>
             <tbody>
@@ -30,27 +34,30 @@
                         <td class="px-2 {{ $in->stock <= $in->stock_threshold ? 'text-danger fw-bold' : '' }}">
                             {{ $in->stock }} <small class="text-capitalize opacity-50">{{ $in->unit }}</small>
                         </td>
-                        <td class="td-actions">
-                            <div class="box-actions">
-                                <a href="{{ route('ingredients.edit', $in->id) }}" class="btn btn-sm btn-primary">
-                                    <x-icon name="edit" /> {{ __('t.edit') ?? "edit" }}
-                                </a>
+                        <x-only-admin>
+                            <td class="td-actions">
+                                <div class="box-actions">
+                                    <a href="{{ route('ingredients.edit', $in->id) }}" class="btn btn-sm btn-primary">
+                                        <x-icon name="edit" /> {{ __('t.edit') ?? "edit" }}
+                                    </a>
 
-                                <a href="{{ route('ingredients.edit', $in->id) }}" class="btn btn-sm btn-success">
-                                    <x-icon name="add" /> {{ __('t.add_stock') ?? "add stock" }}
-                                </a>
+                                    <a href="{{ route('ingredients.edit', $in->id) }}" class="btn btn-sm btn-success">
+                                        <x-icon name="add" /> {{ __('t.add_stock') ?? "add stock" }}
+                                    </a>
 
-                                <form class="form-delete-ingredient" id="destroy_ingredient" action="{{ route('ingredients.destroy', $in->id) }}"
-                                    method="POST" style="display:inline-block;">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button class="btn btn-sm btn-danger">
-                                        <x-icon name="delete" /> {{ __('t.delete') ?? "delete" }}
-                                    </button>
-                                </form>
+                                    <form class="form-delete-ingredient" id="destroy_ingredient"
+                                        action="{{ route('ingredients.destroy', $in->id) }}" method="POST"
+                                        style="display:inline-block;">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button class="btn btn-sm btn-danger">
+                                            <x-icon name="delete" /> {{ __('t.delete') ?? "delete" }}
+                                        </button>
+                                    </form>
 
-                            </div>
-                        </td>
+                                </div>
+                            </td>
+                        </x-only-admin>
                     </tr>
                 @endforeach
 

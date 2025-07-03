@@ -82,13 +82,12 @@
     }
     .chart-box {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
         gap: 15px;
         margin-top: 20px;
-        align-items: stretch;
         .box {
             //aspect-ratio: 19/9;
-            height: fit-content;
+            height: 100%;
             background: var(--background-color-two);
             border-radius: 6px;
             padding: 20px 20px 30px;
@@ -98,6 +97,24 @@
                 user-select: none;
             }
         }
+    }
+}
+
+@include respond-to("laptop") {
+    .statistics .statistics-boxes {
+        display: flex;
+        flex-wrap: wrap;
+        .box{
+            flex: 1 1 360px;
+        }
+    }
+
+    .statistics .chart-box {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        flex-direction: column;
+        gap: 15px;
+        margin-top: 20px;
     }
 }
 
@@ -124,10 +141,8 @@
     }
     .statistics .chart-box {
         display: grid;
-        grid-template-columns: 1fr;
         gap: 15px;
         margin-top: 20px;
-        align-items: stretch;
     }
     .statistics .filter {
         max-width: none;

@@ -19,13 +19,6 @@ class ProductsController extends Controller
     public function index(Request $request): View
     {
 
-        // $search = $request->input('search');
-        // if ($search) {
-        //     dd($search);
-        // }
-        // $products = Product::with(['category', 'ingredients'])->orderBy('id')->paginate(10);
-        // $categories = Cache::rememberForever('all_categories', fn() => Category::all());
-        // return view('products', compact('products', 'categories'));
 
         $search = $request->input('search');
 
@@ -79,11 +72,23 @@ class ProductsController extends Controller
         ]);
 
         if ($request->hasFile('photo')) {
+
+            $host = request()->getHost();
+            $subdomain = explode('.', $host)[0];
+
+            $path = public_path("uploads/products/$subdomain");
+
+            if (!file_exists($path)) {
+                mkdir($path, 0755, true);
+            }
+
             $fileName = time() . '.' . $request->photo->extension();
-            $request->photo->move(public_path('uploads/products'), $fileName);
-            $uri = "uploads/products/$fileName";
+            $request->photo->move($path, $fileName);
+
+            $uri = "uploads/products/$subdomain/$fileName";
             $data['photo'] = asset($uri);
         }
+
 
         Product::create($data);
 
@@ -164,7 +169,9 @@ class ProductsController extends Controller
         $product = Product::findOrFail($id);
         $ingredients = $request->input('ingredients', []);
 
-        $filteredIngredients = array_filter($ingredients, fn ($ing)
+        $filteredIngredients = array_filter(
+            $ingredients,
+            fn($ing)
             => isset($ing['id']) && $ing['id'] !== '' && isset($ing['quantity']) && $ing['quantity'] !== ''
         );
 

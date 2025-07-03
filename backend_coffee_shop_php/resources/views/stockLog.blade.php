@@ -3,7 +3,7 @@
     <!-- Button trigger modal -->
     <div class="d-flex justify-content-end mb-3">
         <a
-            class="btn_add_to_stock btn btn-primary float-end btn-sm d-flex align-items-center text-capitalize"
+            class="btn_add_to_stock btn btn-primary float-end btn-sm d-flex align-items-center text-capitalize px-3"
             href="{{ route('stock.log.show.add.to.stock') }}"
 
             >

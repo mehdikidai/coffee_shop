@@ -7,29 +7,31 @@ use App\Models\Order;
 use App\Enum\UserRole;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Contracts\View\View;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\RedirectResponse;
 
 class OrdersController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request)
+    public function index(Request $request): View
     {
 
         $users = User::whereNot('role', UserRole::USER->value)->get();
-        //$orders = Order::with(['items', 'user'])->latest()->paginate(10);
 
-        $pagination_limit = (int) config('setting.pagination_limit');
+        $pagination_limit = pagination_limit();
 
         $orders = Order::with(['items', 'user'])
             ->when($request->user_id, fn($query) => $query->where('user_id', $request->user_id))
             ->when($request->date, fn($query) => $query->whereDate('created_at', $request->date))
             ->latest()
-            ->paginate($pagination_limit);
-
+            ->paginate($pagination_limit)
+            ->appends($request->only(['user_id', 'date']));
 
         return view('orders', compact('orders', 'users'));
+
     }
 
     /**
@@ -51,7 +53,7 @@ class OrdersController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(string $id): View
     {
         $order  = Order::whereId($id)->with(['items.product', 'user'])->first(); // items use a product
 
@@ -77,7 +79,7 @@ class OrdersController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(string $id): RedirectResponse
     {
 
         $order = Order::with('items')->findOrFail($id);

@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Enum\UserRole;
 use App\Models\User;
+use App\Enum\UserRole;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Services\TenantService;
 use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
@@ -23,11 +24,13 @@ class AuthController extends Controller
 
         $user = User::where('email', $data['email'])->first();
 
-        if (!$user || !Hash::check($data['password'], $user->password)) {
+        if (!$user || !Hash::check($data['password'], (string) $user->password)) {
             return response()->json([
                 'message' => 'Invalid Credentials'
             ], 401);
         }
+
+        $tenantName = TenantService::$tenantName;
 
         $token = $user->createToken("{$user->id}-AuthToken")->plainTextToken;
 
@@ -35,6 +38,7 @@ class AuthController extends Controller
 
         $res = [
             'token' => $token,
+            'tenant_name' => $tenantName,
             'user' => [
                 'id' => $user->id,
                 'name' => $user->name,

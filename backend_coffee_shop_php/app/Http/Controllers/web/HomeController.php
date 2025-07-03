@@ -10,12 +10,14 @@ use App\Models\Receipt;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\View\View;
 use App\Http\Controllers\Controller;
+use App\Models\Tenant;
 use Illuminate\Http\RedirectResponse;
 
 class HomeController extends Controller
 {
     public function __invoke(Request $request): RedirectResponse|View
     {
+
 
         $ordersQuery = Order::query();
         $receiptQuery = Receipt::query();

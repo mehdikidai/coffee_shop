@@ -1,6 +1,9 @@
 <x-layout title="Home Page" name_page="statistics">
 
 
+
+    <x-only-admin>
+
     <div class="filter mb-3 float-end">
         <form method="GET" class="" data-bs-theme="dark">
 
@@ -16,13 +19,12 @@
 
             <div class="input-group input-group-sm d-grid">
                 <button type="submit"
-                    class="btn btn-primary d-flex align-items-center gap-2 btn-filter text-capitalize"> <x-icon
+                    class="btn btn-primary d-flex align-items-center gap-2 btn-filter text-capitalize px-3"> <x-icon
                         name="event" /> {{ __('t.filter') ?? 'filter' }}</button>
             </div>
 
         </form>
     </div>
-
 
     <div class="statistics-boxes">
 
@@ -51,7 +53,7 @@
                 <a class="text-decoration-none" href="{{ route('orders.index', ['date' => now()->toDateString()]) }}">
                     <h3>
                         {{ number_format($statistics['orders_total_price_today'], 2, ',', '.') . " " }}
-                        <small>{{config('setting.currency')}}</small>
+                        <small> @setting('currency') </small>
                     </h3>
                 </a>
 
@@ -97,7 +99,7 @@
             <div class="box-tit">
                 <h3>
                     {{ $statistics['total_procurement_cost_today'] }}
-                    <small>{{config('setting.currency')}}</small>
+                    <small> @setting('currency') </small>
                 </h3>
             </div>
             <span><x-icon name="receipt" /> {{ __('t.stock_purchase') ?? "stock purchase" }} </span>
@@ -109,7 +111,7 @@
 
             <div class="box-tit">
                 <h3>{{ number_format($statistics['orders_total_price_filtered'], 2, ',', '.') . " "  }}
-                    <small>{{config('setting.currency')}}</small>
+                    <small>@setting('currency')</small>
                 </h3>
             </div>
 
@@ -123,7 +125,7 @@
         <div class="box">
             <div class="box-tit">
                 <h3>{{ number_format($statistics['orders_total_price_all'], 2, ',', '.') . " "  }}
-                    <small>{{config('setting.currency')}}</small>
+                    <small>@setting('currency')</small>
                 </h3>
             </div>
 
@@ -157,6 +159,13 @@
             @endif
         </div>
     </div>
+
+
+    </x-only-admin>
+
+    <x-not-admin>
+        <x-message>This content is for admins only.</x-message>
+    </x-not-admin>
 
 </x-layout>
 

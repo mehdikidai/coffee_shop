@@ -4,7 +4,9 @@ namespace App\Http\Controllers\web;
 
 use App\Enum\UserRole;
 use Illuminate\Http\Request;
+use App\Services\TenantService;
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
@@ -14,7 +16,8 @@ class AuthController extends Controller
      */
     public function pageLogin()
     {
-        return view('login');
+        $app_name = TenantService::$tenantName;
+        return view('login', compact('app_name'));
     }
 
     /**
@@ -43,13 +46,14 @@ class AuthController extends Controller
 
             $user = Auth::user();
 
-            if ($user->role !== UserRole::ADMIN->value) {
+            if (!in_array($user->role, [UserRole::ADMIN->value,UserRole::BARISTA->value])) {
                 Auth::logout();
                 return back()->withErrors(['email' => 'You do not have permission to enter.']);
             }
 
             return redirect()->intended('/');
         } else {
+
             return back()->withErrors(['email' => 'Email or password is incorrect.']);
         }
     }

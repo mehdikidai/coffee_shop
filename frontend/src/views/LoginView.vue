@@ -17,6 +17,10 @@
         />
       </div>
       <div class="box">
+        <span><x-icon icon="uil:key-skeleton" /></span>
+        <input v-model="tenantToken" type="text" name="tenant_token" id="email" placeholder="key" />
+      </div>
+      <div class="box">
         <button type="submit">{{ loading ? 'loading' : 'login' }}</button>
       </div>
     </form>
@@ -38,6 +42,7 @@ import { Capacitor } from '@capacitor/core'
 import { Toast } from '@capacitor/toast'
 import { LOGIN, KEY } from '@/zod/login'
 import LayoutLogin from '@/components/LayoutLogin.vue'
+import { useStorage } from '@vueuse/core'
 
 const isSupported = ref<boolean>(false)
 const isNativePlatform = computed((): boolean => Capacitor.isNativePlatform())
@@ -47,6 +52,7 @@ const { loading } = storeToRefs(userStore)
 const router = useRouter()
 const email = ref<string | null>(null)
 const password = ref<string | null>(null)
+const tenantToken = useStorage<string | null>('tenantToke', null)
 
 onMounted(async () => {
   isSupported.value = (await BarcodeScanner.isSupported()).supported
@@ -69,10 +75,14 @@ watch(keyQrCode, async () => {
 })
 
 const handleLogin = async () => {
-  const { success, data } = LOGIN.safeParse({ email: email.value, password: password.value })
+  const { success, data } = LOGIN.safeParse({
+    email: email.value,
+    password: password.value,
+    tenantToken: tenantToken.value,
+  })
   if (!success) return
   try {
-    const statusCode = await userStore.loginUser(data.email, data.password)
+    const statusCode = await userStore.loginUser(data.email, data.password,data.tenantToken)
     if (statusCode === 200) router.go(0)
     console.log(statusCode)
   } catch (error) {
@@ -103,7 +113,6 @@ const requestPermissions = async () => {
 </script>
 
 <style scoped lang="scss">
-
 @use '@/assets/global' as global;
 
 .page-login {

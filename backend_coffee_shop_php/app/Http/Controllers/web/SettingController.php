@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\App;
 use App\Http\Controllers\Controller;
+use App\Services\TenantService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Session;
 
@@ -17,7 +18,12 @@ class SettingController extends Controller
      */
     public function index(): View
     {
-        return view('setting', ['languages' => $this->languages]);
+
+        $tenantToken = TenantService::$tenantToken;
+
+        return view('setting', ['languages' => $this->languages, 'tenant_token' => $tenantToken]);
+
+
     }
 
     /**

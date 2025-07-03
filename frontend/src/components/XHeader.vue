@@ -3,7 +3,7 @@
     <RouterLink v-if="currentRoute === 'cart'" to="/" class="link-back">
       <x-icon icon="uil:arrow-left" /> back
     </RouterLink>
-    <RouterLink v-else to="/"> bee coffee </RouterLink>
+    <RouterLink v-else to="/"> {{ appName }} </RouterLink>
 
     <div class="btns">
       <RouterLink to="/cart" class="link-cart">
@@ -16,26 +16,26 @@
 </template>
 
 <script setup lang="ts">
-
 import { RouterLink } from 'vue-router'
 import { useCartStore } from '@/stores/cart'
 import { storeToRefs } from 'pinia'
 import { useRouter } from 'vue-router'
 import { computed } from 'vue'
-
+import { useUserStore } from '@/stores/user'
 
 const router = useRouter()
 const currentRoute = computed(() => router.currentRoute.value.name)
 const cartStore = useCartStore()
+const userStore = useUserStore()
+
 const { totalItems } = storeToRefs(cartStore)
 
+const { tenantName: appName } = storeToRefs(userStore)
 
 // const handleLogout = () => {
 //   userStore.logout()
 //   router.push('/login')
 // }
-
-
 </script>
 
 <style scoped lang="scss">

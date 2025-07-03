@@ -25,6 +25,7 @@
 @forward "./setting";
 @forward "./search";
 @forward "./swal";
+@forward "./box_message";
 
 .btn-filter {
     width: fit-content;
@@ -190,6 +191,7 @@ select {
         .content {
             padding: 20px;
             max-height: calc(100dvh - 70px);
+            min-height: calc(100dvh - 70px);
             overflow-y: auto;
             --sb-track-color: var(--background-color-two);
             --sb-thumb-color: var(--main-color);

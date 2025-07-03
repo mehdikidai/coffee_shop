@@ -10,3 +10,9 @@ if (! function_exists('setting')) {
         });
     }
 }
+
+
+function pagination_limit(): int
+{
+    return (int) setting('pagination_limit');
+}

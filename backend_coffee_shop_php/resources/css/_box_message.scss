@@ -1,0 +1,14 @@
+.box-message{
+    background: var(--background-color-two);
+    min-height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    flex-direction: column;
+    gap: 20px;
+    i{
+        color: var(--main-color);
+        font-size: 30px;
+    }
+}

@@ -14,6 +14,7 @@ interface History {
 
 export const useCartStore = defineStore('cart', () => {
   const token = useStorage<string | null>('token', null)
+  const tenantToke = useStorage<string | null>('tenantToke', null)
   const cart = useStorage<CartProduct[]>('cart', [])
   const ordersHistory = ref<History[]>([])
   const totalSales = ref<number>(0)
@@ -78,7 +79,11 @@ export const useCartStore = defineStore('cart', () => {
     loadingHistory.value = true
     try {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const res: any = await API.get('/orders')
+      const res: any = await API.get('/orders', {
+        headers: {
+          'X-Tenant-Token': tenantToke.value,
+        },
+      })
       console.log(res)
       const allOrders = res.data.orders || []
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -103,12 +108,20 @@ export const useCartStore = defineStore('cart', () => {
 
   const createOrder = async () => {
     try {
-      const res = await API.post('/orders', {
-        items: cart.value.map((item) => ({
-          product_id: item.id,
-          quantity: item.quantity,
-        })),
-      })
+      const res = await API.post(
+        '/orders',
+        {
+          items: cart.value.map((item) => ({
+            product_id: item.id,
+            quantity: item.quantity,
+          })),
+        },
+        {
+          headers: {
+            'X-Tenant-Token': tenantToke.value,
+          },
+        },
+      )
       console.log('Order response:', res.data)
       resetCart()
     } catch (error) {

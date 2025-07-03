@@ -1,5 +1,8 @@
 <x-layout title="product edit Page" name_page="page-product-edit container mt-3">
 
+
+    <x-only-admin>
+
     <x-title-edit :text="__('t.update_product')"></x-title-edit>
 
     <form action="{{ route('products.update', $product->id) }}" method="POST" enctype="multipart/form-data"
@@ -89,5 +92,11 @@
         </div>
 
     </form>
+
+    </x-only-admin>
+
+    <x-not-admin>
+        <x-message>This content is for admins only.</x-message>
+    </x-not-admin>
 
 </x-layout>

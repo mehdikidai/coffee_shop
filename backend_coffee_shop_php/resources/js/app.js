@@ -258,3 +258,36 @@ if (qrCodeModal !== null) {
         });
     });
 }
+
+
+// setting copy
+
+
+const btnCopyKey = document.getElementById('btn_copy');
+
+if (btnCopyKey) {
+  btnCopyKey.addEventListener('click', e => {
+
+    const key = e.target.dataset.key;
+
+    const child = e.target.firstElementChild;
+
+    console.log(child)
+
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(key)
+        .then(() => {
+          console.log('Copied ✔️');
+          child.innerHTML = "check"
+        })
+        .catch(err => {
+          console.error('Clipboard error:', err);
+        }).finally(()=>{
+            setTimeout(()=>{
+              child.innerHTML = "content_copy"
+            },500)
+        });
+    }
+
+  });
+}

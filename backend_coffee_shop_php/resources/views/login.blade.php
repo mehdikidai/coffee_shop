@@ -11,7 +11,7 @@
                 <form class="form-login" method="post" action="{{ route('auth.login') }}" data-bs-theme="dark">
                     @csrf
                     <div class="form-group mb-4">
-                        <h1 class="text-white">{{ config('setting.site_name') }}</h1>
+                        <h1 class="text-white">{{ $app_name }}</h1>
                     </div>
                     <div class="form-group mb-2">
                         <label for="exampleInputEmail1" class="text-white mb-1">Email address</label>
@@ -42,7 +42,5 @@
         </div>
 
     </div>
-
-
 
 </x-layout-login>
