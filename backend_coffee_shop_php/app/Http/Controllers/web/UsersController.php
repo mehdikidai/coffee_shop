@@ -20,7 +20,9 @@ class UsersController extends Controller
      */
     public function index(Request $request): View
     {
-        $search = $request->input('search');
+
+        $search = trim((string) $request->input('search'));
+
         $usersQuery = User::withCount('orders')->latest();
 
         if ($search === "blocked") {
@@ -34,10 +36,11 @@ class UsersController extends Controller
             });
         }
 
-        $pagination_limit = (int) config('setting.pagination_limit');
 
-        $users = $usersQuery->paginate( $pagination_limit);
-        
+        $pagination_limit = pagination_limit();
+
+        $users = $usersQuery->paginate( $pagination_limit)->appends($request->only(['search']));
+
         return view('users', compact('users'));
     }
 

@@ -22,7 +22,7 @@ class ProductsController extends Controller
 
         $search = $request->input('search');
 
-        $pagination_limit = (int) config('setting.pagination_limit');
+        $pagination_limit = pagination_limit();
 
         $products = Product::with(['category', 'ingredients'])
             ->when($search, function ($query, $search) {

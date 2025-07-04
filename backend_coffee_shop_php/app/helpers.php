@@ -14,5 +14,8 @@ if (! function_exists('setting')) {
 
 function pagination_limit(): int
 {
-    return (int) setting('pagination_limit');
+
+    $pagination_limit_default = (int) config('setting.pagination_limit');
+
+    return (int) setting('pagination_limit', $pagination_limit_default);
 }

@@ -1,0 +1,76 @@
+@use "./var" as *;
+@forward "./edit_bootstrap";
+@forward "./global";
+
+body {
+    background: var(--background-color) !important;
+    padding: 40px 0 100px;
+    .alert {
+        &-danger {
+            .btns_remove_alert {
+                border: none;
+                i {
+                    pointer-events: none;
+                    color: var(--bs-danger-text-emphasis);
+                }
+            }
+        }
+        &-success {
+            .btns_remove_alert {
+                border: none;
+                i {
+                    pointer-events: none;
+                    color: var(--bs-success-text-emphasis);
+                }
+            }
+        }
+    }
+
+    .app_review {
+        .container {
+            max-width: 650px;
+            form {
+                textarea {
+                    resize: none;
+                }
+                .star-rating {
+                    display: flex;
+                    direction: rtl; /* نبدأ من اليمين */
+                    font-size: 1.3rem;
+                    cursor: pointer;
+                    user-select: none;
+                    display: flex;
+                    justify-content: end;
+                    gap: 2px;
+                }
+
+                .star-rating input {
+                    display: none;
+                }
+
+                .star {
+                    color: #505e60;
+                    transition: color 0.2s;
+                }
+
+                .star.selected,
+                .star:hover,
+                .star:hover ~ .star {
+                    color: #fada7a;
+                }
+            }
+        }
+    }
+
+    .text-info-review{
+        font-size: 14px;
+        opacity: 0.7;
+    }
+}
+
+@include respond-to("mobile") {
+
+    body .app_review .container .k-alert{
+       font-size: 14px;
+    }
+}

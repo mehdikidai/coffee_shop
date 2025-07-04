@@ -111,5 +111,13 @@ return [
     'this_action_cannot_be_undone' => 'This action cannot be undone.',
     'yes_delete_it' => 'Yes, delete it!',
     'download' => 'download',
-    'save_settings' => 'save settings'
+    'save_settings' => 'save settings',
+    'phone' => 'phone',
+    'enter_phone' => 'Enter Phone',
+    'enter_name' => 'Enter Name',
+    'comment' => 'comment',
+    'rating' => 'rating',
+    'add_review' => 'add review',
+    'leave_a_review' => 'leave a review',
+    'stars' => 'stars'
 ];

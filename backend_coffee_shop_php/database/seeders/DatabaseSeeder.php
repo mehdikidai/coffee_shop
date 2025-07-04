@@ -13,8 +13,9 @@ use App\Models\StockLog;
 use App\Models\Ingredient;
 use Illuminate\Database\Seeder;
 use App\Models\IngredientProduct;
+use App\Models\Review;
 use Illuminate\Support\Facades\Hash;
-use Database\Factories\IngredientFactory;
+
 
 class DatabaseSeeder extends Seeder
 {
@@ -119,6 +120,9 @@ class DatabaseSeeder extends Seeder
         Setting::updateOrCreate(['key' => 'daily_expected_income'], ['value' => '400']);
         Setting::updateOrCreate(['key' => 'currency'], ['value' => 'DH']);
         Setting::updateOrCreate(['key' => 'pagination_limit'], ['value' => '12']);
+
+        Review::factory(50)->create();
+
 
     }
 

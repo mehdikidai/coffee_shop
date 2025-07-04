@@ -9,4 +9,5 @@ return [
     'logout' => 'logout',
     'ingredients' => 'ingredients',
     'stock_log' => 'stock log',
+    'reviews' => 'reviews',
 ];

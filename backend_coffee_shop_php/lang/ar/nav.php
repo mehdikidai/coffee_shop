@@ -9,4 +9,5 @@ return [
     'logout' => 'تسجيل الخروج',
     'ingredients' => 'المكونات',
     'stock_log' => 'سجل المخزون',
+    'reviews' => 'المراجعات',
 ];

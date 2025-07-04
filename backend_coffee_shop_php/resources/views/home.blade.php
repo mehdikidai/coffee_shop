@@ -141,7 +141,7 @@
             @if (!empty($best_selling_products) && count($best_selling_products) > 0)
                 <canvas id="best-selling-product"></canvas>
             @else
-                <span class="text-white opacity-50 text-capitalize">message</span>
+                <span class="text-white opacity-50 text-capitalize"> {{ __('alert.there_is_nothing') ?? "there is nothing" }} </span>
             @endif
         </div>
         <div class="box box-two">
@@ -155,7 +155,7 @@
             @if (!empty($best_sellers) && count($best_sellers) > 0)
                 <canvas id="best-user"></canvas>
             @else
-                <span class="text-white opacity-50 text-capitalize">message</span>
+                <span class="text-white opacity-50 text-capitalize"> {{ __('alert.there_is_nothing') ?? "there is nothing" }} </span>
             @endif
         </div>
     </div>

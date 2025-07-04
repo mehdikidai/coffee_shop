@@ -1,0 +1,49 @@
+
+
+@use "./var" as v;
+
+.page-review {
+    thead {
+        th {
+            background: var(--background-color-two) !important;
+        }
+    }
+
+    table {
+        .th-actions {
+            width: fit-content !important;
+            white-space: nowrap !important;
+        }
+        .td-actions {
+            .box-actions {
+                display: grid;
+                grid-template-columns: 1fr;
+                gap: 4px;
+                a,
+                button {
+                    display: flex;
+                    align-items: center;
+                    gap: 4px;
+                    width: 100%;
+                    i {
+                        font-size: 16px;
+                        pointer-events: none;
+                    }
+                }
+            }
+        }
+        .th-name {
+            width: 240px;
+        }
+        .th-star {
+            width: 120px;
+        }
+        .td-phone{
+            direction: ltr;
+        }
+
+    }
+
+
+}
+

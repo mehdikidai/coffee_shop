@@ -94,6 +94,12 @@
                 </a>
             </li>
 
+            <li class="{{ request()->routeIs('reviews.*') ? 'active' : '' }}">
+                <a href="{{ route('reviews.index') }}">
+                    <x-icon name="inbox" /> {{ __('nav.reviews') ?? "reviews" }}
+                </a>
+            </li>
+
             <li class="{{ request()->routeIs('setting.*') ? 'active' : '' }}">
                 <a href="{{ route('setting.index') }}">
                     <x-icon name="settings" /> {{ __('t.setting') ?? "setting" }}

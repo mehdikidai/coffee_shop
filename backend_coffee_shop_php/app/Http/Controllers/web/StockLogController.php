@@ -20,13 +20,14 @@ class StockLogController extends Controller
     public function index(): View
     {
 
-        $pagination_limit = (int) config('setting.pagination_limit');
+        $pagination_limit = pagination_limit();
 
         $stock_log = StockLog::with(['ingredient', 'user'])->latest()->paginate( $pagination_limit);
 
         $ingredients = Ingredient::all();
 
         return view('stockLog', compact('stock_log', 'ingredients'));
+
     }
 
     /**

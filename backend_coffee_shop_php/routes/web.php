@@ -9,6 +9,7 @@ use App\Http\Controllers\web\OrdersController;
 use App\Http\Controllers\web\CategoryController;
 use App\Http\Controllers\web\IngredientController;
 use App\Http\Controllers\web\ProductsController as ProductControllerWeb;
+use App\Http\Controllers\web\ReviewController;
 use App\Http\Controllers\web\SettingController;
 use App\Http\Controllers\web\StockLogController;
 
@@ -118,3 +119,14 @@ Route::controller(SettingController::class)
         Route::get('/lang/{locale}', 'lang')->name('lang');
         Route::put('/', 'update')->middleware("role:$admin")->name('update');
     });;
+
+
+Route::controller(ReviewController::class)
+    ->prefix('reviews')
+    ->name('reviews.')->group(function () use ($admin) {
+        Route::get('/', 'index')->middleware(["auth", "role:$admin"])->name('index');
+        Route::get('/create', 'create')->name('create');
+        Route::post('/', 'store')->name('store');
+        Route::delete('/{review}', 'destroy')->middleware(["auth", "role:$admin"])->name('destroy');
+        Route::patch('/{id}/approve', 'approve')->middleware(["auth", "role:$admin"])->name('approve');
+    });

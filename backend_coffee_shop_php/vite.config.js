@@ -8,7 +8,9 @@ export default defineConfig({
                 "resources/css/app.scss",
                 "resources/css/bootstrap.css",
                 "resources/js/app.js",
-                "resources/css/bootstrap.rtl.min.css"
+                "resources/js/review.js",
+                "resources/css/bootstrap.rtl.min.css",
+                "resources/css/review.scss",
             ],
             refresh: true,
         }),

@@ -72,7 +72,7 @@ div.alert {
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 4px !important;
+    border-radius: 2px !important;
     height: 34px;
     width: 34px;
     &:active,
@@ -86,10 +86,10 @@ div.alert {
 
 .page-item {
     &:first-child .page-link {
-        border-radius: 4px !important;
+        border-radius: 2px !important;
     }
     &:last-child .page-link {
-        border-radius: 4px !important;
+        border-radius: 2px !important;
     }
 }
 

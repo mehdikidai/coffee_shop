@@ -110,7 +110,16 @@ return [
     'yes_delete_it' => 'نعم، احذفه!',
     'cancel' => 'إلغاء',
     'download' => 'تحميل',
-    'save_settings' => 'حفظ الإعدادات'
+    'save_settings' => 'حفظ الإعدادات',
+    'phone' => 'رقم الهاتف',
+    'enter_phone' => 'أدخل رقم الهاتف',
+    'enter_name' => 'أدخل الاسم',
+    'comment' => 'تعليق',
+    'rating' => 'التقييم',
+    'add_review' => 'إضافة تقييم',
+    'leave_a_review' => 'اترك تقييمًا',
+    'stars' => 'نجوم',
+
 
 
 ];

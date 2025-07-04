@@ -87,7 +87,7 @@
 
             {{ $users->links() }}
         @else
-            <div class="alert alert-secondary mt-4 text-capitalize" role="alert">
+            <div class="alert alert-secondary mt-3 text-capitalize" role="alert">
                 {{ __('t.no_data_found') ?? 'No products found.' }}
             </div>
         @endif
