@@ -108,6 +108,7 @@ Route::controller(StockLogController::class)
         Route::get('/log', 'index')->name('index');
         Route::get('/add', 'showAddToStock')->name('show.add.to.stock');
         Route::post('/', 'store')->name('store');
+        Route::delete('/{id}', 'destroy')->name('destroy');
     });
 
 Route::controller(SettingController::class)
@@ -130,3 +131,6 @@ Route::controller(ReviewController::class)
         Route::delete('/{review}', 'destroy')->middleware(["auth", "role:$admin"])->name('destroy');
         Route::patch('/{id}/approve', 'approve')->middleware(["auth", "role:$admin"])->name('approve');
     });
+
+
+

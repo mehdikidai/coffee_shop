@@ -27,16 +27,19 @@ class DatabaseSeeder extends Seeder
 
 
 
-        User::factory()->create([
-            'name' => 'mehdi',
-            'email' => 'mehdikidai@gmail.com',
-            'role' => UserRole::ADMIN->value,
-            'password' => Hash::make('12345678')
-        ]);
+        // User::factory()->create([
+        //     'name' => 'mehdi',
+        //     'email' => 'mehdikidai@gmail.com',
+        //     'role' => UserRole::ADMIN->value,
+        //     'password' => Hash::make('12345678')
+        // ]);
+
+        $email = app('admin_email') ?? 'admin@gmail.com';
+
 
         User::factory()->create([
             'name' => 'admin',
-            'email' => 'admin@gmail.com',
+            'email' => $email,
             'role' => UserRole::ADMIN->value,
             'password' => Hash::make('12345678')
         ]);
@@ -56,7 +59,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
 
-        User::factory(26)->create();
+        //User::factory(26)->create();
 
 
         foreach ($this->categories as $c) {
@@ -112,7 +115,7 @@ class DatabaseSeeder extends Seeder
 
         Receipt::factory(5)->create();
 
-        StockLog::factory(50)->create();
+        StockLog::factory(20)->create();
 
         Setting::updateOrCreate(['key' => 'site_name'], ['value' => 'bee coffee']);
         Setting::updateOrCreate(['key' => 'site_email'], ['value' => 'admin@beecoffee.com']);
@@ -121,7 +124,7 @@ class DatabaseSeeder extends Seeder
         Setting::updateOrCreate(['key' => 'currency'], ['value' => 'DH']);
         Setting::updateOrCreate(['key' => 'pagination_limit'], ['value' => '12']);
 
-        Review::factory(50)->create();
+        Review::factory(10)->create();
 
 
     }

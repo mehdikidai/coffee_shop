@@ -217,6 +217,7 @@ const categories = computed(() => storeProducts.categories)
 
 @media only screen and (min-width: 992px) {
   .product-list {
+    padding: 20px 0;
     grid-template-columns: 1fr 1fr 1fr 1fr;
   }
 }

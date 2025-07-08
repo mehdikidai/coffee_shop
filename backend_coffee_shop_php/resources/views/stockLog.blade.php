@@ -2,11 +2,8 @@
 
     <!-- Button trigger modal -->
     <div class="d-flex justify-content-end mb-3">
-        <a
-            class="btn_add_to_stock btn btn-primary float-end btn-sm d-flex align-items-center text-capitalize px-3"
-            href="{{ route('stock.log.show.add.to.stock') }}"
-
-            >
+        <a class="btn_add_to_stock btn btn-primary float-end btn-sm d-flex align-items-center text-capitalize px-3"
+            href="{{ route('stock.log.show.add.to.stock') }}">
             <x-icon name="add" /> {{ __('t.add_new') ?? "add new" }}
         </a>
     </div>
@@ -48,9 +45,17 @@
                                         <button class="btn-receipt btn btn-sm btn-primary text-capitalize"
                                             data-img="{{ asset($sl->receipt->receipt_photo) }}">
                                             {{ __('t.show_receipt') ?? "show receipt" }} </button>
-                                    @else
-                                        <span>-</span>
                                     @endif
+
+                                    <form class="form-delete-user" action="{{ route('stock.log.destroy', $sl->id) }}" method="POST"
+                                        style="display:inline-block;">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button class="btn btn-sm btn-danger text-capitalize">
+                                            <x-icon name="delete" /> {{ __('t.delete') ?? "delete" }}
+                                        </button>
+                                    </form>
+
                                 </div>
                             </td>
                         </tr>

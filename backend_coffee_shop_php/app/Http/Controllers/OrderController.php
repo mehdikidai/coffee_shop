@@ -8,12 +8,13 @@ use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
-
+use Illuminate\Support\Facades\Gate;
 
 class OrderController extends Controller
 {
     public function store(Request $request)
     {
+
         $validated = $request->validate([
             'items' => 'required|array|min:1',
             'items.*.product_id' => 'required|exists:products,id',
@@ -21,6 +22,8 @@ class OrderController extends Controller
         ]);
 
         $user = $request->user();
+
+        Gate::authorize('order-create');
 
         $order = DB::transaction(function () use ($validated, $user) {
 

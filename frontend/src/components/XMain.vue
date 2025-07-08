@@ -10,6 +10,7 @@
 main {
   height: calc(100dvh - 116px);
   overflow-y: auto;
+  scrollbar-gutter: stable;
   &::-webkit-scrollbar {
     width: var(--sb-size);
   }

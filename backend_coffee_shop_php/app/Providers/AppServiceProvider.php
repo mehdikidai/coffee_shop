@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use App\Enum\UserRole;
+use App\Policies\OrderPolicy;
+use App\Policies\ProductPolicy;
 use App\Policies\UserPolicyWeb;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Auth;
@@ -31,6 +33,8 @@ class AppServiceProvider extends ServiceProvider
         Gate::define('update-user', [UserPolicyWeb::class, 'update']);
         Gate::define('create-user', [UserPolicyWeb::class, 'create']);
         Gate::define('delete-user', [UserPolicyWeb::class, 'delete']);
+
+        Gate::define('order-create', [OrderPolicy::class, 'create']);
 
         Blade::directive('setting', fn($expression) => "<?php echo setting($expression); ?>");
         Blade::if('role', fn($role) => Auth::check() && Auth::user()->role === $role);

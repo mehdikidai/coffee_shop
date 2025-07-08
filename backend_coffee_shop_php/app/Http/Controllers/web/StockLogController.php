@@ -22,12 +22,11 @@ class StockLogController extends Controller
 
         $pagination_limit = pagination_limit();
 
-        $stock_log = StockLog::with(['ingredient', 'user'])->latest()->paginate( $pagination_limit);
+        $stock_log = StockLog::with(['ingredient', 'user'])->latest()->paginate($pagination_limit);
 
         $ingredients = Ingredient::all();
 
         return view('stockLog', compact('stock_log', 'ingredients'));
-
     }
 
     /**
@@ -73,7 +72,7 @@ class StockLogController extends Controller
             $receiptPath = "uploads/receipts/$fileName";
         }
 
-       $number = 'INV-' . Str::uuid();
+        $number = 'INV-' . Str::uuid();
 
         DB::transaction(function () use ($request, $receiptPath, $number, $validated) {
 
@@ -133,6 +132,6 @@ class StockLogController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        dd($id);
     }
 }

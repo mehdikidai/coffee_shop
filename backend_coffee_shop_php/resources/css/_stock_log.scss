@@ -29,38 +29,20 @@
             width: fit-content !important;
             white-space: nowrap !important;
         }
-        .td-actions {
-            .box-actions {
-                display: grid;
-                grid-template-columns: 1fr;
+        .box-actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4px;
+            a,
+            button {
+                display: flex;
+                align-items: center;
                 gap: 4px;
-                a,
-                button {
-                    display: flex;
-                    align-items: center;
-                    gap: 4px;
-                    width: 100%;
-                    i {
-                        font-size: 18px;
-                    }
+                width: 100%;
+                i {
+                    font-size: 18px;
                 }
             }
-        }
-        .th-id {
-            width: 80px;
-        }
-        .th-quantity {
-            width: 160px;
-        }
-        .th-total {
-            width: 100px;
-        }
-    }
-
-    .k-button-add-user {
-        gap: 2px;
-        i {
-            font-size: 16px;
         }
     }
 }
