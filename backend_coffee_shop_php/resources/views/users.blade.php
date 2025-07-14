@@ -31,6 +31,7 @@
                             <th scope="col" class="th-role text-capitalize">{{ __('t.role') ?? "role" }}</th>
                             <th scope="col" class="th-role text-capitalize">{{ __('t.table') ?? "table" }}</th>
                             <th scope="col" class="th-orders text-capitalize"> {{ __('t.orders') ?? "orders" }} </th>
+                            <th scope="col" class="th-orders text-capitalize"> {{ __('t.block') ?? "block" }} </th>
                             <th scope="col" class="th-actions text-capitalize">{{ __('t.actions') ?? "actions" }} </th>
                         </tr>
                     </thead>
@@ -44,25 +45,23 @@
                                 <td class="px-2">{{ __("t.{$user->role}") ?? $user->role }}</td>
                                 <td class="px-2">{{ $user->table_number > 0 ? $user->table_number : '-'  }}</td>
                                 <td class="px-2"> {{ $user->orders_count }} </td>
+                                <td class="px-2 td-toggle-switch">
+                                    <form action="{{ route('users.toggleBlocked', $user->id) }}" method="POST">
+                                        @csrf
+                                        @method('PATCH')
+                                        <label class="switch">
+                                            <input type="checkbox" id="toggle-switch-{{ $user->id }}" type="checkbox"
+                                                onchange="this.form.submit()" {{ $user->is_blocked ? 'checked' : '' }}>
+                                            <span class="slider" for="toggle-switch-{{ $user->id }}"></span>
+                                        </label>
+                                    </form>
+                                </td>
                                 <td class="td-actions">
                                     <div class="box-actions">
                                         <a href="{{ route('users.edit', $user->id) }}"
                                             class="btn btn-sm btn-primary text-capitalize">
                                             <x-icon name="edit" /> {{ __('t.edit') ?? "edit" }}
                                         </a>
-
-                                        <form action="{{ route('users.toggleBlocked', $user->id) }}" method="POST"
-                                            style="display:inline-block;">
-                                            @csrf
-                                            @method('PATCH')
-                                            <button class="btn btn-sm btn-success text-capitalize">
-
-                                                <x-icon name=" {{ !$user->is_blocked ? 'brightness_1' : 'block'  }}" />
-
-                                                {{ !$user->is_blocked ? __('t.blocked') : __('t.unblocked') }}
-
-                                            </button>
-                                        </form>
 
                                         <form class="form-delete-user" action="{{ route('users.destroy', $user->id) }}"
                                             method="POST" style="display:inline-block;">
@@ -73,7 +72,8 @@
                                             </button>
                                         </form>
                                         <button class="btn_qr_code btn btn-sm btn-primary text-capitalize"
-                                            data-key="{{ $user->table_key }}" data-name="{{ $user->name }}">
+                                            data-key="{{ $user->table_key }}" data-loginkey="{{ $key_login }}"
+                                            data-name="{{ $user->name }}">
                                             <x-icon name="qr_code" />
                                         </button>
                                     </div>

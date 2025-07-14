@@ -34,7 +34,8 @@ class DatabaseSeeder extends Seeder
         //     'password' => Hash::make('12345678')
         // ]);
 
-        $email = app('admin_email') ?? 'admin@gmail.com';
+        //$email = app('admin_email') ?? 'admin@gmail.com';
+        $email = 'admin@gmail.com';
 
 
         User::factory()->create([

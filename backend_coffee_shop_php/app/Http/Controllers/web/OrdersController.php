@@ -10,6 +10,9 @@ use Illuminate\Http\Request;
 use Illuminate\Contracts\View\View;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
+use Barryvdh\DomPDF\Facade\Pdf;
+use App\Models\Receipt;
+use App\Services\TenantService;
 
 class OrdersController extends Controller
 {
@@ -100,4 +103,53 @@ class OrdersController extends Controller
 
         return redirect()->back()->with('success', 'Order deleted successfully.');
     }
+
+    public function printInvoice($id)
+    {
+        $order = Order::with(['items.product', 'user'])->findOrFail($id);
+        $name_store =  setting('site_name','app');
+
+        $width = 226.8;
+
+        $baseHeight = 150; 
+        $rowHeight = 25; 
+        $footer = 100;
+        $totalHeight = $baseHeight + ($rowHeight * $order->items->count()) + $footer;
+
+        $customSize = [0, 0, 226.8, $totalHeight];
+
+        $pdf = Pdf::loadView('order-invoice', compact('order','name_store'))
+            ->setPaper($customSize, 'portrait');
+
+
+        return $pdf->stream("order-invoice-{$order->id}.pdf", ['Attachment' => false]); // print outomatic
+
+    }
+
+
+    public function printInvoiceTest($id)
+    {
+        $order = Order::with(['items.product', 'user'])->findOrFail($id);
+
+        $name_store =  setting('site_name','app');
+
+        $width = 226.8;
+
+        $baseHeight = 150; 
+        $rowHeight = 25; 
+        $footer = 100;
+        $totalHeight = $baseHeight + ($rowHeight * $order->items->count()) + $footer;
+
+        $customSize = [0, 0, 226.8, $totalHeight];
+
+        $pdf = Pdf::loadView('order-invoice', compact('order','name_store'))
+            ->setPaper($customSize, 'portrait');
+
+
+        return view("order-invoice",compact('order','name_store'));
+
+    }
+
+
+
 }

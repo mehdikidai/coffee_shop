@@ -16,6 +16,7 @@ class Review extends Model
         'phone',
         'rating',
         'comment',
+        'showing'
     ];
 
     public function user(): BelongsTo

@@ -122,10 +122,25 @@ export const useCartStore = defineStore('cart', () => {
           },
         },
       )
-      console.log('Order response:', res.data)
       resetCart()
+      return res.data
     } catch (error) {
       console.error('Order creation error:', error)
+      throw error
+    }
+  }
+
+  const getInvoice = async (id: number) => {
+    try {
+      const res = await API.get(`orders/${id}/invoice`, {
+        headers: {
+          'X-Tenant-Token': tenantToke.value,
+        },
+      })
+
+      return res.data
+    } catch (error) {
+      console.log(error)
       throw error
     }
   }
@@ -145,5 +160,6 @@ export const useCartStore = defineStore('cart', () => {
     loadingHistory,
     totalItemsInHistory,
     totalSales,
+    getInvoice,
   }
 })

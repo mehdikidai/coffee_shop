@@ -16,7 +16,7 @@
         .td-actions {
             .box-actions {
                 display: grid;
-                grid-template-columns: 1fr 1fr 1fr auto;
+                grid-template-columns: 1fr 1fr auto;
                 gap: 4px;
                 a,
                 button {
@@ -42,6 +42,28 @@
         }
         .th-orders {
             width: 100px;
+        }
+
+        .form-check.form-switch{
+            //background: red !important;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            input{
+                border-radius: 8px !important;
+                cursor: pointer;
+            }
+        }
+        .td-toggle-switch{
+            position: relative;
+            form{
+                width: fit-content;
+                height: fit-content !important;
+                position: absolute;
+                left: 50%;
+                top: 50%;
+                transform: translate(-50%,-50%);
+            }
         }
     }
 

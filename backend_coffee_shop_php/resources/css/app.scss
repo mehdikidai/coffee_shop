@@ -27,6 +27,9 @@
 @forward "./swal";
 @forward "./box_message";
 @forward "./review_admin";
+@forward "./sheet";
+@forward "./switch_toggel";
+@forward "./page_user_activity_logs";
 
 .btn-filter {
     width: fit-content;
@@ -45,6 +48,13 @@ select {
     height: 100dvh;
 }
 
+.d-ltr {
+    direction: ltr !important;
+}
+
+.d-rtl {
+    direction: rtl !important;
+}
 .app {
     background: var(--background-color);
     height: 100dvh;
@@ -90,7 +100,7 @@ select {
                     text-decoration: none;
                     display: flex;
                     align-items: center;
-                    gap: 6px;
+                    gap: 10px;
                     height: 40px;
                     text-transform: capitalize;
                     i {
@@ -231,8 +241,8 @@ select {
         grid-template-columns: 1fr;
         .sidebar {
             position: fixed;
-            width: 80vw;
-            left: -80vw;
+            width: 70vw;
+            left: -70vw;
             height: 100dvh;
             z-index: 999;
             border-right: 1px solid rgba(255, 255, 255, 0.2);

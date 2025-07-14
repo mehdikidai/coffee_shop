@@ -5,8 +5,6 @@ import localeEn from "air-datepicker/locale/en";
 import localeAr from "air-datepicker/locale/AR";
 import localeFr from "air-datepicker/locale/fr";
 
-
-
 document.querySelectorAll(".btns_remove_alert").forEach((btn) => {
     btn.addEventListener("click", () => {
         btn.parentElement.remove();
@@ -32,12 +30,16 @@ const getLocale = () => {
 new AirDatepicker("#input_filter", {
     locale: getLocale(),
     autoClose: true,
-    isMobile: false,
-    dateFormat: "yyyy-MM-dd",
     isMobile: true,
-
-    //visible: true,
+    dateFormat: "yyyy-MM-dd",
+    buttons: ["clear"],
+    onSelect({date, formattedDate, datepicker}) {
+        if (!date) {
+            datepicker.hide();
+        } 
+    }
 });
+
 
 /*
 
@@ -243,11 +245,14 @@ if (qrCodeModal !== null) {
 
     btnQrCode.forEach((btn) => {
         btn.addEventListener("click", () => {
-
             const key = btn.dataset.key;
+            const loginkey = btn.dataset.loginkey;
+
+            const fullKay = `${key}.${loginkey}`;
+
             const name = String(btn.dataset.name).replace(" ", "_");
             const imgUrl = `https://api.qrserver.com/v1/create-qr-code/?data=${encodeURIComponent(
-                key
+                fullKay
             )}&margin=15&size=300x300`;
             qrImage.src = imgUrl;
 
@@ -259,35 +264,59 @@ if (qrCodeModal !== null) {
     });
 }
 
-
 // setting copy
 
-
-const btnCopyKey = document.getElementById('btn_copy');
+const btnCopyKey = document.getElementById("btn_copy");
 
 if (btnCopyKey) {
-  btnCopyKey.addEventListener('click', e => {
+    btnCopyKey.addEventListener("click", (e) => {
+        const key = e.target.dataset.key;
 
-    const key = e.target.dataset.key;
+        const child = e.target.firstElementChild;
 
-    const child = e.target.firstElementChild;
+        console.log(child);
 
-    console.log(child)
-
-    if (navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText(key)
-        .then(() => {
-          console.log('Copied ✔️');
-          child.innerHTML = "check"
-        })
-        .catch(err => {
-          console.error('Clipboard error:', err);
-        }).finally(()=>{
-            setTimeout(()=>{
-              child.innerHTML = "content_copy"
-            },500)
-        });
-    }
-
-  });
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard
+                .writeText(key)
+                .then(() => {
+                    console.log("Copied ✔️");
+                    child.innerHTML = "check";
+                })
+                .catch((err) => {
+                    console.error("Clipboard error:", err);
+                })
+                .finally(() => {
+                    setTimeout(() => {
+                        child.innerHTML = "content_copy";
+                    }, 500);
+                });
+        }
+    });
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+    const rows = document.querySelectorAll(".list_sheet");
+
+    rows.forEach((row) => {
+        row.addEventListener("mouseover", () => {
+            const orderId = row.dataset.orderid;
+
+            document
+                .querySelectorAll(`.list_sheet[data-orderid="${orderId}"]`)
+                .forEach((match) => {
+                    match.classList.add("highlight-order");
+                });
+        });
+
+        row.addEventListener("mouseout", () => {
+            const orderId = row.dataset.orderid;
+
+            document
+                .querySelectorAll(`.list_sheet[data-orderid="${orderId}"]`)
+                .forEach((match) => {
+                    match.classList.remove("highlight-order");
+                });
+        });
+    });
+});

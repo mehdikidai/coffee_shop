@@ -50,62 +50,18 @@
             </button>
         </div>
         <ul>
-            <li class="{{ request()->routeIs('home') ? 'active' : '' }}">
-                <a href="{{ route('home') }}">
-                    <x-icon name="home" /> {{ __('nav.home') ?? "home"}}
-                </a>
-            </li>
 
-            <li class="{{ request()->routeIs('users.*') ? 'active' : '' }}">
-                <a href="{{ route('users.index') }}">
-                    <x-icon name="person" /> {{ __('nav.users') ?? "users" }}
-                </a>
-            </li>
-
-            <li class="{{ request()->routeIs('products.*') ? 'active' : '' }}">
-                <a href="{{ route('products.index') }}">
-                    <x-icon name="package_2" /> {{ __('nav.products') ?? "products" }}
-                </a>
-            </li>
-
-            <li class="{{ request()->routeIs('categories.*') ? 'active' : '' }}">
-                <a href="{{ route('categories.index') }}">
-                    <x-icon name="category" /> {{ __('nav.categories') ?? "categories" }}
-                </a>
-            </li>
-
-            <li class="{{ request()->routeIs('ingredients.*') ? 'active' : '' }}">
-                <a href="{{ route('ingredients.index') }}">
-                    <x-icon name="shelves" /> {{ __('nav.ingredients') ?? "ingredients" }}
-                </a>
-            </li>
-
-
-            <li class="{{ request()->routeIs('stock.log.*') ? 'active' : '' }}">
-                <a href="{{ route('stock.log.index') }}">
-                    <x-icon name="schedule" /> {{ __('nav.stock_log') }}
-                </a>
-            </li>
-
-
-            <li class="{{ request()->routeIs('orders.*') ? 'active' : '' }}">
-                <a href="{{ route('orders.index') }}">
-                    <x-icon name="receipt" /> {{ __('nav.orders') ?? "orders" }}
-                </a>
-            </li>
-
-            <li class="{{ request()->routeIs('reviews.*') ? 'active' : '' }}">
-                <a href="{{ route('reviews.index') }}">
-                    <x-icon name="inbox" /> {{ __('nav.reviews') ?? "reviews" }}
-                </a>
-            </li>
-
-            <li class="{{ request()->routeIs('setting.*') ? 'active' : '' }}">
-                <a href="{{ route('setting.index') }}">
-                    <x-icon name="settings" /> {{ __('t.setting') ?? "setting" }}
-                </a>
-            </li>
-
+            <x-nav-item route="home" route-is="home" icon="home" label="nav.home" />
+            <x-nav-item route="users.index" route-is="users.*" icon="person" label="nav.users" />
+            <x-nav-item route="products.index" route-is="products.*" icon="package_2" label="nav.products" />
+            <x-nav-item route="categories.index" route-is="categories.*" icon="category" label="nav.categories" />
+            <x-nav-item route="ingredients.index" route-is="ingredients.*" icon="shelves" label="nav.ingredients" />
+            <x-nav-item route="stock.log.index" route-is="stock.log.*" icon="schedule" label="nav.stock_log" />
+            <x-nav-item route="orders.index" route-is="orders.*" icon=" receipt" label="nav.orders" />
+            <x-nav-item route="sheet.index" route-is="sheet.*" icon="checklist_rtl" label="nav.sheet" />
+            <x-nav-item route="reviews.index" route-is="reviews.*" icon="inbox" label="nav.reviews" />
+            <x-nav-item route="user-activity-logs.index" route-is="user-activity-logs.*" icon="history_2" label="nav.activity_log" />
+            <x-nav-item route="setting.index" route-is="setting.*" icon="settings" label="t.setting" />
 
         </ul>
 
@@ -130,37 +86,36 @@
             <h1> {{ __('t.welcome') ?? "welcome" }} {{ auth()->user()->name }}</h1>
 
             <x-only-admin>
-                <livewire:search />
-            </x-only-admin>
+                <livewire:search /> </x-only-admin>
 
-            <div class="box-user">
-                <div class="name-and-email">
-                    <span>{{ auth()->user()->name }}</span>
-                    <small>{{ auth()->user()->email }}</small>
-                </div>
-                <div class="photo">
-                    <img src="{{ asset('uploads/global/photo_profile.png') }}" alt="user">
-                </div>
-            </div>
-        </div>
-        <div class="content">
-            <div class="{{ $name_page }}">
-                <x-alert></x-alert>
-                {{ $slot }}
-            </div>
+                    <div class="box-user">
+                        <div class="name-and-email">
+                            <span>{{ auth()->user()->name }}</span>
+                                <small>{{ auth()->user()->email }}</small>
+                                </div>
+                                <div class="photo">
+                                    <img src="{{ asset('uploads/global/photo_profile.png') }}" alt="user">
+                                </div>
+                        </div>
+                    </div>
+                    <div class="content">
+                        <div class="{{ $name_page }}">
+                            <x-alert></x-alert>
+                            {{ $slot }}
+                        </div>
 
-        </div>
-    </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO"
-        crossorigin="anonymous"></script>
+                            </div>
+                    </div>
+                    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"
+                        integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO"
+                        crossorigin="anonymous"></script>
 
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+                    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 
-    @vite(['resources/js/app.js'])
+                    @vite(['resources/js/app.js'])
 
-    @livewireScripts
+                    @livewireScripts
 
 </body>
 

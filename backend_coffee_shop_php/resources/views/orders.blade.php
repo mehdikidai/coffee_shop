@@ -1,8 +1,8 @@
 <x-layout title="orders Page" name_page="page-orders">
 
     <x-only-admin>
-        <div class="filter filter-order">
-            <form method="GET" class="d-flex gap-2 " data-bs-theme="dark">
+        <div class="filter filter-order mb-3">
+            <form method="GET" class="d-flex gap-2 " data-bs-theme="dark" id="form_filter_orders">
                 <div class="input-group input-group-sm">
 
                     <select name="user_id" id="user_id" class="form-select">
@@ -57,6 +57,13 @@
                                 <td class="px-2">{{ $order->created_at }}</td>
                                 <td class="td-actions">
                                     <div class="box-actions">
+
+                                        <a href="{{ route('orders.show', $order->id) }}" class="btn btn-sm btn-primary">
+                                            <x-icon name="list_alt" /> {{ __('t.details') }}
+                                        </a>
+                                        <a href="{{ route('orders.invoice', $order->id) }}" target="_blank" class="btn btn-sm btn-success text-capitalize">
+                                            <x-icon name="print" /> print
+                                        </a>
                                         <form class="form-delete-order" action="{{ route('orders.destroy', $order->id) }}"
                                             method="POST" style="display:inline-block;">
                                             @csrf
@@ -65,9 +72,6 @@
                                                 <x-icon name="delete" /> {{ __('t.delete') }}
                                             </button>
                                         </form>
-                                        <a href="{{ route('orders.show', $order->id) }}" class="btn btn-sm btn-primary">
-                                            <x-icon name="list_alt" /> {{ __('t.details') }}
-                                        </a>
                                     </div>
                                 </td>
                             </tr>

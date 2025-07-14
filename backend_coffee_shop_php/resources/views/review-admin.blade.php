@@ -47,7 +47,7 @@
                                 <td class="px-2">{{ $review->created_at->format('h:s') }}</td>
                                 <td class="td-actions">
                                     <div class="box-actions">
-                                        <form class="form-delete-user" action="{{ route('reviews.destroy', $review->id) }}"
+                                        <form class="form-delete-review" action="{{ route('reviews.destroy', $review->id) }}"
                                             method="POST" style="display:inline-block;">
                                             @csrf
                                             @method('DELETE')
@@ -75,3 +75,6 @@
 
     </x-only-admin>
 </x-layout>
+
+
+<x-swal class_form=".form-delete-review"></x-swal>

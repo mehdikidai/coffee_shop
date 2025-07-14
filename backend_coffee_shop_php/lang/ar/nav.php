@@ -10,4 +10,7 @@ return [
     'ingredients' => 'المكونات',
     'stock_log' => 'سجل المخزون',
     'reviews' => 'المراجعات',
+    'sheet' => 'ورقة',
+    'activity_log' => 'سجل النشاط',
+
 ];

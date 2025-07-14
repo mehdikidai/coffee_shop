@@ -10,4 +10,6 @@ return [
     'ingredients' => 'ingredients',
     'stock_log' => 'stock log',
     'reviews' => 'reviews',
+    'sheet' => 'sheet',
+    'activity_log' => 'activity log'
 ];

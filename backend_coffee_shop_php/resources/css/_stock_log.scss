@@ -43,6 +43,9 @@
                     font-size: 18px;
                 }
             }
+            form{
+                grid-column:2/3;
+            }
         }
     }
 }

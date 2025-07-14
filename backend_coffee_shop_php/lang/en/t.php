@@ -119,5 +119,14 @@ return [
     'rating' => 'rating',
     'add_review' => 'add review',
     'leave_a_review' => 'leave a review',
-    'stars' => 'stars'
+    'stars' => 'stars',
+    'customer' => 'customer',
+    'block' => 'block',
+    'login' => 'login',
+    'logout' => 'logout',
+    'os' => 'os',
+    'ip_address' => 'ip address',
+    'device' => 'device',
+    'browser' => 'browser'
+
 ];

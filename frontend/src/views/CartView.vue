@@ -51,7 +51,6 @@ import { toast } from 'vue3-toastify'
 import { toastOptions } from '@/config/toast'
 import XEmpty from '@/components/XEmpty.vue'
 
-
 const router = useRouter()
 const currency = import.meta.env.VITE_CURRENCY
 const cartStore = useCartStore()
@@ -66,19 +65,30 @@ const increaseItemQuantity = (item: (typeof cart.value)[number]) => {
 const sendData = async () => {
   loading.value = true
   try {
-    await cartStore.createOrder()
+    const { order_id } = await cartStore.createOrder()
+    const { url, success } = await cartStore.getInvoice(order_id)
+
+    if (success) {
+      const printWindow = window.open('', '_blank')
+
+      if (printWindow) {
+        printWindow.document.write(`
+        <iframe src="${url}" style="width:80vw; height:100dvh;" onload="this.contentWindow.print(); setTimeout(() => window.close(), 3000);"></iframe>
+      `)
+        printWindow.document.close()
+      }
+    }
+
     toast.success(`It's done`, {
       ...toastOptions,
       onClose: () => router.push('/'),
     })
   } catch (error) {
     console.error('Failed to send to Google Sheets:', error)
-    
   } finally {
     loading.value = false
   }
 }
-
 </script>
 
 <style scoped lang="scss">

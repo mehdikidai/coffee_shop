@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Enum\UserRole;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Services\TenantService;
 use Illuminate\Validation\Rule;
 use Illuminate\Contracts\View\View;
 use App\Http\Controllers\Controller;
@@ -39,9 +40,11 @@ class UsersController extends Controller
 
         $pagination_limit = pagination_limit();
 
-        $users = $usersQuery->paginate( $pagination_limit)->appends($request->only(['search']));
+        $users = $usersQuery->paginate($pagination_limit)->appends($request->only(['search']));
 
-        return view('users', compact('users'));
+        $key_login = TenantService::$tenantToken;
+
+        return view('users', compact('users', 'key_login'));
     }
 
 
@@ -119,11 +122,9 @@ class UsersController extends Controller
         $user = User::findOrFail($id);
         $user->is_blocked = !$user->is_blocked;
         $user->save();
-        $status = $user->is_blocked ? 'blocked' : 'unblocked';
-        return redirect()->back()->with('success', "User has been $status.");
+        //$status = $user->is_blocked ? 'blocked' : 'unblocked';
+        return redirect()->back();
     }
-
-
 
     private function generateUniqueTableKey(): string
     {

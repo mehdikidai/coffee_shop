@@ -26,6 +26,7 @@ class SettingServiceProvider extends ServiceProvider
                 config(['setting.currency' => setting('currency', '$')]);
                 config(['setting.site_name' => setting('site_name', 'site name test')]);
                 config(['setting.pagination_limit' => setting('pagination_limit', '12')]);
+                
             }
         });
     }

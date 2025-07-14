@@ -1,17 +1,20 @@
 <?php
 
 use App\Enum\UserRole;
+
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\web\AuthController;
 use App\Http\Controllers\web\HomeController;
+use App\Http\Controllers\web\SheetController;
 use App\Http\Controllers\web\UsersController;
 use App\Http\Controllers\web\OrdersController;
-use App\Http\Controllers\web\CategoryController;
-use App\Http\Controllers\web\IngredientController;
-use App\Http\Controllers\web\ProductsController as ProductControllerWeb;
 use App\Http\Controllers\web\ReviewController;
 use App\Http\Controllers\web\SettingController;
+use App\Http\Controllers\web\CategoryController;
 use App\Http\Controllers\web\StockLogController;
+use App\Http\Controllers\web\IngredientController;
+use App\Http\Controllers\web\UserActivityLogController;
+use App\Http\Controllers\web\ProductsController as ProductControllerWeb;
 
 $admin = UserRole::ADMIN->value;
 $barista = UserRole::BARISTA->value;
@@ -56,13 +59,23 @@ Route::controller(OrdersController::class)
     ->prefix('orders')
     ->name('orders.')
     ->middleware(["auth"])
-
     ->group(function () use ($admin) {
 
         Route::get('/', 'index')->name('index');
         Route::get('/{id}', 'show')->middleware("role:$admin")->name('show');
         Route::delete('/{id}', 'destroy')->middleware("role:$admin")->name('destroy');
     });
+
+
+
+Route::get('/orders/{id}/invoice', [OrdersController::class, 'printInvoice'])
+    ->name('orders.invoice')
+    ->middleware(["auth", "role:$admin"]);
+
+// Route::get('/orders/{id}/invoice', [OrdersController::class, 'printInvoiceTest'])
+//     ->name('orders.invoice')
+//     ->middleware(["auth","role:$admin"]);
+
 
 
 Route::controller(CategoryController::class)
@@ -124,7 +137,8 @@ Route::controller(SettingController::class)
 
 Route::controller(ReviewController::class)
     ->prefix('reviews')
-    ->name('reviews.')->group(function () use ($admin) {
+    ->name('reviews.')
+    ->group(function () use ($admin) {
         Route::get('/', 'index')->middleware(["auth", "role:$admin"])->name('index');
         Route::get('/create', 'create')->name('create');
         Route::post('/', 'store')->name('store');
@@ -133,4 +147,17 @@ Route::controller(ReviewController::class)
     });
 
 
+Route::controller(SheetController::class)
+    ->prefix('sheet')
+    ->name('sheet.')
+    ->group(function () use ($admin) {
+        Route::get('/', 'index')->middleware(["auth", "role:$admin"])->name('index');
+    });
 
+
+Route::controller(UserActivityLogController::class)
+    ->prefix('user-activity-logs')
+    ->name('user-activity-logs.')
+    ->group(function ()  use ($admin) {
+        Route::get('/', 'index')->middleware(["auth", "role:$admin"])->name('index');
+    });

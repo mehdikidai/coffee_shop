@@ -252,7 +252,21 @@
                         fill: true,
                         pointBackgroundColor: "#142629",
                         pointBorderColor: "#94d2bd",
+                    },
+                    {
+                        label: "",
+                        data: @json(array_values($daily_sales_last_7Days)).map(item => Math.max( {{ $daily_expected_income }}, 0)),
+                        borderColor: "rgb(47, 255, 158)",
+                        tension: 0.3,
+                        //pointBackgroundColor: "#142629",
+                        //pointBorderColor: "#e1757f",
+                        borderDash: [10, 5],
+                        borderWidth: 1,
+                        fill: false,
+                        tension: 0.1,
+                        pointRadius: 0,  
                     }
+
                 ],
             },
             options: darkChartOptions,

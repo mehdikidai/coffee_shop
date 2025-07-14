@@ -27,3 +27,5 @@ Route::get('/orders', [OrderController::class, 'salesToday'])->middleware('auth:
 
 Route::post('/tenants',[TenantsController::class,'store']);
 
+Route::get('/orders/{id}/invoice', [OrderController::class, 'printInvoice'])->middleware('auth:sanctum');
+

@@ -10,7 +10,6 @@ use App\Models\Receipt;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\View\View;
 use App\Http\Controllers\Controller;
-use App\Models\Tenant;
 use Illuminate\Http\RedirectResponse;
 
 class HomeController extends Controller
@@ -90,6 +89,7 @@ class HomeController extends Controller
         $bestSellers = $this->bestSellers($bestSellers_query);
 
 
+
         // return
         return view('home', [
             'statistics' => [
@@ -110,6 +110,7 @@ class HomeController extends Controller
             'best_sellers' => $bestSellers,
             'date_from' => $dateFrom,
             'date_to' => $dateTo,
+            'daily_expected_income' => $dailyExpectedIncome
         ]);
     }
 

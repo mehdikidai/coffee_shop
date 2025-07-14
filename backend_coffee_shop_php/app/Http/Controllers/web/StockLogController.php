@@ -130,8 +130,35 @@ class StockLogController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    
+    
+     public function destroy(string $id)
     {
-        dd($id);
+        
+        $stockLog = StockLog::with(['ingredient', 'receipt'])->findOrFail($id);
+
+        DB::transaction(function () use ($stockLog) {
+
+            $ingredient = $stockLog->ingredient;
+            $ingredient->stock = max(0, $ingredient->stock - $stockLog->quantity);
+            $ingredient->save();
+
+            $stockLog->delete();
+
+            $receipt = $stockLog->receipt;
+            if ($receipt && $receipt->stockLogs()->count() === 0) {
+                if ($receipt->receipt_photo && file_exists(public_path($receipt->receipt_photo))) {
+                    @unlink(public_path($receipt->receipt_photo));
+                }
+                $receipt->delete();
+            }
+        });
+
+        return redirect()->back()->with('success', __('t.stock_log_deleted_successfully') ?? 'Stock log deleted successfully');
+
     }
+
+
+
+
 }

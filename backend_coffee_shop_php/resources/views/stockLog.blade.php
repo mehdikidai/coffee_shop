@@ -47,7 +47,7 @@
                                             {{ __('t.show_receipt') ?? "show receipt" }} </button>
                                     @endif
 
-                                    <form class="form-delete-user" action="{{ route('stock.log.destroy', $sl->id) }}" method="POST"
+                                    <form class="form-delete-stock-log" action="{{ route('stock.log.destroy', $sl->id) }}" method="POST"
                                         style="display:inline-block;">
                                         @csrf
                                         @method('DELETE')
@@ -92,8 +92,7 @@
         </div>
     </div>
 
-
-
-
-
 </x-layout>
+
+
+<x-swal class_form=".form-delete-stock-log"></x-swal>

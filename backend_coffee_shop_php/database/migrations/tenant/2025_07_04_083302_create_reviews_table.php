@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('phone')->nullable();
             $table->tinyInteger('rating')->comment('from 1 to 5');
             $table->text('comment')->nullable();
+            $table->boolean('showing')->default(false);
             $table->timestamps();
         });
     }

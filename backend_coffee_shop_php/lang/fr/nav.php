@@ -9,4 +9,7 @@ return [
     'logout' => 'déconnexion',
     'ingredients' => 'ingrédients',
     'stock_log' => 'journal de stock',
+    'reviews' => 'avis',
+    'sheet' => 'feuille',
+    'activity_log' => 'journal d’activité',
 ];

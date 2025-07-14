@@ -1,15 +1,8 @@
+
+
 @use "./var" as v;
 
-.page-orders {
-    display: flex;
-    flex-direction: column;
-    .filter-order {
-        width: 100%;
-        max-width: 400px;
-        justify-self: end;
-        align-self: flex-end;
-    }
-
+.page-user-activity-logs {
     thead {
         th {
             background: var(--background-color-two) !important;
@@ -24,7 +17,7 @@
         .td-actions {
             .box-actions {
                 display: grid;
-                grid-template-columns: 1fr 1fr 1fr;
+                grid-template-columns: 1fr;
                 gap: 4px;
                 a,
                 button {
@@ -33,30 +26,24 @@
                     gap: 4px;
                     width: 100%;
                     i {
-                        font-size: 18px;
+                        font-size: 16px;
+                        pointer-events: none;
                     }
                 }
             }
         }
-        .th-order-id {
-            width: 100px;
+        .th-name {
+            width: 240px;
         }
-        .th-order-name {
-            width: 160px;
+        .th-star {
+            width: 120px;
         }
-        .th-quantity {
-            width: 100px;
+        .td-phone{
+            direction: ltr;
         }
-        .th-total {
-            width: 160px;
-        }
+
     }
 
 
-    .k-button-add-user {
-        gap: 2px;
-        i {
-            font-size: 16px;
-        }
-    }
 }
+

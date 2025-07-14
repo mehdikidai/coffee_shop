@@ -46,6 +46,7 @@
                     align-items: center;
                     gap: 4px;
                     font-size: 14px;
+                    direction: ltr !important;
                     i {
                         font-size: 12px;
                         transition: transform 0.3s;
