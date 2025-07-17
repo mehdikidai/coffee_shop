@@ -33,13 +33,12 @@ new AirDatepicker("#input_filter", {
     isMobile: true,
     dateFormat: "yyyy-MM-dd",
     buttons: ["clear"],
-    onSelect({date, formattedDate, datepicker}) {
+    onSelect({ date, formattedDate, datepicker }) {
         if (!date) {
             datepicker.hide();
-        } 
-    }
+        }
+    },
 });
-
 
 /*
 
@@ -320,3 +319,16 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 });
+
+// img review qr code
+
+const btnQrCodeReview = document.getElementById("downloadQrCodeReviewBtn");
+
+if (btnQrCodeReview) {
+    btnQrCodeReview.addEventListener("click", function () {
+        const imgQrCodeReview = document.getElementById("imgQrCodeReviewBtn");
+        if (imgQrCodeReview && imgQrCodeReview.src) {
+            downloadQrCode(imgQrCodeReview.src, 'review');
+        }
+    });
+}

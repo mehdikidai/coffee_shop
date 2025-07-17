@@ -85,7 +85,7 @@
                     </h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="close"></button>
                 </div>
-                <div class="modal-body text-center">
+                <div class="modal-body text-center d-flex justify-content-center">
                     <img id="receiptImage" src="" alt="Receipt Image" class="img-fluid rounded shadow">
                 </div>
             </div>

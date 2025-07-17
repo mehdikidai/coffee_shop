@@ -36,7 +36,7 @@
                 <span class="rate {{ $statistics['percentage_change_orders'] >= 0 ? 'text-success' : 'text-danger' }}">
 
                     @if ($statistics['percentage_change_orders'] !== 0)
-                        <x-icon name="north" />
+                        <x-icon name="north" :size="14" />
                     @endif
 
                     {{ $statistics['percentage_change_orders'] }} %
@@ -60,7 +60,7 @@
                 <span class="rate {{ $statistics['daily_income_difference'] >= 0 ? 'text-success' : 'text-danger' }}">
 
                     @if ($statistics['daily_income_difference'] !== 0)
-                        <x-icon name="north" />
+                        <x-icon name="north" :size="14" />
                     @endif
 
                     {{ $statistics['daily_income_difference'] }} %
@@ -264,7 +264,7 @@
                         borderWidth: 1,
                         fill: false,
                         tension: 0.1,
-                        pointRadius: 0,  
+                        pointRadius: 0,
                     }
 
                 ],

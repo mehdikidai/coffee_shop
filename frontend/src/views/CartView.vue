@@ -37,12 +37,16 @@
       <button v-else class="checkout" @click="sendData" :disabled="loading">checkout</button>
 
       <x-space :height="40"></x-space>
+
     </div>
+
     <x-empty v-else message="Your cart is currently empty" icon="uil:shopping-basket"></x-empty>
+
   </layout-app>
 </template>
 
 <script setup lang="ts">
+
 import { useCartStore } from '@/stores/cart'
 import { storeToRefs } from 'pinia'
 import { ref } from 'vue'
@@ -66,18 +70,8 @@ const sendData = async () => {
   loading.value = true
   try {
     const { order_id } = await cartStore.createOrder()
-    const { url, success } = await cartStore.getInvoice(order_id)
 
-    if (success) {
-      const printWindow = window.open('', '_blank')
-
-      if (printWindow) {
-        printWindow.document.write(`
-        <iframe src="${url}" style="width:80vw; height:100dvh;" onload="this.contentWindow.print(); setTimeout(() => window.close(), 3000);"></iframe>
-      `)
-        printWindow.document.close()
-      }
-    }
+    console.log(order_id)
 
     toast.success(`It's done`, {
       ...toastOptions,

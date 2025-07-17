@@ -117,6 +117,11 @@ class UsersController extends Controller
         return redirect()->back()->with('success', 'User updated successfully.');
     }
 
+
+    public function show(){
+        return abort(404);
+    }
+
     public function toggleBlocked($id)
     {
         $user = User::findOrFail($id);

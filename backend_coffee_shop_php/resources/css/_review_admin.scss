@@ -45,5 +45,14 @@
     }
 
 
+    .model-qr-code-review .modal-dialog{
+        width: fit-content !important;
+        .img-fluid{
+            width: 90vw;
+            max-width: 300px;
+        }
+    }
+
+
 }
 

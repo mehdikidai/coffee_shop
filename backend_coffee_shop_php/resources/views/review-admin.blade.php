@@ -2,7 +2,15 @@
 
     <x-only-admin>
 
-        <div class="box-title d-flex justify-content-end mb-3" data-bs-theme="dark">
+        <div class="box-title box-title d-flex gap-3 justify-content-between mb-3" data-bs-theme="dark">
+
+
+            <button type="button" class="btn btn-sm btn-primary px-3 text-capitalize d-flex align-items-center gap-2" data-bs-toggle="modal"
+                data-bs-target="#qrCodeReviewModal">
+                <x-icon name="qr_code" />
+                {{ __('t.open_qr_code_review') ?? 'Open QR' }}
+            </button>
+
             <form method="get">
                 <div class="d-flex input-group-sm gap-2">
                     <input class="form-control" type="text" value="{{ request('search') }}" name="search" id="search"
@@ -71,6 +79,26 @@
                 {{ __('t.no_data_found') ?? 'No data found.' }}
             </div>
         @endif
+
+
+        <div class="modal fade model-qr-code-review" id="qrCodeReviewModal" tabindex="-1"
+            aria-labelledby="qrCodeReviewModalLabel" aria-hidden="true" data-bs-theme="dark">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body p-3">
+                        <img id="imgQrCodeReviewBtn" src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&margin=10&data={{ route('reviews.create') }}"
+                            alt="QR Code" class="img-fluid mb-3">
+                        <button id="downloadQrCodeReviewBtn"
+                            class="download-qr-code-btn btn btn-sm btn-sm btn-primary d-flex w-100 text-capitalize">
+                            {{ __('t.download' ?? 'download') }} <x-icon name="arrow_downward" />
+                        </button>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+
 
 
     </x-only-admin>

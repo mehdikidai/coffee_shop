@@ -51,6 +51,12 @@ class IngredientController extends Controller
         return view('ingredientsEdit', compact('ingredient'));
     }
 
+
+    public function show(Ingredient $ingredient)
+    {
+        return abort(404);
+    }
+
     /**
      * Update the specified resource in storage.
      */

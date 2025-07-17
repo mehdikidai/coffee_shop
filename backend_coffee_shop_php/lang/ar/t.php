@@ -127,9 +127,9 @@ return [
     'ip_address'  => 'عنوان IP',
     'device'      => 'الجهاز',
     'browser'     => 'المتصفح',
-
-
-
+    'open_qr_code_review' => 'استعراض رمز QR',
+    'email_address' => 'البريد الإلكتروني',
+    'remember_me' => 'تذكرني',
 
 
 ];

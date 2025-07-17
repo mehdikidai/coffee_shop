@@ -16,7 +16,7 @@ class CategoryController extends Controller
     public function index()
     {
 
-        $categories = Category::with('products')->orderBy('index','desc')->paginate(10);
+        $categories = Category::with('products')->orderBy('index', 'desc')->paginate(10);
         return view('categories', compact('categories'));
     }
 
@@ -70,6 +70,11 @@ class CategoryController extends Controller
         $category->delete();
         $this->clearCache();
         return redirect()->back()->with('success', 'Category deleted successfully.');
+    }
+
+    public function show()
+    {
+        return abort(404);
     }
 
     private function clearCache()

@@ -18,10 +18,14 @@ class TenantService
     public static function switchToTenant(?Tenant $tenant): void
     {
         if (!$tenant) abort('404', 'Tenant not found');
+
         Config::set('database.connections.tenant.database', $tenant->db_name);
+        Config::set('database.connections.tenant.username', $tenant->db_user);
+
         DB::purge('tenant');
         DB::reconnect('tenant');
         DB::setDefaultConnection('tenant');
+
         Self::$tenantName = $tenant->name;
         Self::$tenantToken = $tenant->tenant_token;
 

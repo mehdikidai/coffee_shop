@@ -17,6 +17,7 @@ class Tenant extends Model
         'domain',
         'db_name',
         'tenant_token',
-        'email'
+        'email',
+        'db_user'
     ];
 }

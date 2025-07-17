@@ -127,6 +127,10 @@ return [
     'os' => 'os',
     'ip_address' => 'ip address',
     'device' => 'device',
-    'browser' => 'browser'
+    'browser' => 'browser',
+    'open_qr_code_review' => 'open qr code review',
+    'email_address' => 'Email Address',
+    'remember_me' => 'Remember me',
+
 
 ];

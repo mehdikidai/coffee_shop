@@ -39,10 +39,6 @@
         </div>
 
 
-
-
-
-
         <div class="border-top mt-4" data-bs-theme="dark"></div>
 
         <form action="{{ route('setting.update') }}" method="POST" class="mt-3">

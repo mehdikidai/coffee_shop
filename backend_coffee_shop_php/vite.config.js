@@ -11,6 +11,7 @@ export default defineConfig({
                 "resources/js/review.js",
                 "resources/css/bootstrap.rtl.min.css",
                 "resources/css/review.scss",
+                "resources/css/errors.scss",
             ],
             refresh: true,
         }),

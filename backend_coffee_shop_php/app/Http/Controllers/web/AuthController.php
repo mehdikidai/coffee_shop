@@ -20,7 +20,8 @@ class AuthController extends Controller
     public function pageLogin()
     {
         $app_name = TenantService::$tenantName;
-        return view('login', compact('app_name'));
+        $languages = $this->languages;
+        return view('login', compact('app_name', 'languages'));
     }
 
     /**
@@ -109,4 +110,10 @@ class AuthController extends Controller
 
         return redirect('/login');
     }
+
+    private $languages = [
+        'en' => ['name' => 'English', 'flag' => 'https://countryflagsapi.netlify.app/flag/gb.svg'],
+        'fr' => ['name' => 'Français', 'flag' => 'https://countryflagsapi.netlify.app/flag/fr.svg'],
+        'ar' => ['name' => 'العربية', 'flag' => 'https://countryflagsapi.netlify.app/flag/ma.svg'],
+    ];
 }

@@ -34,6 +34,7 @@ Route::controller(UsersController::class)
         Route::put('/{id}',  'update')->middleware("role:$admin")->name('update');
         Route::delete('/{id}',  'destroy')->middleware("role:$admin")->name('destroy');
         Route::get('/{id}/edit',  'edit')->middleware("role:$admin")->name('edit');
+        Route::get('/{id}',  'show')->middleware("role:$admin")->name('show');
         Route::patch('/{id}/toggle-blocked',  'toggleBlocked')->middleware("role:$admin")->name('toggleBlocked');
     });
 
@@ -48,6 +49,7 @@ Route::controller(ProductControllerWeb::class)
         Route::get('/', 'index')->name('index');
         Route::post('/', 'store')->middleware("role:$admin")->name('store');
         Route::get('/{id}/edit', 'edit')->middleware("role:$admin")->name('edit');
+        Route::get('/{id}', 'show')->middleware("role:$admin")->name('show');
         Route::delete('/{id}', 'destroy')->middleware("role:$admin")->name('destroy');
         Route::put('/{id}', 'update')->middleware("role:$admin")->name('update');
         Route::patch('/{id}/toggle-visibility', 'toggleVisibility')->middleware("role:$admin")->name('toggleVisibility');
@@ -87,6 +89,7 @@ Route::controller(CategoryController::class)
         Route::post('/', 'store')->middleware("role:$admin")->name('store');
         Route::delete('/{category}', 'destroy')->middleware("role:$admin")->name('destroy');
         Route::put('/{category}', 'update')->middleware("role:$admin")->name('update');
+        Route::get('/{category}', 'show')->middleware("role:$admin")->name('show');
         Route::get('/{category}/edit', 'edit')->middleware("role:$admin")->name('edit');
     });
 
@@ -97,6 +100,7 @@ Route::controller(AuthController::class)->group(function () {
     Route::get('/login', 'pageLogin')->name('login')->middleware('guest');
     Route::post('/login', 'login')->name('auth.login')->middleware('guest');
     Route::post('/logout', 'logout')->name('auth.logout')->middleware('auth');
+
 });
 
 
@@ -107,6 +111,7 @@ Route::controller(IngredientController::class)
     ->group(function () use ($admin) {
         route::get('/', 'index')->name('index');
         route::post('/', 'store')->middleware("role:$admin")->name('store');
+        route::get('/{ingredient}', 'show')->middleware("role:$admin")->name('show');
         route::get('/{ingredient}/edit', 'edit')->middleware("role:$admin")->name('edit');
         route::delete('/{ingredient}', 'destroy')->middleware("role:$admin")->name('destroy');
         route::put('/{ingredient}', 'update')->middleware("role:$admin")->name('update');
@@ -130,7 +135,7 @@ Route::controller(SettingController::class)
     ->middleware(["auth"])
     ->group(function () use ($admin) {
         Route::get('/', 'index')->name('index');
-        Route::get('/lang/{locale}', 'lang')->name('lang');
+        Route::get('/lang/{locale}', 'lang')->withoutMiddleware('auth')->name('lang');
         Route::put('/', 'update')->middleware("role:$admin")->name('update');
     });;
 
@@ -142,6 +147,7 @@ Route::controller(ReviewController::class)
         Route::get('/', 'index')->middleware(["auth", "role:$admin"])->name('index');
         Route::get('/create', 'create')->name('create');
         Route::post('/', 'store')->name('store');
+        Route::get('/{review}', 'show')->middleware(["auth", "role:$admin"])->name('show');
         Route::delete('/{review}', 'destroy')->middleware(["auth", "role:$admin"])->name('destroy');
         Route::patch('/{id}/approve', 'approve')->middleware(["auth", "role:$admin"])->name('approve');
     });
@@ -150,7 +156,7 @@ Route::controller(ReviewController::class)
 Route::controller(SheetController::class)
     ->prefix('sheet')
     ->name('sheet.')
-    ->group(function () use ($admin) {
+    ->group(function () use ($admin): void {
         Route::get('/', 'index')->middleware(["auth", "role:$admin"])->name('index');
     });
 
@@ -158,6 +164,6 @@ Route::controller(SheetController::class)
 Route::controller(UserActivityLogController::class)
     ->prefix('user-activity-logs')
     ->name('user-activity-logs.')
-    ->group(function ()  use ($admin) {
+    ->group(function ()  use ($admin): void {
         Route::get('/', 'index')->middleware(["auth", "role:$admin"])->name('index');
     });

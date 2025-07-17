@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('domain');
             $table->string('db_name');
+            $table->string('db_user');
             $table->string('tenant_token')->unique();
             $table->timestamps();
             $table->unique(['domain','db_name']);
